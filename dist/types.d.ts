@@ -22,6 +22,27 @@ type SelectOption = {
     value: string;
     label: string;
 };
+type SelectSize = 'sm' | 'default' | 'lg';
+type SelectProps = {
+    name?: string;
+    options: SelectOption[];
+    value?: string;
+    onChange?: ChangeEventHandler<HTMLSelectElement>;
+    className?: string;
+    size?: SelectSize;
+    expanded?: boolean;
+    disabled?: boolean;
+    defaultValue?: string;
+};
+type AlertType = 'info' | 'danger' | 'success' | 'warning' | 'dark';
+
+type types_AlertType = AlertType;
+type types_SelectOption = SelectOption;
+type types_SelectProps = SelectProps;
+type types_SelectSize = SelectSize;
+declare namespace types {
+  export type { types_AlertType as AlertType, types_SelectOption as SelectOption, types_SelectProps as SelectProps, types_SelectSize as SelectSize };
+}
 
 type Size$4 = 'sm' | 'default' | 'lg';
 type Props$6 = {
@@ -124,4 +145,4 @@ type Props = {
 };
 declare const Text: ({ tag, color, size, children, className }: Props) => React.JSX.Element;
 
-export { Button, Header$1 as Header, Input, Label, MultiSelect, Select, Spinner, Table, Text };
+export { Button, Header$1 as Header, Input, Label, MultiSelect, Select, Spinner, Table, Text, types as Types };
