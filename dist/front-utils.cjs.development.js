@@ -8,7 +8,8 @@ var cx = _interopDefault(require('classnames'));
 var React = require('react');
 var React__default = _interopDefault(React);
 var reactRouterDom = require('react-router-dom');
-var lodash = require('lodash');
+var uniq = _interopDefault(require('lodash/uniq'));
+var noop = _interopDefault(require('lodash/noop'));
 
 const getColorClasses = color => {
   switch (color) {
@@ -571,15 +572,15 @@ ToasterProvider.useToasterMessageAdder = () => {
 
 const WaitingContext = /*#__PURE__*/React__default.createContext({
   isWaiting: 0,
-  addWaiter: lodash.noop,
-  removeWaiter: lodash.noop
+  addWaiter: noop,
+  removeWaiter: noop
 });
 const WaitingProvider = _ref => {
   let {
     children
   } = _ref;
   const [waiters, setWaiters] = React.useState([]);
-  const addWaiter = React.useCallback(name => setWaiters(prev => lodash.uniq([...prev, name])), []);
+  const addWaiter = React.useCallback(name => setWaiters(prev => uniq([...prev, name])), []);
   const removeWaiter = React.useCallback(name => setWaiters(prev => prev.filter(item => item !== name)), []);
   const isWaiting = waiters.length;
   const contextValue = {

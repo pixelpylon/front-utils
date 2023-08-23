@@ -1,7 +1,8 @@
 import cx from 'classnames';
 import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { uniq, noop } from 'lodash-es';
+import uniq from 'lodash-es/uniq';
+import noop from 'lodash-es/noop';
 
 const getColorClasses = color => {
   switch (color) {
