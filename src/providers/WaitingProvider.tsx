@@ -1,5 +1,5 @@
-import uniq from 'lodash/uniq'
-import noop from 'lodash/noop'
+import uniq from 'lodash-es/uniq'
+import noop from 'lodash-es/noop'
 import React, {ReactNode, useCallback, useContext, useState} from 'react'
 
 type Props = {

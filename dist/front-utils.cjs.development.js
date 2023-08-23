@@ -8,8 +8,8 @@ var cx = _interopDefault(require('classnames'));
 var React = require('react');
 var React__default = _interopDefault(React);
 var reactRouterDom = require('react-router-dom');
-var uniq = _interopDefault(require('lodash/uniq'));
-var noop = _interopDefault(require('lodash/noop'));
+var uniq = _interopDefault(require('lodash-es/uniq'));
+var noop = _interopDefault(require('lodash-es/noop'));
 
 const getColorClasses = color => {
   switch (color) {
