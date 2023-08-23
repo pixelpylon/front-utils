@@ -10,6 +10,8 @@ var React__default = _interopDefault(React);
 var reactRouterDom = require('react-router-dom');
 var uniq = _interopDefault(require('lodash-es/uniq'));
 var noop = _interopDefault(require('lodash-es/noop'));
+var lodash = require('lodash');
+var reactQuery = require('react-query');
 
 const getColorClasses = color => {
   switch (color) {
@@ -382,7 +384,7 @@ const Spinner = () => {
     className: "fixed w-screen h-screen z-[1000] top-0 left-0 bg-backdrop bg-opacity-50 w-full h-full flex justify-center items-center"
   }, /*#__PURE__*/React__default.createElement("svg", {
     "aria-hidden": "true",
-    className: "mr-2 w-8 h-8 text-gray-200 animate-spin fill-secondary-orange",
+    className: "mr-2 w-8 h-8 text-gray-200 animate-spin fill-amber-500",
     viewBox: "0 0 100 101",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
@@ -489,6 +491,25 @@ const Toaster = _ref => {
       className: "z-100"
     }, event.message);
   }));
+};
+
+
+
+var index = {
+  __proto__: null,
+  Input: Input,
+  Select: Select,
+  MultiSelect: MultiSelect,
+  Button: Button,
+  Header: Header,
+  Label: Label,
+  Spinner: Spinner,
+  Table: Table,
+  Text: Text,
+  Alert: Alert,
+  StandardLink: StandardLink,
+  EditLink: EditLink,
+  Toaster: Toaster
 };
 
 const createUserProvider = useUserQuery => {
@@ -606,25 +627,110 @@ WaitingProvider.useWaitingMutation = () => {
 
 
 
+var index$1 = {
+  __proto__: null,
+  createUserProvider: createUserProvider,
+  ToasterProvider: ToasterProvider,
+  WaitingProvider: WaitingProvider
+};
+
+class CrudApi {
+  constructor(entityName, axiosInstance) {
+    this.entityName = entityName;
+    this.axiosInstance = axiosInstance;
+  }
+  async list(params) {
+    const result = await this.axiosInstance.get(`/api/${this.entityName}`, {
+      params: {
+        ...params,
+        filters: params.filters ? JSON.stringify(params.filters) : undefined
+      }
+    });
+    return result.data;
+  }
+  async item(id) {
+    const result = await this.axiosInstance.get(`/api/${this.entityName}/${id}`);
+    return result.data;
+  }
+  async create(params) {
+    const result = await this.axiosInstance.post(`/api/${this.entityName}`, params);
+    return result.data;
+  }
+  async update(params) {
+    const result = await this.axiosInstance.patch(`/api/${this.entityName}/${params.id}`, params);
+    return result.data;
+  }
+  async remove(id) {
+    await this.axiosInstance.delete(`/api/${this.entityName}/${id}`);
+  }
+}
+
+/* eslint-disable react-hooks/rules-of-hooks */
+class CrudHooks {
+  constructor(entityName, crudApi) {
+    this.entityName = entityName;
+    this.crudApi = crudApi;
+  }
+  useCreateMutation() {
+    const add = ToasterProvider.useToasterMessageAdder();
+    return reactQuery.useMutation(params => this.crudApi.create(params), {
+      onSuccess: () => {
+        add({
+          message: `${lodash.capitalize(this.entityName)} added`,
+          type: 'success'
+        });
+      }
+    });
+  }
+  useUpdateMutation() {
+    const add = ToasterProvider.useToasterMessageAdder();
+    return reactQuery.useMutation(params => this.crudApi.update(params), {
+      onSuccess: () => {
+        add({
+          message: `${lodash.capitalize(this.entityName)} updated`,
+          type: 'success'
+        });
+      }
+    });
+  }
+  useRemoveMutation() {
+    const add = ToasterProvider.useToasterMessageAdder();
+    return reactQuery.useMutation(id => this.crudApi.remove(id), {
+      onSuccess: () => {
+        add({
+          message: `${lodash.capitalize(this.entityName)} removed`,
+          type: 'success'
+        });
+      }
+    });
+  }
+  useItemQuery(id, options) {
+    return reactQuery.useQuery([this.entityName, 'item', id], () => this.crudApi.item(id), options);
+  }
+  useListQuery(params, options) {
+    if (params === void 0) {
+      params = {};
+    }
+    return reactQuery.useQuery([this.entityName, 'list', params], () => this.crudApi.list(params), options);
+  }
+}
+
+
+
+var index$2 = {
+  __proto__: null,
+  CrudApi: CrudApi,
+  CrudHooks: CrudHooks
+};
+
+
+
 var types = {
   __proto__: null
 };
 
-exports.Alert = Alert;
-exports.Button = Button;
-exports.EditLink = EditLink;
-exports.Header = Header;
-exports.Input = Input;
-exports.Label = Label;
-exports.MultiSelect = MultiSelect;
-exports.Select = Select;
-exports.Spinner = Spinner;
-exports.StandardLink = StandardLink;
-exports.Table = Table;
-exports.Text = Text;
-exports.Toaster = Toaster;
-exports.ToasterProvider = ToasterProvider;
+exports.Components = index;
+exports.Providers = index$1;
 exports.Types = types;
-exports.WaitingProvider = WaitingProvider;
-exports.createUserProvider = createUserProvider;
+exports.Utils = index$2;
 //# sourceMappingURL=front-utils.cjs.development.js.map

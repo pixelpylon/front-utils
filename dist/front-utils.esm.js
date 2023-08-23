@@ -3,6 +3,8 @@ import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import uniq from 'lodash-es/uniq';
 import noop from 'lodash-es/noop';
+import { capitalize } from 'lodash-es';
+import { useMutation, useQuery } from 'react-query';
 
 const getColorClasses = color => {
   switch (color) {
@@ -375,7 +377,7 @@ const Spinner = () => {
     className: "fixed w-screen h-screen z-[1000] top-0 left-0 bg-backdrop bg-opacity-50 w-full h-full flex justify-center items-center"
   }, /*#__PURE__*/React.createElement("svg", {
     "aria-hidden": "true",
-    className: "mr-2 w-8 h-8 text-gray-200 animate-spin fill-secondary-orange",
+    className: "mr-2 w-8 h-8 text-gray-200 animate-spin fill-amber-500",
     viewBox: "0 0 100 101",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
@@ -482,6 +484,25 @@ const Toaster = _ref => {
       className: "z-100"
     }, event.message);
   }));
+};
+
+
+
+var index = {
+  __proto__: null,
+  Input: Input,
+  Select: Select,
+  MultiSelect: MultiSelect,
+  Button: Button,
+  Header: Header,
+  Label: Label,
+  Spinner: Spinner,
+  Table: Table,
+  Text: Text,
+  Alert: Alert,
+  StandardLink: StandardLink,
+  EditLink: EditLink,
+  Toaster: Toaster
 };
 
 const createUserProvider = useUserQuery => {
@@ -599,9 +620,107 @@ WaitingProvider.useWaitingMutation = () => {
 
 
 
+var index$1 = {
+  __proto__: null,
+  createUserProvider: createUserProvider,
+  ToasterProvider: ToasterProvider,
+  WaitingProvider: WaitingProvider
+};
+
+class CrudApi {
+  constructor(entityName, axiosInstance) {
+    this.entityName = entityName;
+    this.axiosInstance = axiosInstance;
+  }
+  async list(params) {
+    const result = await this.axiosInstance.get(`/api/${this.entityName}`, {
+      params: {
+        ...params,
+        filters: params.filters ? JSON.stringify(params.filters) : undefined
+      }
+    });
+    return result.data;
+  }
+  async item(id) {
+    const result = await this.axiosInstance.get(`/api/${this.entityName}/${id}`);
+    return result.data;
+  }
+  async create(params) {
+    const result = await this.axiosInstance.post(`/api/${this.entityName}`, params);
+    return result.data;
+  }
+  async update(params) {
+    const result = await this.axiosInstance.patch(`/api/${this.entityName}/${params.id}`, params);
+    return result.data;
+  }
+  async remove(id) {
+    await this.axiosInstance.delete(`/api/${this.entityName}/${id}`);
+  }
+}
+
+/* eslint-disable react-hooks/rules-of-hooks */
+class CrudHooks {
+  constructor(entityName, crudApi) {
+    this.entityName = entityName;
+    this.crudApi = crudApi;
+  }
+  useCreateMutation() {
+    const add = ToasterProvider.useToasterMessageAdder();
+    return useMutation(params => this.crudApi.create(params), {
+      onSuccess: () => {
+        add({
+          message: `${capitalize(this.entityName)} added`,
+          type: 'success'
+        });
+      }
+    });
+  }
+  useUpdateMutation() {
+    const add = ToasterProvider.useToasterMessageAdder();
+    return useMutation(params => this.crudApi.update(params), {
+      onSuccess: () => {
+        add({
+          message: `${capitalize(this.entityName)} updated`,
+          type: 'success'
+        });
+      }
+    });
+  }
+  useRemoveMutation() {
+    const add = ToasterProvider.useToasterMessageAdder();
+    return useMutation(id => this.crudApi.remove(id), {
+      onSuccess: () => {
+        add({
+          message: `${capitalize(this.entityName)} removed`,
+          type: 'success'
+        });
+      }
+    });
+  }
+  useItemQuery(id, options) {
+    return useQuery([this.entityName, 'item', id], () => this.crudApi.item(id), options);
+  }
+  useListQuery(params, options) {
+    if (params === void 0) {
+      params = {};
+    }
+    return useQuery([this.entityName, 'list', params], () => this.crudApi.list(params), options);
+  }
+}
+
+
+
+var index$2 = {
+  __proto__: null,
+  CrudApi: CrudApi,
+  CrudHooks: CrudHooks
+};
+
+
+
 var types = {
   __proto__: null
 };
 
-export { Alert, Button, EditLink, Header, Input, Label, MultiSelect, Select, Spinner, StandardLink, Table, Text, Toaster, ToasterProvider, types as Types, WaitingProvider, createUserProvider };
+export { index as Components, index$1 as Providers, types as Types, index$2 as Utils };
 //# sourceMappingURL=front-utils.esm.js.map

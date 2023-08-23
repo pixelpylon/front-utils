@@ -1,6 +1,7 @@
 /**
  * A custom Thing component. Neat!
  */
-export * from './components';
-export * from './providers';
+export * as Components from './components';
+export * as Providers from './providers';
+export * as Utils from './utils';
 export * as Types from './types';
