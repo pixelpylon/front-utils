@@ -5,6 +5,7 @@ import uniq from 'lodash-es/uniq';
 import noop from 'lodash-es/noop';
 import { capitalize } from 'lodash-es';
 import { useMutation, useQuery } from 'react-query';
+import { Field } from 'react-final-form';
 
 const getColorClasses = color => {
   switch (color) {
@@ -722,5 +723,100 @@ var types = {
   __proto__: null
 };
 
-export { index as Components, index$1 as Providers, types as Types, index$2 as Utils };
+const SelectField = _ref => {
+  let {
+    label,
+    name,
+    options,
+    disabled,
+    expanded,
+    className
+  } = _ref;
+  return /*#__PURE__*/React.createElement(Field, {
+    name: name,
+    type: "select",
+    render: _ref2 => {
+      let {
+        input
+      } = _ref2;
+      return /*#__PURE__*/React.createElement(Select, Object.assign({}, input, {
+        label: label,
+        options: options,
+        disabled: disabled,
+        expanded: expanded,
+        className: className
+      }));
+    }
+  });
+};
+
+const MultiSelectField = _ref => {
+  let {
+    initialValue,
+    label,
+    name,
+    options,
+    disabled,
+    expanded,
+    className,
+    visibleNumber
+  } = _ref;
+  return /*#__PURE__*/React.createElement(Field, {
+    initialValue: initialValue,
+    name: name,
+    type: "select",
+    render: _ref2 => {
+      let {
+        input
+      } = _ref2;
+      return /*#__PURE__*/React.createElement(MultiSelect, Object.assign({}, input, {
+        label: label,
+        options: options,
+        disabled: disabled,
+        expanded: expanded,
+        className: className,
+        visibleNumber: visibleNumber
+      }));
+    }
+  });
+};
+
+const InputField = _ref => {
+  let {
+    label,
+    name,
+    type,
+    disabled,
+    expanded,
+    className,
+    spellCheck
+  } = _ref;
+  return /*#__PURE__*/React.createElement(Field, {
+    type: type,
+    name: name,
+    render: _ref2 => {
+      let {
+        input
+      } = _ref2;
+      return /*#__PURE__*/React.createElement(Input, Object.assign({}, input, {
+        label: label,
+        disabled: disabled,
+        expanded: expanded,
+        className: className,
+        spellCheck: spellCheck
+      }));
+    }
+  });
+};
+
+
+
+var index$3 = {
+  __proto__: null,
+  SelectField: SelectField,
+  MultiSelectField: MultiSelectField,
+  InputField: InputField
+};
+
+export { index as Components, index$3 as Fields, index$1 as Providers, types as Types, index$2 as Utils };
 //# sourceMappingURL=front-utils.esm.js.map

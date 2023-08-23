@@ -12,6 +12,7 @@ var uniq = _interopDefault(require('lodash-es/uniq'));
 var noop = _interopDefault(require('lodash-es/noop'));
 var lodash = require('lodash');
 var reactQuery = require('react-query');
+var reactFinalForm = require('react-final-form');
 
 const getColorClasses = color => {
   switch (color) {
@@ -729,7 +730,103 @@ var types = {
   __proto__: null
 };
 
+const SelectField = _ref => {
+  let {
+    label,
+    name,
+    options,
+    disabled,
+    expanded,
+    className
+  } = _ref;
+  return /*#__PURE__*/React__default.createElement(reactFinalForm.Field, {
+    name: name,
+    type: "select",
+    render: _ref2 => {
+      let {
+        input
+      } = _ref2;
+      return /*#__PURE__*/React__default.createElement(Select, Object.assign({}, input, {
+        label: label,
+        options: options,
+        disabled: disabled,
+        expanded: expanded,
+        className: className
+      }));
+    }
+  });
+};
+
+const MultiSelectField = _ref => {
+  let {
+    initialValue,
+    label,
+    name,
+    options,
+    disabled,
+    expanded,
+    className,
+    visibleNumber
+  } = _ref;
+  return /*#__PURE__*/React__default.createElement(reactFinalForm.Field, {
+    initialValue: initialValue,
+    name: name,
+    type: "select",
+    render: _ref2 => {
+      let {
+        input
+      } = _ref2;
+      return /*#__PURE__*/React__default.createElement(MultiSelect, Object.assign({}, input, {
+        label: label,
+        options: options,
+        disabled: disabled,
+        expanded: expanded,
+        className: className,
+        visibleNumber: visibleNumber
+      }));
+    }
+  });
+};
+
+const InputField = _ref => {
+  let {
+    label,
+    name,
+    type,
+    disabled,
+    expanded,
+    className,
+    spellCheck
+  } = _ref;
+  return /*#__PURE__*/React__default.createElement(reactFinalForm.Field, {
+    type: type,
+    name: name,
+    render: _ref2 => {
+      let {
+        input
+      } = _ref2;
+      return /*#__PURE__*/React__default.createElement(Input, Object.assign({}, input, {
+        label: label,
+        disabled: disabled,
+        expanded: expanded,
+        className: className,
+        spellCheck: spellCheck
+      }));
+    }
+  });
+};
+
+
+
+var index$3 = {
+  __proto__: null,
+  SelectField: SelectField,
+  MultiSelectField: MultiSelectField,
+  InputField: InputField
+};
+
 exports.Components = index;
+exports.Fields = index$3;
 exports.Providers = index$1;
 exports.Types = types;
 exports.Utils = index$2;
