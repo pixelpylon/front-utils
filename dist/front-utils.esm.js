@@ -1,5 +1,7 @@
 import cx from 'classnames';
-import React from 'react';
+import React, { useState, useContext, useCallback, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { uniq, noop } from 'lodash-es';
 
 const getColorClasses = color => {
   switch (color) {
@@ -441,11 +443,164 @@ const Alert = _ref => {
   }, children);
 };
 
+const StandardLink = _ref => {
+  let {
+    to,
+    children,
+    className
+  } = _ref;
+  return /*#__PURE__*/React.createElement(Link, {
+    to: to,
+    className: className
+  }, /*#__PURE__*/React.createElement(Text, {
+    color: "blue"
+  }, children));
+};
+
+const EditLink = _ref => {
+  let {
+    to
+  } = _ref;
+  return /*#__PURE__*/React.createElement(StandardLink, {
+    to: to,
+    className: "text-right"
+  }, "Edit");
+};
+
+const Toaster = _ref => {
+  let {
+    events,
+    className
+  } = _ref;
+  return /*#__PURE__*/React.createElement("div", {
+    className: cx('flex flex-col gap-4', className)
+  }, events.map(event => {
+    return /*#__PURE__*/React.createElement(Alert, {
+      type: event.type,
+      key: event.key,
+      className: "z-100"
+    }, event.message);
+  }));
+};
+
+const createUserProvider = useUserQuery => {
+  const UserContext = /*#__PURE__*/React.createContext(null);
+  const UserProvider = _ref => {
+    let {
+      children
+    } = _ref;
+    const [claims, setClaims] = useState(null);
+    useUserQuery({
+      onSuccess: setClaims
+    });
+    return /*#__PURE__*/React.createElement(UserContext.Provider, {
+      value: claims
+    }, claims === null ? null : children);
+  };
+  UserProvider.useUser = () => {
+    const user = useContext(UserContext);
+    if (!user) {
+      throw new Error('User is not defined');
+    }
+    return user;
+  };
+  return UserProvider;
+};
+
+const ToasterContext = /*#__PURE__*/React.createContext({
+  events: [],
+  add: () => {}
+});
+const ToasterProvider = _ref => {
+  let {
+    children
+  } = _ref;
+  const [events, setEvents] = useState([]);
+  const remove = eventKey => {
+    console.log('remove', eventKey);
+    setEvents(events => events.filter(_ref2 => {
+      let {
+        key
+      } = _ref2;
+      return key !== eventKey;
+    }));
+  };
+  const add = useCallback(event => {
+    const key = Date.now().toString();
+    const timeoutId = setTimeout(() => remove(key), 5000);
+    setEvents(events => [...events, {
+      ...event,
+      timeoutId,
+      key
+    }]);
+  }, [setEvents]);
+  useEffect(() => {
+    return () => {
+      events.forEach(_ref3 => {
+        let {
+          timeoutId
+        } = _ref3;
+        return clearTimeout(timeoutId);
+      });
+    };
+  }, [events]);
+  const contextValue = {
+    events,
+    add
+  };
+  return /*#__PURE__*/React.createElement(ToasterContext.Provider, {
+    value: contextValue
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "fixed w-full pt-4 z-[1001]"
+  }, /*#__PURE__*/React.createElement(Toaster, {
+    events: events,
+    className: "w-96 mx-auto"
+  })), children);
+};
+ToasterProvider.useToasterMessageAdder = () => {
+  const context = useContext(ToasterContext);
+  return context.add;
+};
+
+const WaitingContext = /*#__PURE__*/React.createContext({
+  isWaiting: 0,
+  addWaiter: noop,
+  removeWaiter: noop
+});
+const WaitingProvider = _ref => {
+  let {
+    children
+  } = _ref;
+  const [waiters, setWaiters] = useState([]);
+  const addWaiter = useCallback(name => setWaiters(prev => uniq([...prev, name])), []);
+  const removeWaiter = useCallback(name => setWaiters(prev => prev.filter(item => item !== name)), []);
+  const isWaiting = waiters.length;
+  const contextValue = {
+    isWaiting,
+    addWaiter,
+    removeWaiter
+  };
+  return /*#__PURE__*/React.createElement(WaitingContext.Provider, {
+    value: contextValue
+  }, children);
+};
+WaitingProvider.useIsWaiting = () => {
+  const context = useContext(WaitingContext);
+  return Boolean(context.isWaiting);
+};
+WaitingProvider.useWaitingMutation = () => {
+  const context = useContext(WaitingContext);
+  return {
+    addWaiter: context.addWaiter,
+    removeWaiter: context.removeWaiter
+  };
+};
+
 
 
 var types = {
   __proto__: null
 };
 
-export { Alert, Button, Header, Input, Label, MultiSelect, Select, Spinner, Table, Text, types as Types };
+export { Alert, Button, EditLink, Header, Input, Label, MultiSelect, Select, Spinner, StandardLink, Table, Text, Toaster, ToasterProvider, types as Types, WaitingProvider, createUserProvider };
 //# sourceMappingURL=front-utils.esm.js.map

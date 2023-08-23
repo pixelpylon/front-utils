@@ -20,3 +20,14 @@ export type SelectProps = {
 }
 
 export type AlertType = 'info' | 'danger' | 'success' | 'warning' | 'dark'
+
+type Permissions<Role, Permission> = Record<keyof Role, Permission>
+
+export type User<Role, Permission> = {
+  id: string
+  name: string
+  email: string
+  locations: string[]
+  permissions: Permissions<Role, Permission>
+}
+

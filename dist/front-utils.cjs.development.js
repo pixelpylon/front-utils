@@ -5,7 +5,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var cx = _interopDefault(require('classnames'));
-var React = _interopDefault(require('react'));
+var React = require('react');
+var React__default = _interopDefault(React);
+var reactRouterDom = require('react-router-dom');
+var lodash = require('lodash');
 
 const getColorClasses = color => {
   switch (color) {
@@ -41,7 +44,7 @@ const Text = _ref => {
   const colorClasses = getColorClasses(color);
   const sizeClasses = getSizeClasses(size);
   const resultClasses = cx(sizeClasses, colorClasses, className);
-  return /*#__PURE__*/React.createElement(Component, {
+  return /*#__PURE__*/React__default.createElement(Component, {
     className: resultClasses
   }, children);
 };
@@ -50,7 +53,7 @@ const Label = _ref => {
   let {
     children
   } = _ref;
-  return /*#__PURE__*/React.createElement(Text, {
+  return /*#__PURE__*/React__default.createElement(Text, {
     tag: "label"
   }, children);
 };
@@ -95,9 +98,9 @@ const Input = _ref => {
   const resultClassName = cx('block border rounded-lg disabled:cursor-default', {
     'w-full': expanded
   }, colorClasses, sizeClasses, className);
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: cx('flex flex-col gap-1', className)
-  }, label && /*#__PURE__*/React.createElement(Label, null, label), /*#__PURE__*/React.createElement("input", {
+  }, label && /*#__PURE__*/React__default.createElement(Label, null, label), /*#__PURE__*/React__default.createElement("input", {
     value: value,
     type: type,
     name: name,
@@ -105,7 +108,7 @@ const Input = _ref => {
     onChange: onChange,
     disabled: disabled,
     spellCheck: spellCheck
-  }), error && /*#__PURE__*/React.createElement(Text, {
+  }), error && /*#__PURE__*/React__default.createElement(Text, {
     color: "red"
   }, error));
 };
@@ -142,20 +145,20 @@ const Select = _ref => {
   const resultClassName = cx('bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block disabled:cursor-default disabled:text-gray-500', sizeClasses, {
     'w-full': expanded
   });
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: cx('flex flex-col gap-1', className)
-  }, label && /*#__PURE__*/React.createElement(Label, null, label), /*#__PURE__*/React.createElement("select", {
+  }, label && /*#__PURE__*/React__default.createElement(Label, null, label), /*#__PURE__*/React__default.createElement("select", {
     name: name,
     value: value,
     onChange: onChange,
     className: resultClassName,
     disabled: disabled
   }, resultOptions.map(option => {
-    return /*#__PURE__*/React.createElement("option", {
+    return /*#__PURE__*/React__default.createElement("option", {
       key: option.value,
       value: option.value
     }, option.label);
-  })), error && /*#__PURE__*/React.createElement(Text, {
+  })), error && /*#__PURE__*/React__default.createElement(Text, {
     color: "red"
   }, error));
 };
@@ -189,9 +192,9 @@ const MultiSelect = _ref => {
     'text-gray-900': disabled,
     'w-full': expanded
   }, className);
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: cx('flex flex-col gap-1', className)
-  }, label && /*#__PURE__*/React.createElement(Label, null, label), /*#__PURE__*/React.createElement("select", {
+  }, label && /*#__PURE__*/React__default.createElement(Label, null, label), /*#__PURE__*/React__default.createElement("select", {
     multiple: true,
     size: visibleNumber,
     name: name,
@@ -200,11 +203,11 @@ const MultiSelect = _ref => {
     className: resultClassName,
     disabled: disabled
   }, options.map(option => {
-    return /*#__PURE__*/React.createElement("option", {
+    return /*#__PURE__*/React__default.createElement("option", {
       key: option.value,
       value: option.value
     }, option.label);
-  })), error && /*#__PURE__*/React.createElement(Text, {
+  })), error && /*#__PURE__*/React__default.createElement(Text, {
     color: "red"
   }, error));
 };
@@ -274,7 +277,7 @@ const Button = _ref => {
     'w-full': expanded,
     'w-fit': !expanded
   }, colorClasses, sizeClasses, className);
-  return /*#__PURE__*/React.createElement("button", {
+  return /*#__PURE__*/React__default.createElement("button", {
     onSubmit: onSubmit,
     onClick: onClick,
     className: resultClassName,
@@ -308,7 +311,7 @@ const Header = _ref => {
   const Component = size;
   const sizeClasses = getSizeClasses$5(size);
   const resultClasses = cx(sizeClasses, className);
-  return /*#__PURE__*/React.createElement(Component, {
+  return /*#__PURE__*/React__default.createElement(Component, {
     className: resultClasses
   }, children);
 };
@@ -317,7 +320,7 @@ Header.H1 = _ref2 => {
     children,
     className
   } = _ref2;
-  return /*#__PURE__*/React.createElement(Header, {
+  return /*#__PURE__*/React__default.createElement(Header, {
     size: 'h1',
     className: className
   }, children);
@@ -327,7 +330,7 @@ Header.H2 = _ref3 => {
     children,
     className
   } = _ref3;
-  return /*#__PURE__*/React.createElement(Header, {
+  return /*#__PURE__*/React__default.createElement(Header, {
     size: 'h2',
     className: className
   }, children);
@@ -337,7 +340,7 @@ Header.H3 = _ref4 => {
     children,
     className
   } = _ref4;
-  return /*#__PURE__*/React.createElement(Header, {
+  return /*#__PURE__*/React__default.createElement(Header, {
     size: 'h3',
     className: className
   }, children);
@@ -347,7 +350,7 @@ Header.H4 = _ref5 => {
     children,
     className
   } = _ref5;
-  return /*#__PURE__*/React.createElement(Header, {
+  return /*#__PURE__*/React__default.createElement(Header, {
     size: 'h4',
     className: className
   }, children);
@@ -357,7 +360,7 @@ Header.H5 = _ref6 => {
     children,
     className
   } = _ref6;
-  return /*#__PURE__*/React.createElement(Header, {
+  return /*#__PURE__*/React__default.createElement(Header, {
     size: 'h5',
     className: className
   }, children);
@@ -367,25 +370,25 @@ Header.H6 = _ref7 => {
     children,
     className
   } = _ref7;
-  return /*#__PURE__*/React.createElement(Header, {
+  return /*#__PURE__*/React__default.createElement(Header, {
     size: 'h6',
     className: className
   }, children);
 };
 
 const Spinner = () => {
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: "fixed w-screen h-screen z-[1000] top-0 left-0 bg-backdrop bg-opacity-50 w-full h-full flex justify-center items-center"
-  }, /*#__PURE__*/React.createElement("svg", {
+  }, /*#__PURE__*/React__default.createElement("svg", {
     "aria-hidden": "true",
     className: "mr-2 w-8 h-8 text-gray-200 animate-spin fill-secondary-orange",
     viewBox: "0 0 100 101",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, /*#__PURE__*/React.createElement("path", {
+  }, /*#__PURE__*/React__default.createElement("path", {
     d: "M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z",
     fill: "currentColor"
-  }), /*#__PURE__*/React.createElement("path", {
+  }), /*#__PURE__*/React__default.createElement("path", {
     d: "M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z",
     fill: "currentFill"
   })));
@@ -396,28 +399,28 @@ const Table = _ref => {
     headers,
     rows
   } = _ref;
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: "relative overflow-x-auto"
-  }, rows.length > 0 && /*#__PURE__*/React.createElement("table", {
+  }, rows.length > 0 && /*#__PURE__*/React__default.createElement("table", {
     className: "w-full text-sm text-left text-gray-500"
-  }, /*#__PURE__*/React.createElement("thead", {
+  }, /*#__PURE__*/React__default.createElement("thead", {
     className: "text-xs text-gray-700 uppercase bg-gray-50"
-  }, /*#__PURE__*/React.createElement("tr", null, headers.map(header => /*#__PURE__*/React.createElement("th", {
+  }, /*#__PURE__*/React__default.createElement("tr", null, headers.map(header => /*#__PURE__*/React__default.createElement("th", {
     key: header.key,
     scope: "col",
     className: "px-6 py-3"
-  }, header.value)))), /*#__PURE__*/React.createElement("tbody", null, rows.map(row => {
-    return /*#__PURE__*/React.createElement("tr", {
+  }, header.value)))), /*#__PURE__*/React__default.createElement("tbody", null, rows.map(row => {
+    return /*#__PURE__*/React__default.createElement("tr", {
       key: row.key,
       className: "bg-white border-b"
-    }, /*#__PURE__*/React.createElement("th", {
+    }, /*#__PURE__*/React__default.createElement("th", {
       scope: "row",
       className: "px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-    }, row.columns[headers[0].key]), headers.slice(1).map(header => /*#__PURE__*/React.createElement("td", {
+    }, row.columns[headers[0].key]), headers.slice(1).map(header => /*#__PURE__*/React__default.createElement("td", {
       key: header.key,
       className: "px-6 py-4"
     }, row.columns[header.key])));
-  }))), rows.length === 0 && /*#__PURE__*/React.createElement(Text, null, "No items"));
+  }))), rows.length === 0 && /*#__PURE__*/React__default.createElement(Text, null, "No items"));
 };
 
 const getClassName = type => {
@@ -441,10 +444,163 @@ const Alert = _ref => {
     className
   } = _ref;
   const resultClassName = cx(getClassName(type), 'p-4 text-sm rounded-lg border', className);
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React__default.createElement("div", {
     className: resultClassName,
     role: "alert"
   }, children);
+};
+
+const StandardLink = _ref => {
+  let {
+    to,
+    children,
+    className
+  } = _ref;
+  return /*#__PURE__*/React__default.createElement(reactRouterDom.Link, {
+    to: to,
+    className: className
+  }, /*#__PURE__*/React__default.createElement(Text, {
+    color: "blue"
+  }, children));
+};
+
+const EditLink = _ref => {
+  let {
+    to
+  } = _ref;
+  return /*#__PURE__*/React__default.createElement(StandardLink, {
+    to: to,
+    className: "text-right"
+  }, "Edit");
+};
+
+const Toaster = _ref => {
+  let {
+    events,
+    className
+  } = _ref;
+  return /*#__PURE__*/React__default.createElement("div", {
+    className: cx('flex flex-col gap-4', className)
+  }, events.map(event => {
+    return /*#__PURE__*/React__default.createElement(Alert, {
+      type: event.type,
+      key: event.key,
+      className: "z-100"
+    }, event.message);
+  }));
+};
+
+const createUserProvider = useUserQuery => {
+  const UserContext = /*#__PURE__*/React__default.createContext(null);
+  const UserProvider = _ref => {
+    let {
+      children
+    } = _ref;
+    const [claims, setClaims] = React.useState(null);
+    useUserQuery({
+      onSuccess: setClaims
+    });
+    return /*#__PURE__*/React__default.createElement(UserContext.Provider, {
+      value: claims
+    }, claims === null ? null : children);
+  };
+  UserProvider.useUser = () => {
+    const user = React.useContext(UserContext);
+    if (!user) {
+      throw new Error('User is not defined');
+    }
+    return user;
+  };
+  return UserProvider;
+};
+
+const ToasterContext = /*#__PURE__*/React__default.createContext({
+  events: [],
+  add: () => {}
+});
+const ToasterProvider = _ref => {
+  let {
+    children
+  } = _ref;
+  const [events, setEvents] = React.useState([]);
+  const remove = eventKey => {
+    console.log('remove', eventKey);
+    setEvents(events => events.filter(_ref2 => {
+      let {
+        key
+      } = _ref2;
+      return key !== eventKey;
+    }));
+  };
+  const add = React.useCallback(event => {
+    const key = Date.now().toString();
+    const timeoutId = setTimeout(() => remove(key), 5000);
+    setEvents(events => [...events, {
+      ...event,
+      timeoutId,
+      key
+    }]);
+  }, [setEvents]);
+  React.useEffect(() => {
+    return () => {
+      events.forEach(_ref3 => {
+        let {
+          timeoutId
+        } = _ref3;
+        return clearTimeout(timeoutId);
+      });
+    };
+  }, [events]);
+  const contextValue = {
+    events,
+    add
+  };
+  return /*#__PURE__*/React__default.createElement(ToasterContext.Provider, {
+    value: contextValue
+  }, /*#__PURE__*/React__default.createElement("div", {
+    className: "fixed w-full pt-4 z-[1001]"
+  }, /*#__PURE__*/React__default.createElement(Toaster, {
+    events: events,
+    className: "w-96 mx-auto"
+  })), children);
+};
+ToasterProvider.useToasterMessageAdder = () => {
+  const context = React.useContext(ToasterContext);
+  return context.add;
+};
+
+const WaitingContext = /*#__PURE__*/React__default.createContext({
+  isWaiting: 0,
+  addWaiter: lodash.noop,
+  removeWaiter: lodash.noop
+});
+const WaitingProvider = _ref => {
+  let {
+    children
+  } = _ref;
+  const [waiters, setWaiters] = React.useState([]);
+  const addWaiter = React.useCallback(name => setWaiters(prev => lodash.uniq([...prev, name])), []);
+  const removeWaiter = React.useCallback(name => setWaiters(prev => prev.filter(item => item !== name)), []);
+  const isWaiting = waiters.length;
+  const contextValue = {
+    isWaiting,
+    addWaiter,
+    removeWaiter
+  };
+  return /*#__PURE__*/React__default.createElement(WaitingContext.Provider, {
+    value: contextValue
+  }, children);
+};
+WaitingProvider.useIsWaiting = () => {
+  const context = React.useContext(WaitingContext);
+  return Boolean(context.isWaiting);
+};
+WaitingProvider.useWaitingMutation = () => {
+  const context = React.useContext(WaitingContext);
+  return {
+    addWaiter: context.addWaiter,
+    removeWaiter: context.removeWaiter
+  };
 };
 
 
@@ -455,13 +611,19 @@ var types = {
 
 exports.Alert = Alert;
 exports.Button = Button;
+exports.EditLink = EditLink;
 exports.Header = Header;
 exports.Input = Input;
 exports.Label = Label;
 exports.MultiSelect = MultiSelect;
 exports.Select = Select;
 exports.Spinner = Spinner;
+exports.StandardLink = StandardLink;
 exports.Table = Table;
 exports.Text = Text;
+exports.Toaster = Toaster;
+exports.ToasterProvider = ToasterProvider;
 exports.Types = types;
+exports.WaitingProvider = WaitingProvider;
+exports.createUserProvider = createUserProvider;
 //# sourceMappingURL=front-utils.cjs.development.js.map

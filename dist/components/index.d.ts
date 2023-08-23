@@ -8,3 +8,6 @@ export { Spinner } from './Spinner';
 export { Table } from './Table';
 export { Text } from './Text';
 export { Alert } from './Alert';
+export { StandardLink } from './StandardLink';
+export { EditLink } from './EditLink';
+export { Toaster } from './Toaster';

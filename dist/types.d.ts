@@ -16,3 +16,12 @@ export declare type SelectProps = {
     defaultValue?: string;
 };
 export declare type AlertType = 'info' | 'danger' | 'success' | 'warning' | 'dark';
+declare type Permissions<Role, Permission> = Record<keyof Role, Permission>;
+export declare type User<Role, Permission> = {
+    id: string;
+    name: string;
+    email: string;
+    locations: string[];
+    permissions: Permissions<Role, Permission>;
+};
+export {};
