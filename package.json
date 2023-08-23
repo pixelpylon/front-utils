@@ -83,7 +83,8 @@
     "tailwindcss": "^3.3.3",
     "tsdx": "^0.14.1",
     "tslib": "^2.6.2",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "common-utils": "https://github.com/pixelpylon/common-utils/tarball/0.0.67"
   },
   "resolutions": {
     "jackspeak": "2.1.1"

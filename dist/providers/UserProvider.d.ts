@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { User } from '../types';
+import { User } from 'common-utils';
 declare type Props = {
     children: ReactNode;
 };

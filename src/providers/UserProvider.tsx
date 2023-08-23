@@ -1,5 +1,5 @@
 import React, {ReactNode, useContext, useState} from 'react'
-import {User} from '../types'
+import {User} from 'common-utils'
 
 type Props = {
   children: ReactNode

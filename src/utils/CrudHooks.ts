@@ -1,9 +1,9 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import {capitalize} from 'lodash'
 import {useMutation, useQuery} from 'react-query'
 import {CrudApi} from './CrudApi'
-import {BaseListParams, QueryOptions} from '../types'
+import {QueryOptions} from '../types'
 import {ToasterProvider} from '../providers'
+import {BaseListParams} from 'common-utils'
 
 export class CrudHooks<
   FilteredType,

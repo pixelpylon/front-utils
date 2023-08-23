@@ -666,7 +666,6 @@ class CrudApi {
   }
 }
 
-/* eslint-disable react-hooks/rules-of-hooks */
 class CrudHooks {
   constructor(entityName, crudApi) {
     this.entityName = entityName;

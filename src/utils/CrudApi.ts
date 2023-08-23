@@ -1,5 +1,5 @@
 import {AxiosInstance, AxiosResponse} from 'axios'
-import {BaseListParams} from '../types'
+import {BaseListParams} from 'common-utils'
 
 export class CrudApi<
   FilteredType,
