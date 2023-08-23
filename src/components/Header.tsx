@@ -1,7 +1,7 @@
 import cx from "classnames";
 import React from 'react'
 
-type Color = 'default' | 'green' | 'red'
+// type Color = 'default' | 'green' | 'red'
 type Size = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 type Props = {
