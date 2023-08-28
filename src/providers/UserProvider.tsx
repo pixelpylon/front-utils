@@ -5,13 +5,13 @@ type Props = {
   children: ReactNode
 }
 
-type UserContextValue<Role, Permission> = User<Role, Permission> | null
+type UserContextValue = User | null
 
-export const createUserProvider = <Role, Permission>(useUserQuery: (params: {onSuccess: (user: User<Role, Permission>) => void}) => void) => {
-  const UserContext = React.createContext<UserContextValue<Role, Permission>>(null)
+export const createUserProvider = (useUserQuery: (params: {onSuccess: (user: User) => void}) => void) => {
+  const UserContext = React.createContext<UserContextValue>(null)
 
   const UserProvider = ({children}: Props) => {
-    const [claims, setClaims] = useState<User<Role, Permission> | null>(null)
+    const [claims, setClaims] = useState<User | null>(null)
     useUserQuery({onSuccess: setClaims})
     return <UserContext.Provider value={claims}>{claims === null ? null : children}</UserContext.Provider>
   }

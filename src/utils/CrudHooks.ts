@@ -17,7 +17,7 @@ export class CrudHooks<
   constructor(
     private readonly entityName: string,
     private readonly crudApi: CrudApi<
-      BaseListParams<FilteredType>,
+      FilteredType,
       CreateParams,
       UpdateParams,
       ListResponse,
