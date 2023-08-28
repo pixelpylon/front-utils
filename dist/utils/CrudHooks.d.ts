@@ -6,7 +6,7 @@ export declare class CrudHooks<FilteredType, CreateParams, UpdateParams extends 
 }, ListResponse, ItemResponse, CreateResponse, UpdateResponse> {
     private readonly entityName;
     private readonly crudApi;
-    constructor(entityName: string, crudApi: CrudApi<BaseListParams<FilteredType>, CreateParams, UpdateParams, ListResponse, ItemResponse, CreateResponse, UpdateResponse>);
+    constructor(entityName: string, crudApi: CrudApi<FilteredType, CreateParams, UpdateParams, ListResponse, ItemResponse, CreateResponse, UpdateResponse>);
     useCreateMutation(): import("react-query/types/").UseBaseMutationResult<CreateResponse, unknown, CreateParams, unknown>;
     useUpdateMutation(): import("react-query/types/").UseBaseMutationResult<UpdateResponse, unknown, UpdateParams, unknown>;
     useRemoveMutation(): import("react-query/types/").UseBaseMutationResult<unknown, unknown, string, unknown>;
