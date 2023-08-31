@@ -1,4 +1,4 @@
-import {capitalize} from 'lodash'
+import capitalize from 'lodash-es/capitalize'
 import {useMutation, useQuery} from 'react-query'
 import {CrudApi} from './CrudApi'
 import {QueryOptions} from '../types'

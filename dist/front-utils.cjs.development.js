@@ -10,7 +10,7 @@ var React__default = _interopDefault(React);
 var reactRouterDom = require('react-router-dom');
 var uniq = _interopDefault(require('lodash-es/uniq'));
 var noop = _interopDefault(require('lodash-es/noop'));
-var lodash = require('lodash');
+var capitalize = _interopDefault(require('lodash-es/capitalize'));
 var reactQuery = require('react-query');
 var reactFinalForm = require('react-final-form');
 
@@ -644,7 +644,8 @@ class CrudApi {
     const result = await this.axiosInstance.get(`/api/${this.entityName}`, {
       params: {
         ...params,
-        filters: params.filters ? JSON.stringify(params.filters) : undefined
+        filters: params.filters ? JSON.stringify(params.filters) : undefined,
+        ordering: params.ordering ? JSON.stringify(params.ordering) : undefined
       }
     });
     return result.data;
@@ -676,7 +677,7 @@ class CrudHooks {
     return reactQuery.useMutation(params => this.crudApi.create(params), {
       onSuccess: () => {
         add({
-          message: `${lodash.capitalize(this.entityName)} added`,
+          message: `${capitalize(this.entityName)} added`,
           type: 'success'
         });
       }
@@ -687,7 +688,7 @@ class CrudHooks {
     return reactQuery.useMutation(params => this.crudApi.update(params), {
       onSuccess: () => {
         add({
-          message: `${lodash.capitalize(this.entityName)} updated`,
+          message: `${capitalize(this.entityName)} updated`,
           type: 'success'
         });
       }
@@ -698,7 +699,7 @@ class CrudHooks {
     return reactQuery.useMutation(id => this.crudApi.remove(id), {
       onSuccess: () => {
         add({
-          message: `${lodash.capitalize(this.entityName)} removed`,
+          message: `${capitalize(this.entityName)} removed`,
           type: 'success'
         });
       }

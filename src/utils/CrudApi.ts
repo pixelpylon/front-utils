@@ -14,7 +14,11 @@ export class CrudApi<
 
   async list(params: BaseListParams<FilteredType>): Promise<ListResponse> {
     const result = await this.axiosInstance.get<ListResponse>(`/api/${this.entityName}`, {
-      params: {...params, filters: params.filters ? JSON.stringify(params.filters) : undefined},
+      params: {
+        ...params,
+        filters: params.filters ? JSON.stringify(params.filters) : undefined,
+        ordering: params.ordering ? JSON.stringify(params.ordering) : undefined,
+      },
     })
     return result.data
   }

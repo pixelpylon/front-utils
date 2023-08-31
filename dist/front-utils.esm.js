@@ -3,7 +3,7 @@ import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import uniq from 'lodash-es/uniq';
 import noop from 'lodash-es/noop';
-import { capitalize } from 'lodash-es';
+import capitalize from 'lodash-es/capitalize';
 import { useMutation, useQuery } from 'react-query';
 import { Field } from 'react-final-form';
 
@@ -637,7 +637,8 @@ class CrudApi {
     const result = await this.axiosInstance.get(`/api/${this.entityName}`, {
       params: {
         ...params,
-        filters: params.filters ? JSON.stringify(params.filters) : undefined
+        filters: params.filters ? JSON.stringify(params.filters) : undefined,
+        ordering: params.ordering ? JSON.stringify(params.ordering) : undefined
       }
     });
     return result.data;
