@@ -1,5 +1,5 @@
 {
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -86,7 +86,7 @@
     "tsdx": "^0.14.1",
     "tslib": "^2.6.2",
     "typescript": "^5.1.6",
-    "common-utils": "https://github.com/pixelpylon/common-utils/tarball/0.0.71"
+    "common-utils": "https://github.com/pixelpylon/common-utils/tarball/0.0.72"
   },
   "resolutions": {
     "jackspeak": "2.1.1"

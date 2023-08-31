@@ -4989,9 +4989,9 @@ common-path-prefix@^3.0.0:
   resolved "https://registry.yarnpkg.com/common-path-prefix/-/common-path-prefix-3.0.0.tgz#7d007a7e07c58c4b4d5f433131a19141b29f11e0"
   integrity sha512-QE33hToZseCH3jS0qN96O/bSh3kaw/h+Tq7ngyY9eWDUnTlTNUyqfqvCXioLe5Na5jFsL78ra/wuBU4iuEgd4w==
 
-"common-utils@https://github.com/pixelpylon/common-utils/tarball/0.0.71":
-  version "0.0.71"
-  resolved "https://github.com/pixelpylon/common-utils/tarball/0.0.71#f0d3e6bb137dfee80c0dff0e8387378abbced058"
+"common-utils@https://github.com/pixelpylon/common-utils/tarball/0.0.72":
+  version "0.0.72"
+  resolved "https://github.com/pixelpylon/common-utils/tarball/0.0.72#cebe6875ddec65ad83bc21573b85356612fe1687"
   dependencies:
     lodash "^4.17.21"
     moment "^2.29.1"
