@@ -3,7 +3,7 @@ import {useMutation, useQuery} from 'react-query'
 import {CrudApi} from './CrudApi'
 import {QueryOptions} from '../types'
 import {ToasterProvider} from '../providers'
-import {BaseListParams} from 'common-utils'
+import {BaseListParams} from '@exp1/common-utils'
 
 export class CrudHooks<
   FilteredType,

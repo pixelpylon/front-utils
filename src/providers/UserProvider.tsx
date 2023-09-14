@@ -1,5 +1,5 @@
 import React, {ReactNode, useContext, useState} from 'react'
-import {User} from 'common-utils'
+import {User} from '@exp1/common-utils'
 
 type Props = {
   children: ReactNode

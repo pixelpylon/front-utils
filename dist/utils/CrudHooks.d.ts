@@ -1,6 +1,6 @@
 import { CrudApi } from './CrudApi';
 import { QueryOptions } from '../types';
-import { BaseListParams } from 'common-utils';
+import { BaseListParams } from '@exp1/common-utils';
 export declare class CrudHooks<FilteredType, CreateParams, UpdateParams extends {
     id: string;
 }, ListResponse, ItemResponse, CreateResponse, UpdateResponse> {

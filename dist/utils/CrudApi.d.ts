@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { BaseListParams } from 'common-utils';
+import { BaseListParams } from '@exp1/common-utils';
 export declare class CrudApi<FilteredType, CreateParams, UpdateParams extends {
     id: string;
 }, ListResponse, ItemResponse, CreateResponse, UpdateResponse> {
