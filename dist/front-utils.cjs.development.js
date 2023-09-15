@@ -13,6 +13,8 @@ var noop = _interopDefault(require('lodash-es/noop'));
 var capitalize = _interopDefault(require('lodash-es/capitalize'));
 var reactQuery = require('react-query');
 var reactFinalForm = require('react-final-form');
+var size = _interopDefault(require('lodash-es/size'));
+var debounce = _interopDefault(require('lodash-es/debounce'));
 
 const getColorClasses = color => {
   switch (color) {
@@ -714,6 +716,25 @@ class CrudHooks {
     }
     return reactQuery.useQuery([this.entityName, 'list', params], () => this.crudApi.list(params), options);
   }
+  usePaginatedQuery(params, options) {
+    if (params === void 0) {
+      params = {};
+    }
+    return reactQuery.useInfiniteQuery({
+      queryKey: [this.entityName, 'paginatedList', params],
+      queryFn: _ref => {
+        let {
+          pageParam: cursor
+        } = _ref;
+        return this.crudApi.list({
+          ...params,
+          cursor
+        });
+      },
+      getNextPageParam: lastPage => lastPage.nextCursor,
+      ...options
+    });
+  }
 }
 
 
@@ -825,8 +846,54 @@ var index$3 = {
   InputField: InputField
 };
 
+const useInfinitiveLoading = _ref => {
+  let {
+    limit = 50,
+    ordering,
+    filters,
+    usePaginatedQuery
+  } = _ref;
+  const paginatedQuery = usePaginatedQuery({
+    limit,
+    ordering,
+    filters
+  });
+  React.useEffect(() => {
+    const handleScroll = debounce(() => {
+      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) {
+        return;
+      }
+      if (!paginatedQuery.hasNextPage) {
+        return;
+      }
+      paginatedQuery.fetchNextPage();
+    }, 100);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [paginatedQuery]);
+  const data = paginatedQuery.data ? paginatedQuery.data.pages.reduce((result, _ref2) => {
+    let {
+      list
+    } = _ref2;
+    result.push(...list);
+    return result;
+  }, []) : null;
+  return {
+    data,
+    quantity: size(data)
+  };
+};
+
+
+
+var index$4 = {
+  __proto__: null,
+  useInfinitiveLoading: useInfinitiveLoading
+};
+
 exports.Components = index;
 exports.Fields = index$3;
+exports.Hooks = index$4;
 exports.Providers = index$1;
 exports.Types = types;
 exports.Utils = index$2;

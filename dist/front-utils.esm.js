@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import uniq from 'lodash-es/uniq';
 import noop from 'lodash-es/noop';
 import capitalize from 'lodash-es/capitalize';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useInfiniteQuery } from 'react-query';
 import { Field } from 'react-final-form';
+import size from 'lodash-es/size';
+import debounce from 'lodash-es/debounce';
 
 const getColorClasses = color => {
   switch (color) {
@@ -707,6 +709,25 @@ class CrudHooks {
     }
     return useQuery([this.entityName, 'list', params], () => this.crudApi.list(params), options);
   }
+  usePaginatedQuery(params, options) {
+    if (params === void 0) {
+      params = {};
+    }
+    return useInfiniteQuery({
+      queryKey: [this.entityName, 'paginatedList', params],
+      queryFn: _ref => {
+        let {
+          pageParam: cursor
+        } = _ref;
+        return this.crudApi.list({
+          ...params,
+          cursor
+        });
+      },
+      getNextPageParam: lastPage => lastPage.nextCursor,
+      ...options
+    });
+  }
 }
 
 
@@ -818,5 +839,50 @@ var index$3 = {
   InputField: InputField
 };
 
-export { index as Components, index$3 as Fields, index$1 as Providers, types as Types, index$2 as Utils };
+const useInfinitiveLoading = _ref => {
+  let {
+    limit = 50,
+    ordering,
+    filters,
+    usePaginatedQuery
+  } = _ref;
+  const paginatedQuery = usePaginatedQuery({
+    limit,
+    ordering,
+    filters
+  });
+  useEffect(() => {
+    const handleScroll = debounce(() => {
+      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) {
+        return;
+      }
+      if (!paginatedQuery.hasNextPage) {
+        return;
+      }
+      paginatedQuery.fetchNextPage();
+    }, 100);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [paginatedQuery]);
+  const data = paginatedQuery.data ? paginatedQuery.data.pages.reduce((result, _ref2) => {
+    let {
+      list
+    } = _ref2;
+    result.push(...list);
+    return result;
+  }, []) : null;
+  return {
+    data,
+    quantity: size(data)
+  };
+};
+
+
+
+var index$4 = {
+  __proto__: null,
+  useInfinitiveLoading: useInfinitiveLoading
+};
+
+export { index as Components, index$3 as Fields, index$4 as Hooks, index$1 as Providers, types as Types, index$2 as Utils };
 //# sourceMappingURL=front-utils.esm.js.map

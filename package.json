@@ -1,5 +1,5 @@
 {
-  "version": "0.0.8",
+  "version": "0.0.10",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -23,8 +23,8 @@
     "artifactregistry-login": "npx google-artifactregistry-auth"
   },
   "peerDependencies": {
-    "@exp1/common-utils": ">=0.0.73",
-    "axios": ">=1.5",
+    "@exp1/common-utils": ">=0.0.74",
+    "axios": ">=1.3",
     "react": ">=16",
     "react-router-dom": ">=6"
   },
@@ -71,7 +71,7 @@
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.15",
-    "axios": "^1.5.0",
+    "axios": "=1.3.0",
     "babel-loader": "^9.1.3",
     "classnames": "^2.3.2",
     "husky": "^8.0.3",
@@ -88,7 +88,7 @@
     "tailwindcss": "^3.3.3",
     "tsdx": "^0.14.1",
     "tslib": "^2.6.2",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   },
   "resolutions": {
     "jackspeak": "2.1.1"

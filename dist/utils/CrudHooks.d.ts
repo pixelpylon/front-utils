@@ -3,7 +3,10 @@ import { QueryOptions } from '../types';
 import { BaseListParams } from '@exp1/common-utils';
 export declare class CrudHooks<FilteredType, CreateParams, UpdateParams extends {
     id: string;
-}, ListResponse, ItemResponse, CreateResponse, UpdateResponse> {
+}, ListResponse extends {
+    list: ItemResponse[];
+    nextCursor?: string;
+}, ItemResponse, CreateResponse, UpdateResponse> {
     private readonly entityName;
     private readonly crudApi;
     constructor(entityName: string, crudApi: CrudApi<FilteredType, CreateParams, UpdateParams, ListResponse, ItemResponse, CreateResponse, UpdateResponse>);
@@ -12,4 +15,5 @@ export declare class CrudHooks<FilteredType, CreateParams, UpdateParams extends 
     useRemoveMutation(): import("react-query/types/").UseBaseMutationResult<unknown, unknown, string, unknown>;
     useItemQuery(id: string, options?: QueryOptions): import("react-query/types/").QueryObserverResult<ItemResponse, unknown>;
     useListQuery(params?: BaseListParams<FilteredType>, options?: QueryOptions): import("react-query/types/").QueryObserverResult<ListResponse, unknown>;
+    usePaginatedQuery(params?: Omit<BaseListParams<FilteredType>, 'cursor'>, options?: QueryOptions): import("react-query/types/").InfiniteQueryObserverResult<ListResponse, unknown>;
 }
