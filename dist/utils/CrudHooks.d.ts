@@ -4,7 +4,7 @@ import { BaseListParams } from '@exp1/common-utils';
 export declare class CrudHooks<FilteredType, CreateParams, UpdateParams extends {
     id: string;
 }, ListResponse extends {
-    list: ItemResponse[];
+    list: unknown[];
     nextCursor?: string;
 }, ItemResponse, CreateResponse, UpdateResponse> {
     private readonly entityName;

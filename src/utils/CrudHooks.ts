@@ -9,7 +9,7 @@ export class CrudHooks<
   FilteredType,
   CreateParams,
   UpdateParams extends {id: string},
-  ListResponse extends {list: ItemResponse[], nextCursor?: string},
+  ListResponse extends {list: unknown[], nextCursor?: string},
   ItemResponse,
   CreateResponse,
   UpdateResponse
