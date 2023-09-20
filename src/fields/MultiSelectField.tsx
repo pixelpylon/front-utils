@@ -4,6 +4,7 @@ import {MultiSelect} from '../components'
 import React from 'react'
 
 type Props = {
+  id?: string
   initialValue?: string[]
   label?: string
   name: string
@@ -16,6 +17,7 @@ type Props = {
 }
 
 export const MultiSelectField = ({
+  id,
   initialValue,
   label,
   name,
@@ -34,6 +36,7 @@ export const MultiSelectField = ({
         return (
           <MultiSelect
             {...input}
+            id={id}
             label={label}
             options={options}
             disabled={disabled}

@@ -7,6 +7,7 @@ import {SelectOption} from '../types'
 type Size = 'sm' | 'default' | 'lg'
 
 type Props = {
+  id?: string
   label?: string
   error?: string
   name?: string
@@ -37,6 +38,7 @@ const NOT_SELECTED = {
 }
 
 export const Select = ({
+  id,
   label,
   error,
   name,
@@ -57,8 +59,8 @@ export const Select = ({
   )
   return (
     <div className={cx('flex flex-col gap-1', className)}>
-      {label && <Label>{label}</Label>}
-      <select name={name} value={value} onChange={onChange} className={resultClassName} disabled={disabled}>
+      {label && <Label for={id}>{label}</Label>}
+      <select id={id} name={name} value={value} onChange={onChange} className={resultClassName} disabled={disabled}>
         {resultOptions.map((option) => {
           return (
             <option key={option.value} value={option.value}>

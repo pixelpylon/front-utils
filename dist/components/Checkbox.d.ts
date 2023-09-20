@@ -8,13 +8,10 @@ declare type Props = {
     size?: Size;
     color?: Color;
     name?: string;
-    value?: string;
-    type?: string;
+    checked?: boolean;
     onChange?: ChangeEventHandler<HTMLInputElement>;
     className?: string;
-    expanded?: boolean;
     disabled?: boolean;
-    spellCheck?: boolean;
 };
-export declare const Input: ({ id, label, error, color, size, type, name, value, onChange, className, expanded, disabled, spellCheck, }: Props) => React.JSX.Element;
+export declare const Checkbox: ({ id, label, error, color, size, name, checked, onChange, className, disabled, }: Props) => React.JSX.Element;
 export {};

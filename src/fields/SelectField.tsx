@@ -4,6 +4,7 @@ import {Select} from '../components'
 import {SelectOption} from '../types'
 
 type Props = {
+  id?: string
   label?: string
   name: string
   options: SelectOption[]
@@ -12,7 +13,7 @@ type Props = {
   className?: string
 }
 
-export const SelectField = ({label, name, options, disabled, expanded, className}: Props) => {
+export const SelectField = ({id, label, name, options, disabled, expanded, className}: Props) => {
   return (
     <Field
       name={name}
@@ -21,6 +22,7 @@ export const SelectField = ({label, name, options, disabled, expanded, className
         return (
           <Select
             {...input}
+            id={id}
             label={label}
             options={options}
             disabled={disabled}

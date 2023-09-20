@@ -2,6 +2,7 @@ import React, { ChangeEventHandler } from 'react';
 import { SelectOption } from '../types';
 declare type Size = 'sm' | 'default' | 'lg';
 declare type Props = {
+    id?: string;
     label?: string;
     error?: string;
     name?: string;
@@ -15,5 +16,5 @@ declare type Props = {
     defaultValue?: string;
     visibleNumber?: number;
 };
-export declare const MultiSelect: ({ label, error, name, value, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props) => React.JSX.Element;
+export declare const MultiSelect: ({ id, label, error, name, value, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props) => React.JSX.Element;
 export {};

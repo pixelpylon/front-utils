@@ -7,6 +7,7 @@ import {SelectOption} from '../types'
 type Size = 'sm' | 'default' | 'lg'
 
 type Props = {
+  id?: string
   label?: string
   error?: string
   name?: string
@@ -33,6 +34,7 @@ const getSizeClasses = (size: Size) => {
 }
 
 export const MultiSelect = ({
+  id,
   label,
   error,
   name,
@@ -54,8 +56,9 @@ export const MultiSelect = ({
   )
   return (
     <div className={cx('flex flex-col gap-1', className)}>
-      {label && <Label>{label}</Label>}
+      {label && <Label for={id}>{label}</Label>}
       <select
+        id={id}
         multiple
         size={visibleNumber}
         name={name}

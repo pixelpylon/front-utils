@@ -37,24 +37,23 @@ const Text = _ref => {
     color = 'default',
     size = 'default',
     children,
-    className
+    className,
+    ...other
   } = _ref;
   const Component = tag;
   const colorClasses = getColorClasses(color);
   const sizeClasses = getSizeClasses(size);
   const resultClasses = cx(sizeClasses, colorClasses, className);
-  return /*#__PURE__*/React.createElement(Component, {
+  return /*#__PURE__*/React.createElement(Component, Object.assign({
     className: resultClasses
-  }, children);
+  }, other), children);
 };
 
-const Label = _ref => {
-  let {
-    children
-  } = _ref;
+const Label = props => {
   return /*#__PURE__*/React.createElement(Text, {
-    tag: "label"
-  }, children);
+    tag: "label",
+    for: props.for
+  }, props.children);
 };
 
 const getColorClasses$1 = color => {
@@ -79,6 +78,7 @@ const getSizeClasses$1 = size => {
 };
 const Input = _ref => {
   let {
+    id,
     label,
     error,
     color = 'default',
@@ -99,7 +99,10 @@ const Input = _ref => {
   }, colorClasses, sizeClasses, className);
   return /*#__PURE__*/React.createElement("div", {
     className: cx('flex flex-col gap-1', className)
-  }, label && /*#__PURE__*/React.createElement(Label, null, label), /*#__PURE__*/React.createElement("input", {
+  }, label && /*#__PURE__*/React.createElement(Label, {
+    for: id
+  }, label), /*#__PURE__*/React.createElement("input", {
+    id: id,
     value: value,
     type: type,
     name: name,
@@ -112,7 +115,60 @@ const Input = _ref => {
   }, error));
 };
 
+const getColorClasses$2 = color => {
+  switch (color) {
+    case 'default':
+      return 'text-blue-600 focus:ring-blue-500';
+    case 'green':
+      return 'text-green-600 focus:ring-green-500';
+    case 'red':
+      return 'text-red-600 focus:ring-red-500';
+  }
+};
 const getSizeClasses$2 = size => {
+  switch (size) {
+    case 'sm':
+      return 'w-3 h-3';
+    case 'default':
+      return 'w-4 h-4';
+    case 'lg':
+      return 'w-5 h-5';
+  }
+};
+const Checkbox = _ref => {
+  let {
+    id,
+    label,
+    error,
+    color = 'default',
+    size = 'default',
+    name,
+    checked = false,
+    onChange,
+    className,
+    disabled
+  } = _ref;
+  const colorClasses = getColorClasses$2(color);
+  const sizeClasses = getSizeClasses$2(size);
+  const resultClassName = cx('rounded focus:ring-2 bg-gray-100 border-gray-300', colorClasses, sizeClasses, className);
+  return /*#__PURE__*/React.createElement("div", {
+    className: cx('flex flex-col gap-1', className)
+  }, label && /*#__PURE__*/React.createElement(Label, {
+    for: id
+  }, label), /*#__PURE__*/React.createElement("input", {
+    id: id,
+    checked: checked,
+    type: "checkbox",
+    name: name,
+    className: resultClassName,
+    onChange: onChange,
+    disabled: disabled
+  }), error && /*#__PURE__*/React.createElement(Text, {
+    color: "red"
+  }, error));
+};
+
+const getSizeClasses$3 = size => {
   switch (size) {
     case 'sm':
       return 'text-xs p-2';
@@ -128,6 +184,7 @@ const NOT_SELECTED = {
 };
 const Select = _ref => {
   let {
+    id,
     label,
     error,
     name,
@@ -140,13 +197,16 @@ const Select = _ref => {
     disabled
   } = _ref;
   const resultOptions = [NOT_SELECTED, ...options];
-  const sizeClasses = getSizeClasses$2(size);
+  const sizeClasses = getSizeClasses$3(size);
   const resultClassName = cx('bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block disabled:cursor-default disabled:text-gray-500', sizeClasses, {
     'w-full': expanded
   });
   return /*#__PURE__*/React.createElement("div", {
     className: cx('flex flex-col gap-1', className)
-  }, label && /*#__PURE__*/React.createElement(Label, null, label), /*#__PURE__*/React.createElement("select", {
+  }, label && /*#__PURE__*/React.createElement(Label, {
+    for: id
+  }, label), /*#__PURE__*/React.createElement("select", {
+    id: id,
     name: name,
     value: value,
     onChange: onChange,
@@ -162,7 +222,7 @@ const Select = _ref => {
   }, error));
 };
 
-const getSizeClasses$3 = size => {
+const getSizeClasses$4 = size => {
   switch (size) {
     case 'sm':
       return 'text-xs p-2';
@@ -174,6 +234,7 @@ const getSizeClasses$3 = size => {
 };
 const MultiSelect = _ref => {
   let {
+    id,
     label,
     error,
     name,
@@ -186,14 +247,17 @@ const MultiSelect = _ref => {
     expanded,
     disabled
   } = _ref;
-  const sizeClasses = getSizeClasses$3(size);
+  const sizeClasses = getSizeClasses$4(size);
   const resultClassName = cx('bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block disabled:cursor-default', sizeClasses, {
     'text-gray-900': disabled,
     'w-full': expanded
   }, className);
   return /*#__PURE__*/React.createElement("div", {
     className: cx('flex flex-col gap-1', className)
-  }, label && /*#__PURE__*/React.createElement(Label, null, label), /*#__PURE__*/React.createElement("select", {
+  }, label && /*#__PURE__*/React.createElement(Label, {
+    for: id
+  }, label), /*#__PURE__*/React.createElement("select", {
+    id: id,
     multiple: true,
     size: visibleNumber,
     name: name,
@@ -211,7 +275,7 @@ const MultiSelect = _ref => {
   }, error));
 };
 
-const getColorClasses$2 = (color, outline) => {
+const getColorClasses$3 = (color, outline) => {
   if (outline) {
     switch (color) {
       case 'default':
@@ -243,7 +307,7 @@ const getColorClasses$2 = (color, outline) => {
       return 'text-white bg-purple-700 hover:bg-purple-800 focus:ring-purple-300 disabled:bg-purple-500';
   }
 };
-const getSizeClasses$4 = size => {
+const getSizeClasses$5 = size => {
   switch (size) {
     case 'xs':
       return 'px-3 py-2 text-xs';
@@ -270,8 +334,8 @@ const Button = _ref => {
     disabled,
     expanded
   } = _ref;
-  const colorClasses = getColorClasses$2(color, outline);
-  const sizeClasses = getSizeClasses$4(size);
+  const colorClasses = getColorClasses$3(color, outline);
+  const sizeClasses = getSizeClasses$5(size);
   const resultClassName = cx('focus:ring-4 font-medium rounded-lg focus:outline-none text-center disabled:cursor-default', {
     'w-full': expanded,
     'w-fit': !expanded
@@ -285,7 +349,7 @@ const Button = _ref => {
   }, children);
 };
 
-const getSizeClasses$5 = size => {
+const getSizeClasses$6 = size => {
   switch (size) {
     case 'h1':
       return 'text-6xl';
@@ -308,7 +372,7 @@ const Header = _ref => {
     className
   } = _ref;
   const Component = size;
-  const sizeClasses = getSizeClasses$5(size);
+  const sizeClasses = getSizeClasses$6(size);
   const resultClasses = cx(sizeClasses, className);
   return /*#__PURE__*/React.createElement(Component, {
     className: resultClasses
@@ -494,6 +558,7 @@ const Toaster = _ref => {
 var index = {
   __proto__: null,
   Input: Input,
+  Checkbox: Checkbox,
   Select: Select,
   MultiSelect: MultiSelect,
   Button: Button,
@@ -746,6 +811,7 @@ var types = {
 
 const SelectField = _ref => {
   let {
+    id,
     label,
     name,
     options,
@@ -761,6 +827,7 @@ const SelectField = _ref => {
         input
       } = _ref2;
       return /*#__PURE__*/React.createElement(Select, Object.assign({}, input, {
+        id: id,
         label: label,
         options: options,
         disabled: disabled,
@@ -773,6 +840,7 @@ const SelectField = _ref => {
 
 const MultiSelectField = _ref => {
   let {
+    id,
     initialValue,
     label,
     name,
@@ -791,6 +859,7 @@ const MultiSelectField = _ref => {
         input
       } = _ref2;
       return /*#__PURE__*/React.createElement(MultiSelect, Object.assign({}, input, {
+        id: id,
         label: label,
         options: options,
         disabled: disabled,
@@ -804,6 +873,7 @@ const MultiSelectField = _ref => {
 
 const InputField = _ref => {
   let {
+    id,
     label,
     name,
     type,
@@ -820,11 +890,37 @@ const InputField = _ref => {
         input
       } = _ref2;
       return /*#__PURE__*/React.createElement(Input, Object.assign({}, input, {
+        id: id,
         label: label,
         disabled: disabled,
         expanded: expanded,
         className: className,
         spellCheck: spellCheck
+      }));
+    }
+  });
+};
+
+const CheckboxField = _ref => {
+  let {
+    id,
+    label,
+    name,
+    disabled,
+    className
+  } = _ref;
+  return /*#__PURE__*/React.createElement(Field, {
+    type: "checkbox",
+    name: name,
+    render: _ref2 => {
+      let {
+        input
+      } = _ref2;
+      return /*#__PURE__*/React.createElement(Checkbox, Object.assign({}, input, {
+        id: id,
+        label: label,
+        disabled: disabled,
+        className: className
       }));
     }
   });
@@ -836,7 +932,8 @@ var index$3 = {
   __proto__: null,
   SelectField: SelectField,
   MultiSelectField: MultiSelectField,
-  InputField: InputField
+  InputField: InputField,
+  CheckboxField: CheckboxField
 };
 
 const useInfinitiveLoading = _ref => {

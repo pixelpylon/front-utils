@@ -1,4 +1,5 @@
 export {Input} from './Input'
+export {Checkbox} from './Checkbox'
 export {Select} from './Select'
 export {MultiSelect} from './MultiSelect'
 export {Button} from './Button'

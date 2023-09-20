@@ -7,6 +7,7 @@ declare type Props = {
     className?: string;
     tag?: string;
     color?: Color;
+    for?: string;
 };
-export declare const Text: ({ tag, color, size, children, className }: Props) => React.JSX.Element;
+export declare const Text: ({ tag, color, size, children, className, ...other }: Props) => React.JSX.Element;
 export {};

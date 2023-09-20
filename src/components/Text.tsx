@@ -10,6 +10,7 @@ type Props = {
   className?: string
   tag?: string
   color?: Color
+  for?: string
 }
 
 const getColorClasses = (color: Color) => {
@@ -36,13 +37,13 @@ const getSizeClasses = (size: Size) => {
   }
 }
 
-export const Text = ({tag = 'div', color = 'default', size = 'default', children, className}: Props) => {
+export const Text = ({tag = 'div', color = 'default', size = 'default', children, className, ...other}: Props) => {
   const Component = tag as keyof JSX.IntrinsicElements
   const colorClasses = getColorClasses(color)
   const sizeClasses = getSizeClasses(size)
   const resultClasses = cx(sizeClasses, colorClasses, className)
   return (
-    <Component className={resultClasses}>
+    <Component className={resultClasses} {...other}>
       {children}
     </Component>
   )
