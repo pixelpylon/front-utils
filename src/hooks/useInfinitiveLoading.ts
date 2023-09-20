@@ -1,20 +1,20 @@
-import { BaseListParams } from "@exp1/common-utils"
+import { ListParams } from "@exp1/common-utils"
 import { QueryOptions } from "../types"
 import size from "lodash-es/size"
 import debounce from "lodash-es/debounce"
 import { useEffect } from "react"
 import { InfiniteQueryObserverResult } from "react-query"
 
-type Params<FilteredType, ItemResponse> = BaseListParams<FilteredType> & {
-    usePaginatedQuery: (params?: BaseListParams<FilteredType>, options?: QueryOptions) => InfiniteQueryObserverResult<{list: ItemResponse[], nextCursor?: string}>
+type Params<ItemResponse> = Omit<ListParams, 'cursor'> & {
+    usePaginatedQuery: (params?: Omit<ListParams, 'cursor'>, options?: QueryOptions) => InfiniteQueryObserverResult<{list: ItemResponse[], nextCursor?: string}>
 }
 
-export const useInfinitiveLoading = <FilteredType, ItemResponse>({
+export const useInfinitiveLoading = <ItemResponse>({
     limit = 50,
     ordering, 
     filters, 
     usePaginatedQuery
-}: Params<FilteredType, ItemResponse>) => {
+}: Params<ItemResponse>) => {
     const paginatedQuery = usePaginatedQuery({limit, ordering, filters})
 
     useEffect(() => {

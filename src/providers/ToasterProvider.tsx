@@ -1,5 +1,5 @@
 import {KeyedToasterEvent, Toaster, ToasterEvent} from '../components/Toaster'
-import React, {ReactNode, useCallback, useContext, useEffect, useState} from 'react'
+import {ReactNode, useCallback, useContext, useEffect, useState, createContext} from 'react'
 
 type Props = {
   children: ReactNode
@@ -14,7 +14,7 @@ type ToasterContextValue = {
   add: (event: ToasterEvent) => void
 }
 
-const ToasterContext = React.createContext<ToasterContextValue>({
+const ToasterContext = createContext<ToasterContextValue>({
   events: [],
   add: () => {},
 })

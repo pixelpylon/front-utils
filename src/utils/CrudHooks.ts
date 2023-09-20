@@ -3,10 +3,9 @@ import {useInfiniteQuery, useMutation, useQuery} from 'react-query'
 import {CrudApi} from './CrudApi'
 import {QueryOptions} from '../types'
 import {ToasterProvider} from '../providers'
-import {BaseListParams} from '@exp1/common-utils'
+import {ListParams} from '@exp1/common-utils'
 
 export class CrudHooks<
-  FilteredType,
   CreateParams,
   UpdateParams extends {id: string},
   ListResponse extends {list: unknown[], nextCursor?: string},
@@ -17,7 +16,6 @@ export class CrudHooks<
   constructor(
     private readonly entityName: string,
     private readonly crudApi: CrudApi<
-      FilteredType,
       CreateParams,
       UpdateParams,
       ListResponse,
@@ -67,11 +65,11 @@ export class CrudHooks<
     return useQuery<ItemResponse>([this.entityName, 'item', id], () => this.crudApi.item(id), options)
   }
 
-  useListQuery(params: BaseListParams<FilteredType> = {}, options?: QueryOptions) {
+  useListQuery(params: Omit<ListParams, 'cursor'> = {}, options?: QueryOptions) {
     return useQuery<ListResponse>([this.entityName, 'list', params], () => this.crudApi.list(params), options)
   }
 
-  usePaginatedQuery(params: Omit<BaseListParams<FilteredType>, 'cursor'>= {}, options?: QueryOptions) {
+  usePaginatedQuery(params: Omit<ListParams, 'cursor'> = {}, options?: QueryOptions) {
     return useInfiniteQuery<ListResponse>({
       queryKey: [this.entityName, 'paginatedList', params],
       queryFn: ({pageParam: cursor}) => this.crudApi.list({...params, cursor}),

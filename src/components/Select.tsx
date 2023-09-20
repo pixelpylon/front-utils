@@ -59,7 +59,7 @@ export const Select = ({
   )
   return (
     <div className={cx('flex flex-col gap-1', className)}>
-      {label && <Label for={id}>{label}</Label>}
+      {label && <Label htmlFor={id}>{label}</Label>}
       <select id={id} name={name} value={value} onChange={onChange} className={resultClassName} disabled={disabled}>
         {resultOptions.map((option) => {
           return (

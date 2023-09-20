@@ -71,7 +71,7 @@ export const Input = ({
 
   return (
     <div className={cx('flex flex-col gap-1', className)}>
-      {label && <Label for={id}>{label}</Label>}
+      {label && <Label htmlFor={id}>{label}</Label>}
       <input
         id={id}
         value={value}

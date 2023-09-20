@@ -1,8 +1,7 @@
 import {AxiosInstance, AxiosResponse} from 'axios'
-import {BaseListParams} from '@exp1/common-utils'
+import {ListParams} from '@exp1/common-utils'
 
 export class CrudApi<
-  FilteredType,
   CreateParams,
   UpdateParams extends {id: string},
   ListResponse,
@@ -12,7 +11,7 @@ export class CrudApi<
 > {
   constructor(protected readonly entityName: string, protected readonly axiosInstance: AxiosInstance) {}
 
-  async list(params: BaseListParams<FilteredType>): Promise<ListResponse> {
+  async list(params: ListParams): Promise<ListResponse> {
     const result = await this.axiosInstance.get<ListResponse>(`/api/${this.entityName}`, {
       params: {
         ...params,

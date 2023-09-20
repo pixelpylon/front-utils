@@ -1,0 +1,20 @@
+import { ChangeEventHandler } from 'react';
+type Color = 'default' | 'green' | 'red';
+type Size = 'sm' | 'default' | 'lg';
+type Props = {
+    id?: string;
+    label?: string;
+    error?: string;
+    size?: Size;
+    color?: Color;
+    name?: string;
+    value?: string;
+    type?: string;
+    onChange?: ChangeEventHandler<HTMLInputElement>;
+    className?: string;
+    expanded?: boolean;
+    disabled?: boolean;
+    spellCheck?: boolean;
+};
+export declare const Input: ({ id, label, error, color, size, type, name, value, onChange, className, expanded, disabled, spellCheck, }: Props) => import("react/jsx-runtime").JSX.Element;
+export {};

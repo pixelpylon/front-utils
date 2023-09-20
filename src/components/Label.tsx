@@ -2,12 +2,12 @@ import {Text} from './Text'
 import React from 'react'
 
 type Props = {
-  for?: string
+  htmlFor?: string
   children: string
 }
 
 export const Label = (props: Props) => {
   return (
-    <Text tag="label" for={props.for}>{props.children}</Text>
+    <Text tag="label" htmlFor={props.htmlFor}>{props.children}</Text>
   )
 }

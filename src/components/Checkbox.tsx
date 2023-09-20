@@ -64,16 +64,18 @@ export const Checkbox = ({
 
   return (
     <div className={cx('flex flex-col gap-1', className)}>
-      {label && <Label for={id}>{label}</Label>}
-      <input
-        id={id}
-        checked={checked}
-        type="checkbox"
-        name={name}
-        className={resultClassName}
-        onChange={onChange}
-        disabled={disabled}
-      />
+      <div className="flex gap-1 items-center">
+        <input
+          id={id}
+          checked={checked}
+          type="checkbox"
+          name={name}
+          className={resultClassName}
+          onChange={onChange}
+          disabled={disabled}
+        />
+        {label && <Label htmlFor={id}>{label}</Label>}
+      </div>
       {error && <Text color="red">{error}</Text>}
     </div>
   )

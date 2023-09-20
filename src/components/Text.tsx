@@ -10,7 +10,7 @@ type Props = {
   className?: string
   tag?: string
   color?: Color
-  for?: string
+  htmlFor?: string
 }
 
 const getColorClasses = (color: Color) => {
