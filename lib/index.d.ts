@@ -1,9 +1,9 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ChangeEventHandler, ReactNode } from 'react';
-import { User, ListParams } from '@exp1/common-utils';
+import { User, ListParams, EntityItemResponse, EntityListResponse } from '@exp1/common-utils';
 import { AxiosInstance } from 'axios';
 import * as react_query from 'react-query';
-import { InfiniteQueryObserverResult } from 'react-query';
+import { InfiniteData, InfiniteQueryObserverResult } from 'react-query';
 
 type Color$3 = 'default' | 'green' | 'red';
 type Size$6 = 'sm' | 'default' | 'lg';
@@ -57,14 +57,15 @@ type SelectProps = {
     defaultValue?: string;
 };
 type AlertType = 'info' | 'danger' | 'success' | 'warning' | 'dark';
-type QueryOptions = {
+type QueryOptions<ResponseData> = {
     enabled?: boolean;
     keepPreviousData?: boolean;
-    onSuccess?: (data: any) => void;
+    refetchOnMount?: boolean;
+    onSuccess?: (data: ResponseData) => void;
 };
 
 type types_d_AlertType = AlertType;
-type types_d_QueryOptions = QueryOptions;
+type types_d_QueryOptions<ResponseData> = QueryOptions<ResponseData>;
 type types_d_SelectOption = SelectOption;
 type types_d_SelectProps = SelectProps;
 type types_d_SelectSize = SelectSize;
@@ -146,8 +147,9 @@ type HeaderProps = {
 type Props$d = {
     htmlFor?: string;
     children: string;
+    className?: string;
 };
-declare const Label: (props: Props$d) => react_jsx_runtime.JSX.Element;
+declare const Label: ({ htmlFor, children, className }: Props$d) => react_jsx_runtime.JSX.Element;
 
 declare const Spinner: () => react_jsx_runtime.JSX.Element;
 
@@ -288,9 +290,9 @@ declare class CrudHooks<CreateParams, UpdateParams extends {
     useCreateMutation(): react_query.UseMutationResult<CreateResponse, unknown, CreateParams, unknown>;
     useUpdateMutation(): react_query.UseMutationResult<UpdateResponse, unknown, UpdateParams, unknown>;
     useRemoveMutation(): react_query.UseMutationResult<unknown, unknown, string, unknown>;
-    useItemQuery(id: string, options?: QueryOptions): react_query.UseQueryResult<ItemResponse, unknown>;
-    useListQuery(params?: Omit<ListParams, 'cursor'>, options?: QueryOptions): react_query.UseQueryResult<ListResponse, unknown>;
-    usePaginatedQuery(params?: Omit<ListParams, 'cursor'>, options?: QueryOptions): react_query.UseInfiniteQueryResult<ListResponse, unknown>;
+    useItemQuery(id: string, options?: QueryOptions<ItemResponse>): react_query.UseQueryResult<ItemResponse, unknown>;
+    useListQuery(params?: Omit<ListParams, 'cursor'>, options?: QueryOptions<ListResponse>): react_query.UseQueryResult<ListResponse, unknown>;
+    usePaginatedQuery(params?: Omit<ListParams, 'cursor'>, options?: QueryOptions<InfiniteData<ListResponse>>): react_query.UseInfiniteQueryResult<ListResponse, unknown>;
 }
 
 type index_d$2_CrudApi<CreateParams, UpdateParams extends {
@@ -362,14 +364,12 @@ declare namespace index_d$1 {
   export { index_d$1_CheckboxField as CheckboxField, index_d$1_InputField as InputField, index_d$1_MultiSelectField as MultiSelectField, index_d$1_SelectField as SelectField };
 }
 
-type Params<ItemResponse> = Omit<ListParams, 'cursor'> & {
-    usePaginatedQuery: (params?: Omit<ListParams, 'cursor'>, options?: QueryOptions) => InfiniteQueryObserverResult<{
-        list: ItemResponse[];
-        nextCursor?: string;
-    }>;
+type Params<Entity> = Omit<ListParams, 'cursor'> & {
+    usePaginatedQuery: (params?: Omit<ListParams, 'cursor'>, options?: QueryOptions<InfiniteData<EntityListResponse<Entity>>>) => InfiniteQueryObserverResult<EntityListResponse<Entity>>;
+    options?: QueryOptions<InfiniteData<EntityListResponse<Entity>>>;
 };
-declare const useInfinitiveLoading: <ItemResponse>({ limit, ordering, filters, usePaginatedQuery }: Params<ItemResponse>) => {
-    data: ItemResponse[] | null;
+declare const useInfinitiveLoading: <Entity>({ limit, ordering, filters, usePaginatedQuery, options, }: Params<Entity>) => {
+    data: EntityItemResponse<Entity>[] | null;
     quantity: number;
 };
 

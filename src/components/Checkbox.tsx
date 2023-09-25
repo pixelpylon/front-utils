@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React, {ChangeEventHandler} from 'react'
+import {ChangeEventHandler} from 'react'
 import {Label} from './Label'
 import {Text} from './Text'
 
@@ -56,7 +56,7 @@ export const Checkbox = ({
   const colorClasses = getColorClasses(color)
   const sizeClasses = getSizeClasses(size)
   const resultClassName = cx(
-    'rounded focus:ring-2 bg-gray-100 border-gray-300',
+    'rounded focus:ring-2 bg-gray-100 border-gray-300 cursor-pointer',
     colorClasses,
     sizeClasses,
     className
@@ -64,7 +64,7 @@ export const Checkbox = ({
 
   return (
     <div className={cx('flex flex-col gap-1', className)}>
-      <div className="flex gap-1 items-center">
+      <div className="flex gap-1 items-center cursor-pointer">
         <input
           id={id}
           checked={checked}
@@ -74,7 +74,7 @@ export const Checkbox = ({
           onChange={onChange}
           disabled={disabled}
         />
-        {label && <Label htmlFor={id}>{label}</Label>}
+        {label && <Label htmlFor={id} className="cursor-pointer">{label}</Label>}
       </div>
       {error && <Text color="red">{error}</Text>}
     </div>

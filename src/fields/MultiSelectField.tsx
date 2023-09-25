@@ -1,7 +1,6 @@
 import {Field} from 'react-final-form'
 import {SelectOption} from '../types'
 import {MultiSelect} from '../components'
-import React from 'react'
 
 type Props = {
   id?: string

@@ -1,13 +1,13 @@
 import {Text} from './Text'
-import React from 'react'
 
 type Props = {
   htmlFor?: string
   children: string
+  className?: string
 }
 
-export const Label = (props: Props) => {
+export const Label = ({htmlFor, children, className}: Props) => {
   return (
-    <Text tag="label" htmlFor={props.htmlFor}>{props.children}</Text>
+    <Text tag="label" htmlFor={htmlFor} className={className}>{children}</Text>
   )
 }

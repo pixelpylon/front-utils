@@ -1,6 +1,6 @@
 {
   "name": "@exp1/front-utils",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -10,7 +10,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "artifactregistry-login": "npx google-artifactregistry-auth",
-    "link-external-packages": "npm ln ../../apps/ventrata-products/front/node_modules/react-router-dom ../../apps/ventrata-products/front/node_modules/react ../../apps/ventrata-products/front/node_modules/react-dom ../../apps/ventrata-products/front/node_modules/react-query"
+    "link-external-packages": "npm ln ../../apps/ventrata-products/front/node_modules/react-router-dom ../../apps/ventrata-products/front/node_modules/react ../../apps/ventrata-products/front/node_modules/react-dom ../../apps/ventrata-products/front/node_modules/react-query ../../apps/ventrata-products/front/node_modules/react-final-form"
   },
   "author": "Ivan Kosolapov <polzuka@gmail.com>",
   "license": "ISC",

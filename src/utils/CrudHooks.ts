@@ -1,5 +1,5 @@
 import capitalize from 'lodash-es/capitalize'
-import {useInfiniteQuery, useMutation, useQuery} from 'react-query'
+import {InfiniteData, useInfiniteQuery, useMutation, useQuery} from 'react-query'
 import {CrudApi} from './CrudApi'
 import {QueryOptions} from '../types'
 import {ToasterProvider} from '../providers'
@@ -61,15 +61,15 @@ export class CrudHooks<
     })
   }
 
-  useItemQuery(id: string, options?: QueryOptions) {
+  useItemQuery(id: string, options?: QueryOptions<ItemResponse>) {
     return useQuery<ItemResponse>([this.entityName, 'item', id], () => this.crudApi.item(id), options)
   }
 
-  useListQuery(params: Omit<ListParams, 'cursor'> = {}, options?: QueryOptions) {
+  useListQuery(params: Omit<ListParams, 'cursor'> = {}, options?: QueryOptions<ListResponse>) {
     return useQuery<ListResponse>([this.entityName, 'list', params], () => this.crudApi.list(params), options)
   }
 
-  usePaginatedQuery(params: Omit<ListParams, 'cursor'> = {}, options?: QueryOptions) {
+  usePaginatedQuery(params: Omit<ListParams, 'cursor'> = {}, options?: QueryOptions<InfiniteData<ListResponse>>) {
     return useInfiniteQuery<ListResponse>({
       queryKey: [this.entityName, 'paginatedList', params],
       queryFn: ({pageParam: cursor}) => this.crudApi.list({...params, cursor}),

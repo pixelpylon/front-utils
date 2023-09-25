@@ -16,8 +16,9 @@ export type SelectProps = {
     defaultValue?: string;
 };
 export type AlertType = 'info' | 'danger' | 'success' | 'warning' | 'dark';
-export type QueryOptions = {
+export type QueryOptions<ResponseData> = {
     enabled?: boolean;
     keepPreviousData?: boolean;
-    onSuccess?: (data: any) => void;
+    refetchOnMount?: boolean;
+    onSuccess?: (data: ResponseData) => void;
 };

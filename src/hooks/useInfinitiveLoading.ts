@@ -1,21 +1,23 @@
-import { ListParams } from "@exp1/common-utils"
+import { EntityItemResponse, EntityListResponse, ListParams } from "@exp1/common-utils"
 import { QueryOptions } from "../types"
 import size from "lodash-es/size"
 import debounce from "lodash-es/debounce"
 import { useEffect } from "react"
-import { InfiniteQueryObserverResult } from "react-query"
+import { InfiniteData, InfiniteQueryObserverResult } from "react-query"
 
-type Params<ItemResponse> = Omit<ListParams, 'cursor'> & {
-    usePaginatedQuery: (params?: Omit<ListParams, 'cursor'>, options?: QueryOptions) => InfiniteQueryObserverResult<{list: ItemResponse[], nextCursor?: string}>
+type Params<Entity> = Omit<ListParams, 'cursor'> & {
+    usePaginatedQuery: (params?: Omit<ListParams, 'cursor'>, options?: QueryOptions<InfiniteData<EntityListResponse<Entity>>>) => InfiniteQueryObserverResult<EntityListResponse<Entity>>
+    options?: QueryOptions<InfiniteData<EntityListResponse<Entity>>>
 }
 
-export const useInfinitiveLoading = <ItemResponse>({
+export const useInfinitiveLoading = <Entity>({
     limit = 50,
     ordering, 
     filters, 
-    usePaginatedQuery
-}: Params<ItemResponse>) => {
-    const paginatedQuery = usePaginatedQuery({limit, ordering, filters})
+    usePaginatedQuery,
+    options,
+}: Params<Entity>) => {
+    const paginatedQuery = usePaginatedQuery({limit, ordering, filters}, options)
 
     useEffect(() => {
         const handleScroll = debounce(() => {
@@ -34,7 +36,7 @@ export const useInfinitiveLoading = <ItemResponse>({
       return () => window.removeEventListener('scroll', handleScroll);
     }, [paginatedQuery])
   
-    const data = paginatedQuery.data ? paginatedQuery.data.pages.reduce((result: ItemResponse[], {list}) => {
+    const data = paginatedQuery.data ? paginatedQuery.data.pages.reduce((result: EntityItemResponse<Entity>[], {list}) => {
         result.push(...list)
         return result
     }, []) : null
