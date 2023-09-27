@@ -268,9 +268,9 @@ declare namespace index_d$3 {
 declare class CrudApi<CreateParams, UpdateParams extends {
     id: string;
 }, ListResponse, ItemResponse, CreateResponse, UpdateResponse> {
-    protected readonly entityName: string;
+    protected readonly entityApiPath: string;
     protected readonly axiosInstance: AxiosInstance;
-    constructor(entityName: string, axiosInstance: AxiosInstance);
+    constructor(entityApiPath: string, axiosInstance: AxiosInstance);
     list(params: ListParams): Promise<ListResponse>;
     item(id: string): Promise<ItemResponse>;
     create(params: CreateParams): Promise<CreateResponse>;
