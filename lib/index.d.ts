@@ -1,6 +1,6 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ChangeEventHandler, ReactNode } from 'react';
-import { User, ListParams, EntityItemResponse, EntityListResponse } from '@exp1/common-utils';
+import { User, ListParams, PaginatedListParams } from '@exp1/common-utils';
 import { AxiosInstance } from 'axios';
 import * as react_query from 'react-query';
 import { InfiniteData, InfiniteQueryObserverResult } from 'react-query';
@@ -63,14 +63,19 @@ type QueryOptions<ResponseData> = {
     refetchOnMount?: boolean;
     onSuccess?: (data: ResponseData) => void;
 };
+type PaginatedListResponse<ListResponse extends unknown[]> = {
+    list: ListResponse;
+    nextCursor?: string;
+};
 
 type types_d_AlertType = AlertType;
+type types_d_PaginatedListResponse<ListResponse extends unknown[]> = PaginatedListResponse<ListResponse>;
 type types_d_QueryOptions<ResponseData> = QueryOptions<ResponseData>;
 type types_d_SelectOption = SelectOption;
 type types_d_SelectProps = SelectProps;
 type types_d_SelectSize = SelectSize;
 declare namespace types_d {
-  export type { types_d_AlertType as AlertType, types_d_QueryOptions as QueryOptions, types_d_SelectOption as SelectOption, types_d_SelectProps as SelectProps, types_d_SelectSize as SelectSize };
+  export type { types_d_AlertType as AlertType, types_d_PaginatedListResponse as PaginatedListResponse, types_d_QueryOptions as QueryOptions, types_d_SelectOption as SelectOption, types_d_SelectProps as SelectProps, types_d_SelectSize as SelectSize };
 }
 
 type Size$4 = 'sm' | 'default' | 'lg';
@@ -267,11 +272,12 @@ declare namespace index_d$3 {
 
 declare class CrudApi<CreateParams, UpdateParams extends {
     id: string;
-}, ListResponse, ItemResponse, CreateResponse, UpdateResponse> {
+}, ListResponse extends unknown[], ItemResponse, CreateResponse, UpdateResponse> {
     protected readonly entityApiPath: string;
     protected readonly axiosInstance: AxiosInstance;
     constructor(entityApiPath: string, axiosInstance: AxiosInstance);
-    list(params: ListParams): Promise<ListResponse>;
+    list({ filters, ordering, limit }: ListParams): Promise<ListResponse>;
+    paginatedList({ filters, ordering, limit, cursor }: PaginatedListParams): Promise<PaginatedListResponse<ListResponse>>;
     item(id: string): Promise<ItemResponse>;
     create(params: CreateParams): Promise<CreateResponse>;
     update(params: UpdateParams): Promise<UpdateResponse>;
@@ -280,10 +286,7 @@ declare class CrudApi<CreateParams, UpdateParams extends {
 
 declare class CrudHooks<CreateParams, UpdateParams extends {
     id: string;
-}, ListResponse extends {
-    list: unknown[];
-    nextCursor?: string;
-}, ItemResponse, CreateResponse, UpdateResponse> {
+}, ListResponse extends unknown[], ItemResponse, CreateResponse, UpdateResponse> {
     private readonly entityName;
     private readonly crudApi;
     constructor(entityName: string, crudApi: CrudApi<CreateParams, UpdateParams, ListResponse, ItemResponse, CreateResponse, UpdateResponse>);
@@ -291,20 +294,17 @@ declare class CrudHooks<CreateParams, UpdateParams extends {
     useUpdateMutation(): react_query.UseMutationResult<UpdateResponse, unknown, UpdateParams, unknown>;
     useRemoveMutation(): react_query.UseMutationResult<unknown, unknown, string, unknown>;
     useItemQuery(id: string, options?: QueryOptions<ItemResponse>): react_query.UseQueryResult<ItemResponse, unknown>;
-    useListQuery(params?: Omit<ListParams, 'cursor'>, options?: QueryOptions<ListResponse>): react_query.UseQueryResult<ListResponse, unknown>;
-    usePaginatedQuery(params?: Omit<ListParams, 'cursor'>, options?: QueryOptions<InfiniteData<ListResponse>>): react_query.UseInfiniteQueryResult<ListResponse, unknown>;
+    useListQuery({ filters, ordering, limit }?: ListParams, options?: QueryOptions<ListResponse>): react_query.UseQueryResult<ListResponse, unknown>;
+    usePaginatedListQuery({ filters, ordering, limit }?: ListParams, options?: QueryOptions<InfiniteData<PaginatedListResponse<ListResponse>>>): react_query.UseInfiniteQueryResult<PaginatedListResponse<ListResponse>, unknown>;
 }
 
 type index_d$2_CrudApi<CreateParams, UpdateParams extends {
     id: string;
-}, ListResponse, ItemResponse, CreateResponse, UpdateResponse> = CrudApi<CreateParams, UpdateParams, ListResponse, ItemResponse, CreateResponse, UpdateResponse>;
+}, ListResponse extends unknown[], ItemResponse, CreateResponse, UpdateResponse> = CrudApi<CreateParams, UpdateParams, ListResponse, ItemResponse, CreateResponse, UpdateResponse>;
 declare const index_d$2_CrudApi: typeof CrudApi;
 type index_d$2_CrudHooks<CreateParams, UpdateParams extends {
     id: string;
-}, ListResponse extends {
-    list: unknown[];
-    nextCursor?: string;
-}, ItemResponse, CreateResponse, UpdateResponse> = CrudHooks<CreateParams, UpdateParams, ListResponse, ItemResponse, CreateResponse, UpdateResponse>;
+}, ListResponse extends unknown[], ItemResponse, CreateResponse, UpdateResponse> = CrudHooks<CreateParams, UpdateParams, ListResponse, ItemResponse, CreateResponse, UpdateResponse>;
 declare const index_d$2_CrudHooks: typeof CrudHooks;
 declare namespace index_d$2 {
   export { index_d$2_CrudApi as CrudApi, index_d$2_CrudHooks as CrudHooks };
@@ -364,12 +364,15 @@ declare namespace index_d$1 {
   export { index_d$1_CheckboxField as CheckboxField, index_d$1_InputField as InputField, index_d$1_MultiSelectField as MultiSelectField, index_d$1_SelectField as SelectField };
 }
 
-type Params<Entity> = Omit<ListParams, 'cursor'> & {
-    usePaginatedQuery: (params?: Omit<ListParams, 'cursor'>, options?: QueryOptions<InfiniteData<EntityListResponse<Entity>>>) => InfiniteQueryObserverResult<EntityListResponse<Entity>>;
-    options?: QueryOptions<InfiniteData<EntityListResponse<Entity>>>;
+type Params<ListResponse extends unknown[]> = ListParams & {
+    usePaginatedListQuery: (params?: ListParams, options?: QueryOptions<InfiniteData<PaginatedListResponse<ListResponse>>>) => InfiniteQueryObserverResult<PaginatedListResponse<ListResponse>>;
+    options?: QueryOptions<InfiniteData<PaginatedListResponse<ListResponse>>>;
 };
-declare const useInfinitiveLoading: <Entity>({ limit, ordering, filters, usePaginatedQuery, options, }: Params<Entity>) => {
-    data: EntityItemResponse<Entity>[] | null;
+declare const useInfinitiveLoading: <ListResponse extends unknown[]>({ limit, ordering, filters, usePaginatedListQuery, options, }: Params<ListResponse>) => {
+    data: null;
+    quantity: number;
+} | {
+    data: ListResponse;
     quantity: number;
 };
 

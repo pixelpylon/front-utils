@@ -1,23 +1,26 @@
-import { EntityItemResponse, EntityListResponse, ListParams } from "@exp1/common-utils"
-import { QueryOptions } from "../types"
+import { ListParams } from "@exp1/common-utils"
+import { PaginatedListResponse, QueryOptions } from "../types"
 import size from "lodash-es/size"
 import debounce from "lodash-es/debounce"
 import { useEffect } from "react"
 import { InfiniteData, InfiniteQueryObserverResult } from "react-query"
 
-type Params<Entity> = Omit<ListParams, 'cursor'> & {
-    usePaginatedQuery: (params?: Omit<ListParams, 'cursor'>, options?: QueryOptions<InfiniteData<EntityListResponse<Entity>>>) => InfiniteQueryObserverResult<EntityListResponse<Entity>>
-    options?: QueryOptions<InfiniteData<EntityListResponse<Entity>>>
+type Params<ListResponse extends unknown[]> = ListParams & {
+    usePaginatedListQuery: (
+        params?: ListParams, 
+        options?: QueryOptions<InfiniteData<PaginatedListResponse<ListResponse>>>
+    ) => InfiniteQueryObserverResult<PaginatedListResponse<ListResponse>>
+    options?: QueryOptions<InfiniteData<PaginatedListResponse<ListResponse>>>
 }
 
-export const useInfinitiveLoading = <Entity>({
+export const useInfinitiveLoading = <ListResponse extends unknown[]>({
     limit = 50,
     ordering, 
     filters, 
-    usePaginatedQuery,
+    usePaginatedListQuery,
     options,
-}: Params<Entity>) => {
-    const paginatedQuery = usePaginatedQuery({limit, ordering, filters}, options)
+}: Params<ListResponse>) => {
+    const paginatedListQuery = usePaginatedListQuery({limit, ordering, filters}, options)
 
     useEffect(() => {
         const handleScroll = debounce(() => {
@@ -25,21 +28,29 @@ export const useInfinitiveLoading = <Entity>({
                 return;
             }
     
-            if (!paginatedQuery.hasNextPage) {
+            if (!paginatedListQuery.hasNextPage) {
                 return 
             }
     
-            paginatedQuery.fetchNextPage()
+            paginatedListQuery.fetchNextPage()
         }, 100)
 
       window.addEventListener('scroll', handleScroll);
       return () => window.removeEventListener('scroll', handleScroll);
-    }, [paginatedQuery])
-  
-    const data = paginatedQuery.data ? paginatedQuery.data.pages.reduce((result: EntityItemResponse<Entity>[], {list}) => {
-        result.push(...list)
-        return result
-    }, []) : null
+    }, [paginatedListQuery])
+
+    if (!paginatedListQuery.data) {
+        return {
+            data: null,
+            quantity: 0,
+        }
+    }
+
+    const data = [] as unknown as ListResponse
+
+    for (const page of paginatedListQuery.data.pages) {
+        data.push(...page.list)
+    }
 
     return {
         data,

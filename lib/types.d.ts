@@ -22,3 +22,7 @@ export type QueryOptions<ResponseData> = {
     refetchOnMount?: boolean;
     onSuccess?: (data: ResponseData) => void;
 };
+export type PaginatedListResponse<ListResponse extends unknown[]> = {
+    list: ListResponse;
+    nextCursor?: string;
+};

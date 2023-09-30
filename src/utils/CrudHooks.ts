@@ -1,17 +1,17 @@
 import capitalize from 'lodash-es/capitalize'
 import {InfiniteData, useInfiniteQuery, useMutation, useQuery} from 'react-query'
 import {CrudApi} from './CrudApi'
-import {QueryOptions} from '../types'
+import {PaginatedListResponse, QueryOptions} from '../types'
 import {ToasterProvider} from '../providers'
 import {ListParams} from '@exp1/common-utils'
 
 export class CrudHooks<
   CreateParams,
   UpdateParams extends {id: string},
-  ListResponse extends {list: unknown[], nextCursor?: string},
+  ListResponse extends unknown[],
   ItemResponse,
   CreateResponse,
-  UpdateResponse
+  UpdateResponse,
 > {
   constructor(
     private readonly entityName: string,
@@ -65,14 +65,14 @@ export class CrudHooks<
     return useQuery<ItemResponse>([this.entityName, 'item', id], () => this.crudApi.item(id), options)
   }
 
-  useListQuery(params: Omit<ListParams, 'cursor'> = {}, options?: QueryOptions<ListResponse>) {
-    return useQuery<ListResponse>([this.entityName, 'list', params], () => this.crudApi.list(params), options)
+  useListQuery({filters, ordering, limit}: ListParams = {}, options?: QueryOptions<ListResponse>) {
+    return useQuery<ListResponse>([this.entityName, 'list', filters, ordering, limit], () => this.crudApi.list({filters, ordering, limit}), options)
   }
 
-  usePaginatedQuery(params: Omit<ListParams, 'cursor'> = {}, options?: QueryOptions<InfiniteData<ListResponse>>) {
-    return useInfiniteQuery<ListResponse>({
-      queryKey: [this.entityName, 'paginatedList', params],
-      queryFn: ({pageParam: cursor}) => this.crudApi.list({...params, cursor}),
+  usePaginatedListQuery({filters, ordering, limit}: ListParams = {}, options?: QueryOptions<InfiniteData<PaginatedListResponse<ListResponse>>>) {
+    return useInfiniteQuery<PaginatedListResponse<ListResponse>>({
+      queryKey: [this.entityName, 'paginatedList', filters, ordering, limit],
+      queryFn: ({pageParam: cursor}) => this.crudApi.paginatedList({filters, ordering, limit, cursor}),
       getNextPageParam: (lastPage) => lastPage.nextCursor,
       ...options,
     })
