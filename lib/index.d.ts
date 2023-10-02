@@ -57,12 +57,12 @@ type SelectProps = {
     defaultValue?: string;
 };
 type AlertType = 'info' | 'danger' | 'success' | 'warning' | 'dark';
-type QueryOptions<Response, Error> = {
+type QueryOptions<ResponseData, ErrorData = unknown> = {
     enabled?: boolean;
     keepPreviousData?: boolean;
     refetchOnMount?: boolean;
-    onSuccess?: (data: Response) => void;
-    onError?: (error: Error) => void;
+    onSuccess?: (data: ResponseData) => void;
+    onError?: (error: ErrorData) => void;
 };
 type PaginatedListResponse<ListResponse extends unknown[]> = {
     list: ListResponse;
@@ -71,7 +71,7 @@ type PaginatedListResponse<ListResponse extends unknown[]> = {
 
 type types_d_AlertType = AlertType;
 type types_d_PaginatedListResponse<ListResponse extends unknown[]> = PaginatedListResponse<ListResponse>;
-type types_d_QueryOptions<Response, Error> = QueryOptions<Response, Error>;
+type types_d_QueryOptions<ResponseData, ErrorData = unknown> = QueryOptions<ResponseData, ErrorData>;
 type types_d_SelectOption = SelectOption;
 type types_d_SelectProps = SelectProps;
 type types_d_SelectSize = SelectSize;
