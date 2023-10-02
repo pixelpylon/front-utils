@@ -16,11 +16,12 @@ export type SelectProps = {
     defaultValue?: string;
 };
 export type AlertType = 'info' | 'danger' | 'success' | 'warning' | 'dark';
-export type QueryOptions<ResponseData> = {
+export type QueryOptions<Response, Error> = {
     enabled?: boolean;
     keepPreviousData?: boolean;
     refetchOnMount?: boolean;
-    onSuccess?: (data: ResponseData) => void;
+    onSuccess?: (data: Response) => void;
+    onError?: (error: Error) => void;
 };
 export type PaginatedListResponse<ListResponse extends unknown[]> = {
     list: ListResponse;

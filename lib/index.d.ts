@@ -1,13 +1,13 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import { ChangeEventHandler, ReactNode } from 'react';
 import { User, ListParams, PaginatedListParams } from '@exp1/common-utils';
-import { AxiosInstance } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
 import * as react_query from 'react-query';
 import { InfiniteData, InfiniteQueryObserverResult } from 'react-query';
 
 type Color$3 = 'default' | 'green' | 'red';
 type Size$6 = 'sm' | 'default' | 'lg';
-type Props$j = {
+type Props$k = {
     id?: string;
     label?: string;
     error?: string;
@@ -22,11 +22,11 @@ type Props$j = {
     disabled?: boolean;
     spellCheck?: boolean;
 };
-declare const Input: ({ id, label, error, color, size, type, name, value, onChange, className, expanded, disabled, spellCheck, }: Props$j) => react_jsx_runtime.JSX.Element;
+declare const Input: ({ id, label, error, color, size, type, name, value, onChange, className, expanded, disabled, spellCheck, }: Props$k) => react_jsx_runtime.JSX.Element;
 
 type Color$2 = 'default' | 'green' | 'red';
 type Size$5 = 'sm' | 'default' | 'lg';
-type Props$i = {
+type Props$j = {
     id?: string;
     label?: string;
     error?: string;
@@ -38,7 +38,7 @@ type Props$i = {
     className?: string;
     disabled?: boolean;
 };
-declare const Checkbox: ({ id, label, error, color, size, name, checked, onChange, className, disabled, }: Props$i) => react_jsx_runtime.JSX.Element;
+declare const Checkbox: ({ id, label, error, color, size, name, checked, onChange, className, disabled, }: Props$j) => react_jsx_runtime.JSX.Element;
 
 type SelectOption = {
     value: string;
@@ -57,11 +57,12 @@ type SelectProps = {
     defaultValue?: string;
 };
 type AlertType = 'info' | 'danger' | 'success' | 'warning' | 'dark';
-type QueryOptions<ResponseData> = {
+type QueryOptions<Response, Error> = {
     enabled?: boolean;
     keepPreviousData?: boolean;
     refetchOnMount?: boolean;
-    onSuccess?: (data: ResponseData) => void;
+    onSuccess?: (data: Response) => void;
+    onError?: (error: Error) => void;
 };
 type PaginatedListResponse<ListResponse extends unknown[]> = {
     list: ListResponse;
@@ -70,7 +71,7 @@ type PaginatedListResponse<ListResponse extends unknown[]> = {
 
 type types_d_AlertType = AlertType;
 type types_d_PaginatedListResponse<ListResponse extends unknown[]> = PaginatedListResponse<ListResponse>;
-type types_d_QueryOptions<ResponseData> = QueryOptions<ResponseData>;
+type types_d_QueryOptions<Response, Error> = QueryOptions<Response, Error>;
 type types_d_SelectOption = SelectOption;
 type types_d_SelectProps = SelectProps;
 type types_d_SelectSize = SelectSize;
@@ -79,7 +80,7 @@ declare namespace types_d {
 }
 
 type Size$4 = 'sm' | 'default' | 'lg';
-type Props$h = {
+type Props$i = {
     id?: string;
     label?: string;
     error?: string;
@@ -93,10 +94,10 @@ type Props$h = {
     disabled?: boolean;
     defaultValue?: string;
 };
-declare const Select: ({ id, label, error, name, value, options, onChange, className, size, expanded, disabled, }: Props$h) => react_jsx_runtime.JSX.Element;
+declare const Select: ({ id, label, error, name, value, options, onChange, className, size, expanded, disabled, }: Props$i) => react_jsx_runtime.JSX.Element;
 
 type Size$3 = 'sm' | 'default' | 'lg';
-type Props$g = {
+type Props$h = {
     id?: string;
     label?: string;
     error?: string;
@@ -111,11 +112,11 @@ type Props$g = {
     defaultValue?: string;
     visibleNumber?: number;
 };
-declare const MultiSelect: ({ id, label, error, name, value, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props$g) => react_jsx_runtime.JSX.Element;
+declare const MultiSelect: ({ id, label, error, name, value, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props$h) => react_jsx_runtime.JSX.Element;
 
 type Color$1 = 'default' | 'dark' | 'green' | 'red' | 'yellow' | 'purple';
 type Size$2 = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
-type Props$f = {
+type Props$g = {
     onSubmit?: () => void;
     onClick?: () => void;
     children: ReactNode;
@@ -127,16 +128,16 @@ type Props$f = {
     expanded?: boolean;
     disabled?: boolean;
 };
-declare const Button: ({ onSubmit, onClick, children, outline, size, color, type, className, disabled, expanded, }: Props$f) => react_jsx_runtime.JSX.Element;
+declare const Button: ({ onSubmit, onClick, children, outline, size, color, type, className, disabled, expanded, }: Props$g) => react_jsx_runtime.JSX.Element;
 
 type Size$1 = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-type Props$e = {
+type Props$f = {
     children: string;
     size: Size$1;
     className?: string;
 };
 declare const Header$1: {
-    ({ size, children, className }: Props$e): react_jsx_runtime.JSX.Element;
+    ({ size, children, className }: Props$f): react_jsx_runtime.JSX.Element;
     H1({ children, className }: HeaderProps): react_jsx_runtime.JSX.Element;
     H2({ children, className }: HeaderProps): react_jsx_runtime.JSX.Element;
     H3({ children, className }: HeaderProps): react_jsx_runtime.JSX.Element;
@@ -149,12 +150,12 @@ type HeaderProps = {
     className?: string;
 };
 
-type Props$d = {
+type Props$e = {
     htmlFor?: string;
     children: string;
     className?: string;
 };
-declare const Label: ({ htmlFor, children, className }: Props$d) => react_jsx_runtime.JSX.Element;
+declare const Label: ({ htmlFor, children, className }: Props$e) => react_jsx_runtime.JSX.Element;
 
 declare const Spinner: () => react_jsx_runtime.JSX.Element;
 
@@ -166,15 +167,15 @@ type Row = {
     key: string;
     columns: Record<string, ReactNode>;
 };
-type Props$c = {
+type Props$d = {
     headers: Header[];
     rows: Row[];
 };
-declare const Table: ({ headers, rows }: Props$c) => react_jsx_runtime.JSX.Element;
+declare const Table: ({ headers, rows }: Props$d) => react_jsx_runtime.JSX.Element;
 
 type Color = 'default' | 'green' | 'red' | 'blue';
 type Size = 'sm' | 'default' | 'lg';
-type Props$b = {
+type Props$c = {
     children: string;
     size?: Size;
     className?: string;
@@ -182,26 +183,26 @@ type Props$b = {
     color?: Color;
     htmlFor?: string;
 };
-declare const Text: ({ tag, color, size, children, className, ...other }: Props$b) => react_jsx_runtime.JSX.Element;
+declare const Text: ({ tag, color, size, children, className, ...other }: Props$c) => react_jsx_runtime.JSX.Element;
 
-type Props$a = {
+type Props$b = {
     type: AlertType;
     children: ReactNode;
     className?: string;
 };
-declare const Alert: ({ type, children, className }: Props$a) => react_jsx_runtime.JSX.Element;
+declare const Alert: ({ type, children, className }: Props$b) => react_jsx_runtime.JSX.Element;
 
-type Props$9 = {
+type Props$a = {
     to: string;
     children: string;
     className?: string;
 };
-declare const StandardLink: ({ to, children, className }: Props$9) => react_jsx_runtime.JSX.Element;
+declare const StandardLink: ({ to, children, className }: Props$a) => react_jsx_runtime.JSX.Element;
 
-type Props$8 = {
+type Props$9 = {
     to: string;
 };
-declare const EditLink: ({ to }: Props$8) => react_jsx_runtime.JSX.Element;
+declare const EditLink: ({ to }: Props$9) => react_jsx_runtime.JSX.Element;
 
 type ToasterEvent = {
     type: AlertType;
@@ -210,16 +211,23 @@ type ToasterEvent = {
 type KeyedToasterEvent = ToasterEvent & {
     key: string;
 };
-type Props$7 = {
+type Props$8 = {
     events: KeyedToasterEvent[];
     className?: string;
 };
-declare const Toaster: ({ events, className }: Props$7) => react_jsx_runtime.JSX.Element;
+declare const Toaster: ({ events, className }: Props$8) => react_jsx_runtime.JSX.Element;
+
+type Props$7 = {
+    error: any;
+    className?: string;
+};
+declare const Failure: ({ error, className }: Props$7) => react_jsx_runtime.JSX.Element;
 
 declare const index_d$4_Alert: typeof Alert;
 declare const index_d$4_Button: typeof Button;
 declare const index_d$4_Checkbox: typeof Checkbox;
 declare const index_d$4_EditLink: typeof EditLink;
+declare const index_d$4_Failure: typeof Failure;
 declare const index_d$4_Input: typeof Input;
 declare const index_d$4_Label: typeof Label;
 declare const index_d$4_MultiSelect: typeof MultiSelect;
@@ -230,14 +238,15 @@ declare const index_d$4_Table: typeof Table;
 declare const index_d$4_Text: typeof Text;
 declare const index_d$4_Toaster: typeof Toaster;
 declare namespace index_d$4 {
-  export { index_d$4_Alert as Alert, index_d$4_Button as Button, index_d$4_Checkbox as Checkbox, index_d$4_EditLink as EditLink, Header$1 as Header, index_d$4_Input as Input, index_d$4_Label as Label, index_d$4_MultiSelect as MultiSelect, index_d$4_Select as Select, index_d$4_Spinner as Spinner, index_d$4_StandardLink as StandardLink, index_d$4_Table as Table, index_d$4_Text as Text, index_d$4_Toaster as Toaster };
+  export { index_d$4_Alert as Alert, index_d$4_Button as Button, index_d$4_Checkbox as Checkbox, index_d$4_EditLink as EditLink, index_d$4_Failure as Failure, Header$1 as Header, index_d$4_Input as Input, index_d$4_Label as Label, index_d$4_MultiSelect as MultiSelect, index_d$4_Select as Select, index_d$4_Spinner as Spinner, index_d$4_StandardLink as StandardLink, index_d$4_Table as Table, index_d$4_Text as Text, index_d$4_Toaster as Toaster };
 }
 
 type Props$6 = {
     children: ReactNode;
 };
-declare const createUserProvider: (useUserQuery: (params: {
+declare const createUserProvider: (ssoDomain: string, useUserQuery: (params: {
     onSuccess: (user: User) => void;
+    onError: (error: AxiosError) => void;
 }) => void) => {
     ({ children }: Props$6): react_jsx_runtime.JSX.Element;
     useUser(): User;
