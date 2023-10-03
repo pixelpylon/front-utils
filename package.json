@@ -10,7 +10,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "artifactregistry-login": "npx google-artifactregistry-auth",
-    "link-external-packages": "npm ln ../../apps/ventrata-products/front/node_modules/react-router-dom ../../apps/ventrata-products/front/node_modules/react ../../apps/ventrata-products/front/node_modules/react-dom ../../apps/ventrata-products/front/node_modules/react-query ../../apps/ventrata-products/front/node_modules/react-final-form"
+    "link-external-packages": "bash -c 'link_external_packages () { npm link ${1}/node_modules/{react-router-dom,react,react-dom,react-query,react-final-form}; }; link_external_packages $0'",
+    "unlink-external-packages": "bash -c 'unlink_external_packages () { npm unlink ${1}/node_modules/{react-router-dom,react,react-dom,react-query,react-final-form}; }; unlink_external_packages $0'"
   },
   "author": "Ivan Kosolapov <polzuka@gmail.com>",
   "license": "ISC",
