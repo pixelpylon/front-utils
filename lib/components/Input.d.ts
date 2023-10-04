@@ -15,6 +15,8 @@ type Props = {
     expanded?: boolean;
     disabled?: boolean;
     spellCheck?: boolean;
+    min?: number;
+    max?: number;
 };
-export declare const Input: ({ id, label, error, color, size, type, name, value, onChange, className, expanded, disabled, spellCheck, }: Props) => import("react/jsx-runtime").JSX.Element;
+export declare const Input: ({ id, label, error, color, size, type, name, value, min, max, onChange, className, expanded, disabled, spellCheck, }: Props) => import("react/jsx-runtime").JSX.Element;
 export {};

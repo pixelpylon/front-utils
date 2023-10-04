@@ -21,8 +21,10 @@ type Props$k = {
     expanded?: boolean;
     disabled?: boolean;
     spellCheck?: boolean;
+    min?: number;
+    max?: number;
 };
-declare const Input: ({ id, label, error, color, size, type, name, value, onChange, className, expanded, disabled, spellCheck, }: Props$k) => react_jsx_runtime.JSX.Element;
+declare const Input: ({ id, label, error, color, size, type, name, value, min, max, onChange, className, expanded, disabled, spellCheck, }: Props$k) => react_jsx_runtime.JSX.Element;
 
 type Color$2 = 'default' | 'green' | 'red';
 type Size$5 = 'sm' | 'default' | 'lg';
@@ -353,8 +355,11 @@ type Props$1 = {
     expanded?: boolean;
     spellCheck?: boolean;
     className?: string;
+    min?: number;
+    max?: number;
+    parse?: (value: any) => any;
 };
-declare const InputField: ({ id, label, name, type, disabled, expanded, className, spellCheck }: Props$1) => react_jsx_runtime.JSX.Element;
+declare const InputField: ({ id, label, name, type, disabled, expanded, className, spellCheck, min, max, parse }: Props$1) => react_jsx_runtime.JSX.Element;
 
 type Props = {
     id?: string;

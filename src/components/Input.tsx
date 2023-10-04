@@ -1,5 +1,6 @@
+import Recat from 'react'
 import cx from 'classnames'
-import React, {ChangeEventHandler} from 'react'
+import {ChangeEventHandler} from 'react'
 import {Label} from './Label'
 import {Text} from './Text'
 
@@ -20,6 +21,8 @@ type Props = {
   expanded?: boolean
   disabled?: boolean
   spellCheck?: boolean
+  min?: number
+  max?: number
 }
 
 const getColorClasses = (color: Color) => {
@@ -53,6 +56,8 @@ export const Input = ({
   type,
   name,
   value,
+  min,
+  max,
   onChange,
   className,
   expanded,
@@ -64,6 +69,7 @@ export const Input = ({
   const resultClassName = cx(
     'block border rounded-lg disabled:cursor-default',
     {'w-full': expanded},
+    {'w-fit': !expanded},
     colorClasses,
     sizeClasses,
     className
@@ -81,6 +87,8 @@ export const Input = ({
         onChange={onChange}
         disabled={disabled}
         spellCheck={spellCheck}
+        min={min}
+        max={max}
       />
       {error && <Text color="red">{error}</Text>}
     </div>

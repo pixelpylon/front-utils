@@ -55,7 +55,7 @@ export const Select = ({
   const resultClassName = cx(
     'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block disabled:cursor-default disabled:text-gray-500',
     sizeClasses,
-    {'w-full': expanded}
+    {'w-full': expanded, 'w-fit': !expanded}
   )
   return (
     <div className={cx('flex flex-col gap-1', className)}>

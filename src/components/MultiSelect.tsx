@@ -51,7 +51,7 @@ export const MultiSelect = ({
   const resultClassName = cx(
     'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block disabled:cursor-default',
     sizeClasses,
-    {'text-gray-900': disabled, 'w-full': expanded},
+    {'text-gray-900': disabled, 'w-full': expanded, 'w-fit': !expanded},
     className
   )
   return (
