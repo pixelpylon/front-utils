@@ -1,10 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: 'jit',
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './stories/*'],
-  content: [],
+  // mode: 'jit',
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './stories/*'],
   theme: {
-    extend: {},
+    extend: {
+      minHeight: {
+        '4': '1rem',
+        '5': '1.25rem',
+        '6': '1.5rem',
+      },
+      minWidth: {
+        '4': '1rem',
+        '5': '1.25rem',
+        '6': '1.5rem',
+      }
+    },
   },
   plugins: [],
 }

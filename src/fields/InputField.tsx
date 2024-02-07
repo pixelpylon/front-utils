@@ -1,6 +1,5 @@
 import {Field} from 'react-final-form'
 import {Input} from '../components'
-import { ReactNode } from 'react'
 
 type Props = {
   id?: string

@@ -8,6 +8,6 @@ type Props = {
 
 export const Label = ({htmlFor, children, className}: Props) => {
   return (
-    <Text tag="label" htmlFor={htmlFor} className={className}>{children}</Text>
+    <Text tag="label" htmlFor={htmlFor} weight="semibold" className={className}>{children}</Text>
   )
 }

@@ -1,4 +1,3 @@
-import Recat from 'react'
 import cx from 'classnames'
 import {ChangeEventHandler} from 'react'
 import {Label} from './Label'
@@ -67,7 +66,7 @@ export const Input = ({
   const colorClasses = getColorClasses(color)
   const sizeClasses = getSizeClasses(size)
   const resultClassName = cx(
-    'block border rounded-lg disabled:cursor-default',
+    'focus:ring-1 outline-none block border rounded-lg disabled:cursor-default',
     {'w-full': expanded},
     {'w-fit': !expanded},
     colorClasses,

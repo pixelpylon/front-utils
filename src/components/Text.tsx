@@ -1,8 +1,8 @@
-import React from 'react'
 import cx from "classnames";
 
 type Color = 'default' | 'green' | 'red' | 'blue'
 type Size = 'sm' | 'default' | 'lg'
+type Weight = 'normal' | 'medium' | 'semibold'
 
 type Props = {
   children: string
@@ -11,6 +11,7 @@ type Props = {
   tag?: string
   color?: Color
   htmlFor?: string
+  weight?: Weight
 }
 
 const getColorClasses = (color: Color) => {
@@ -37,11 +38,23 @@ const getSizeClasses = (size: Size) => {
   }
 }
 
-export const Text = ({tag = 'div', color = 'default', size = 'default', children, className, ...other}: Props) => {
+const getWeightClasses = (weight: Weight) => {
+  switch (weight) {
+    case 'normal':
+      return 'font-normal'
+    case 'medium':
+      return 'font-medium'
+    case 'semibold':
+      return 'font-semibold'
+  }
+}
+
+export const Text = ({ tag = 'div', color = 'default', size = 'default', weight = 'normal',children, className, ...other }: Props) => {
   const Component = tag as keyof JSX.IntrinsicElements
   const colorClasses = getColorClasses(color)
   const sizeClasses = getSizeClasses(size)
-  const resultClasses = cx(sizeClasses, colorClasses, className)
+  const weightClasses = getWeightClasses(weight)
+  const resultClasses = cx(sizeClasses, colorClasses, weightClasses, className)
   return (
     <Component className={resultClasses} {...other}>
       {children}

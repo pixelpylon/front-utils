@@ -13,8 +13,7 @@ type Props = {
     size?: Size;
     expanded?: boolean;
     disabled?: boolean;
-    defaultValue?: string;
     visibleNumber?: number;
 };
-export declare const MultiSelect: ({ id, label, error, name, value, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props) => import("react/jsx-runtime").JSX.Element;
+export declare const MultiSelect: ({ id, label, error, name, value: initialValues, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props) => import("react/jsx-runtime").JSX.Element;
 export {};

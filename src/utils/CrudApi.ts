@@ -13,14 +13,14 @@ export class CrudApi<
   constructor(protected readonly entityApiPath: string, protected readonly axiosInstance: AxiosInstance) {}
 
   async list({filters, ordering, limit}: ListParams): Promise<ListResponse> {
-    const result = await this.axiosInstance.get<ListResponse>(this.entityApiPath, {
+    const result = await this.axiosInstance.get<PaginatedListResponse<ListResponse>>(this.entityApiPath, {
       params: {
         limit, 
         filters: filters ? JSON.stringify(filters) : undefined,
         ordering: ordering ? JSON.stringify(ordering) : undefined,
       },
     })
-    return result.data
+    return result.data.list
   }
 
   async paginatedList({filters, ordering, limit, cursor}: PaginatedListParams): Promise<PaginatedListResponse<ListResponse>> {

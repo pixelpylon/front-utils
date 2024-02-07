@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React, {ChangeEventHandler} from 'react'
+import {ChangeEventHandler} from 'react'
 import {Label} from './Label'
 import {Text} from './Text'
 import {SelectOption} from '../types'
@@ -53,7 +53,7 @@ export const Select = ({
   const resultOptions = [NOT_SELECTED, ...options]
   const sizeClasses = getSizeClasses(size)
   const resultClassName = cx(
-    'bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block disabled:cursor-default disabled:text-gray-500',
+    'focus:ring-1 outline-none bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block disabled:cursor-default disabled:text-gray-500',
     sizeClasses,
     {'w-full': expanded, 'w-fit': !expanded}
   )

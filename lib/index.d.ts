@@ -111,10 +111,9 @@ type Props$h = {
     size?: Size$3;
     expanded?: boolean;
     disabled?: boolean;
-    defaultValue?: string;
     visibleNumber?: number;
 };
-declare const MultiSelect: ({ id, label, error, name, value, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props$h) => react_jsx_runtime.JSX.Element;
+declare const MultiSelect: ({ id, label, error, name, value: initialValues, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props$h) => react_jsx_runtime.JSX.Element;
 
 type Color$1 = 'default' | 'dark' | 'green' | 'red' | 'yellow' | 'purple';
 type Size$2 = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
@@ -177,6 +176,7 @@ declare const Table: ({ headers, rows }: Props$d) => react_jsx_runtime.JSX.Eleme
 
 type Color = 'default' | 'green' | 'red' | 'blue';
 type Size = 'sm' | 'default' | 'lg';
+type Weight = 'normal' | 'medium' | 'semibold';
 type Props$c = {
     children: string;
     size?: Size;
@@ -184,8 +184,9 @@ type Props$c = {
     tag?: string;
     color?: Color;
     htmlFor?: string;
+    weight?: Weight;
 };
-declare const Text: ({ tag, color, size, children, className, ...other }: Props$c) => react_jsx_runtime.JSX.Element;
+declare const Text: ({ tag, color, size, weight, children, className, ...other }: Props$c) => react_jsx_runtime.JSX.Element;
 
 type Props$b = {
     type: AlertType;
