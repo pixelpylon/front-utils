@@ -80,12 +80,17 @@ export const getOptionHeight = (size: Size) => {
   }
 }
 
+const NOT_SELECTED = {
+  value: '',
+  label: '',
+}
+
 export const Select = ({
   id,
   label,
   error,
   name,
-  value: initialValue,
+  value: initialValue = '',
   options,
   onChange,
   visibleNumber = 10,
@@ -94,7 +99,7 @@ export const Select = ({
   expanded,
   disabled,
 }: Props) => {
-  const normalizedOptions = normalizeOptions(options)
+  const normalizedOptions = [NOT_SELECTED, ...normalizeOptions(options)]
   const [value, setValue] = useState(initialValue)
   const [collapsed, setCollapsed] = useState(true)
   const visibleSelectRef = useRef<HTMLDivElement | null>(null)
