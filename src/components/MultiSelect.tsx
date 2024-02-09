@@ -6,6 +6,7 @@ import { SelectOption } from '../types'
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import { isArray } from 'lodash-es'
 import { isChildOf } from '../utils/isChildOf'
+import { getIconClasses, getInputPaddingClasses, getOptionHeight, getOptionPaddingClasses, getTextClasses } from './Select'
 
 type Size = 'sm' | 'default' | 'lg'
 
@@ -22,61 +23,6 @@ type Props = {
   expanded?: boolean
   disabled?: boolean
   visibleNumber?: number
-}
-
-const getTextClasses = (size: Size) => {
-  switch (size) {
-    case 'sm':
-      return 'text-xs'
-    case 'default':
-      return 'text-sm'
-    case 'lg':
-      return 'text-base'
-  }
-}
-
-const getInputPaddingClasses = (size: Size) => {
-  switch (size) {
-    case 'sm':
-      return 'p-1'
-    case 'default':
-      return 'p-1.5'
-    case 'lg':
-      return 'p-3'
-  }
-}
-
-const getOptionPaddingClasses = (size: Size) => {
-  switch (size) {
-    case 'sm':
-      return 'p-2'
-    case 'default':
-      return 'p-2.5'
-    case 'lg':
-      return 'p-4'
-  }
-}
-
-const getIconClasses = (size: Size) => {
-  switch (size) {
-    case 'sm':
-      return 'h-4 w-4'
-    case 'default':
-      return 'h-5 w-5'
-    case 'lg':
-      return 'h-6 w-6'
-  }
-}
-
-const getOptionHeight = (size: Size) => {
-  switch (size) {
-    case 'sm':
-      return 32
-    case 'default':
-      return 40
-    case 'lg':
-      return 56
-  }
 }
 
 export const MultiSelect = ({
@@ -141,7 +87,7 @@ export const MultiSelect = ({
   )
 
   return (
-    <div className={cx('flex flex-col gap-1', className)}>
+    <div className={cx('flex flex-col gap-1', expanded ? 'w-full' : 'w-56', className)}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <select
         ref={hiddenSelectRef}
@@ -157,7 +103,7 @@ export const MultiSelect = ({
           )
         })}
       </select>
-      <div className={cx(textClasses, expanded ? 'w-full' : 'w-56')} ref={visibleSelectRef}>
+      <div className={textClasses} ref={visibleSelectRef}>
         <div id={id} className={cx('flex justify-between', inputClasses)} onClick={onInputClick}>
           <div className='flex gap-1 grow-0 flex-wrap'>
             {selectedOptions.map((option) => {

@@ -25,7 +25,7 @@ type Props = {
   visibleNumber?: number
 }
 
-const getTextClasses = (size: Size) => {
+export const getTextClasses = (size: Size) => {
   switch (size) {
     case 'sm':
       return 'text-xs'
@@ -36,7 +36,7 @@ const getTextClasses = (size: Size) => {
   }
 }
 
-const getInputPaddingClasses = (size: Size) => {
+export const getInputPaddingClasses = (size: Size) => {
   switch (size) {
     case 'sm':
       return 'p-1'
@@ -47,7 +47,7 @@ const getInputPaddingClasses = (size: Size) => {
   }
 }
 
-const getOptionPaddingClasses = (size: Size) => {
+export const getOptionPaddingClasses = (size: Size) => {
   switch (size) {
     case 'sm':
       return 'p-2'
@@ -58,7 +58,7 @@ const getOptionPaddingClasses = (size: Size) => {
   }
 }
 
-const getIconClasses = (size: Size) => {
+export const getIconClasses = (size: Size) => {
   switch (size) {
     case 'sm':
       return 'h-4 w-4'
@@ -69,7 +69,7 @@ const getIconClasses = (size: Size) => {
   }
 }
 
-const getOptionHeight = (size: Size) => {
+export const getOptionHeight = (size: Size) => {
   switch (size) {
     case 'sm':
       return 32
@@ -141,7 +141,7 @@ export const Select = ({
   )
 
   return (
-    <div className={cx('flex flex-col gap-1', className)}>
+    <div className={cx('flex flex-col gap-1', expanded ? 'w-full' : 'w-56', className)}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <select ref={hiddenSelectRef}
         name={name}
@@ -157,7 +157,7 @@ export const Select = ({
           )
         })}
       </select>
-      <div className={cx(textClasses, expanded ? 'w-full' : 'w-56')} ref={visibleSelectRef}>
+      <div className={textClasses} ref={visibleSelectRef}>
         <div id={id} className={cx('flex justify-between', inputClasses)} onClick={onInputClick}>
           <div className='flex gap-1 grow-0 flex-wrap py-1 px-2 '>
             {selectedOption ? selectedOption.label : ''}
