@@ -5,6 +5,7 @@ import { Text } from './Text'
 import { SelectOption } from '../types'
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import { isArray } from 'lodash-es'
+import { isChildOf } from '../utils/isChildOf'
 
 type Size = 'sm' | 'default' | 'lg'
 
@@ -78,18 +79,6 @@ const getOptionHeight = (size: Size) => {
   }
 }
 
-function isChildOf(child: any, parent: any) {
-  if (child.parentNode === parent) {
-    return true
-  }
-
-  if (child.parentNode === null) {
-    return false
-  }
-
-  return isChildOf(child.parentNode, parent)
-}
-
 export const MultiSelect = ({
   id,
   label,
@@ -145,12 +134,12 @@ export const MultiSelect = ({
   const optionHeight = getOptionHeight(size)
 
   const inputClasses = cx(
-    'focus:ring-1 ring-inset outline-none bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block disabled:cursor-default',
-    { 'text-gray-900': disabled },
+    'focus:ring-1 ring-inset outline-none bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block',
+    { 'text-gray-900 pointer-events-none': disabled},
     { 'ring-blue-500 border-blue-500': !collapsed },
     inputPaddingClasses,
-    className,
   )
+
   return (
     <div className={cx('flex flex-col gap-1', className)}>
       {label && <Label htmlFor={id}>{label}</Label>}
@@ -168,7 +157,7 @@ export const MultiSelect = ({
           )
         })}
       </select>
-      <div className={cx(textClasses, { 'w-full': expanded, 'w-56': !expanded })} ref={visibleSelectRef}>
+      <div className={cx(textClasses, expanded ? 'w-full' : 'w-56')} ref={visibleSelectRef}>
         <div id={id} className={cx('flex justify-between', inputClasses)} onClick={onInputClick}>
           <div className='flex gap-1 grow-0 flex-wrap'>
             {selectedOptions.map((option) => {
@@ -201,10 +190,7 @@ export const MultiSelect = ({
                   className={cx(
                     optionPaddingClasses,
                     "block px-4 text-nowrap cursor-pointer hover:bg-blue-200",
-                    {
-                      'text-blue-500': selected,
-                      'text-gray-900': !selected,
-                    }
+                    selected ? 'text-blue-500' : 'text-gray-900',
                   )}
                   onClick={() => onOptionClick(option.value)}
                 >

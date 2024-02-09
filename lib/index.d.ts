@@ -46,10 +46,11 @@ type SelectOption = {
     value: string;
     label: string;
 };
+type SelectOptions = SelectOption[] | string[] | number[];
 type SelectSize = 'sm' | 'default' | 'lg';
 type SelectProps = {
     name?: string;
-    options: SelectOption[];
+    options: SelectOptions;
     value?: string;
     onChange?: ChangeEventHandler<HTMLSelectElement>;
     className?: string;
@@ -75,10 +76,11 @@ type types_d_AlertType = AlertType;
 type types_d_PaginatedListResponse<ListResponse extends unknown[]> = PaginatedListResponse<ListResponse>;
 type types_d_QueryOptions<ResponseData, ErrorData = unknown> = QueryOptions<ResponseData, ErrorData>;
 type types_d_SelectOption = SelectOption;
+type types_d_SelectOptions = SelectOptions;
 type types_d_SelectProps = SelectProps;
 type types_d_SelectSize = SelectSize;
 declare namespace types_d {
-  export type { types_d_AlertType as AlertType, types_d_PaginatedListResponse as PaginatedListResponse, types_d_QueryOptions as QueryOptions, types_d_SelectOption as SelectOption, types_d_SelectProps as SelectProps, types_d_SelectSize as SelectSize };
+  export type { types_d_AlertType as AlertType, types_d_PaginatedListResponse as PaginatedListResponse, types_d_QueryOptions as QueryOptions, types_d_SelectOption as SelectOption, types_d_SelectOptions as SelectOptions, types_d_SelectProps as SelectProps, types_d_SelectSize as SelectSize };
 }
 
 type Size$4 = 'sm' | 'default' | 'lg';
@@ -87,7 +89,7 @@ type Props$i = {
     label?: string;
     error?: string;
     name?: string;
-    options: SelectOption[];
+    options: SelectOptions;
     value?: string;
     onChange?: ChangeEventHandler<HTMLSelectElement>;
     className?: string;
@@ -95,8 +97,9 @@ type Props$i = {
     expanded?: boolean;
     disabled?: boolean;
     defaultValue?: string;
+    visibleNumber?: number;
 };
-declare const Select: ({ id, label, error, name, value, options, onChange, className, size, expanded, disabled, }: Props$i) => react_jsx_runtime.JSX.Element;
+declare const Select: ({ id, label, error, name, value: initialValue, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props$i) => react_jsx_runtime.JSX.Element;
 
 type Size$3 = 'sm' | 'default' | 'lg';
 type Props$h = {

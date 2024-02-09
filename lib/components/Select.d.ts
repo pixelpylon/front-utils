@@ -1,12 +1,12 @@
 import { ChangeEventHandler } from 'react';
-import { SelectOption } from '../types';
+import { SelectOptions } from '../types';
 type Size = 'sm' | 'default' | 'lg';
 type Props = {
     id?: string;
     label?: string;
     error?: string;
     name?: string;
-    options: SelectOption[];
+    options: SelectOptions;
     value?: string;
     onChange?: ChangeEventHandler<HTMLSelectElement>;
     className?: string;
@@ -14,6 +14,7 @@ type Props = {
     expanded?: boolean;
     disabled?: boolean;
     defaultValue?: string;
+    visibleNumber?: number;
 };
-export declare const Select: ({ id, label, error, name, value, options, onChange, className, size, expanded, disabled, }: Props) => import("react/jsx-runtime").JSX.Element;
+export declare const Select: ({ id, label, error, name, value: initialValue, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props) => import("react/jsx-runtime").JSX.Element;
 export {};

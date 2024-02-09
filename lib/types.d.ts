@@ -3,10 +3,11 @@ export type SelectOption = {
     value: string;
     label: string;
 };
+export type SelectOptions = SelectOption[] | string[] | number[];
 export type SelectSize = 'sm' | 'default' | 'lg';
 export type SelectProps = {
     name?: string;
-    options: SelectOption[];
+    options: SelectOptions;
     value?: string;
     onChange?: ChangeEventHandler<HTMLSelectElement>;
     className?: string;
