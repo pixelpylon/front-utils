@@ -21,13 +21,13 @@ const getColorClasses = (color: Color, outline: boolean) => {
   if (outline) {
     switch (color) {
       case 'default':
-        return 'text-blue-700 hover:text-white border-blue-700 hover:bg-blue-800 focus:ring-blue-300'
+        return 'text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-blue-300'
       case 'dark':
-        return 'text-gray-900 hover:text-white border-gray-800 hover:bg-gray-900 focus:ring-gray-300'
+        return 'text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-gray-300'
       case 'green':
-        return 'text-green-700 hover:text-white border-green-700 hover:bg-green-800 focus:ring-green-300'
+        return 'text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-green-300'
       case 'red':
-        return 'text-red-700 hover:text-white border-red-700 hover:bg-red-800 focus:ring-red-300'
+        return 'text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300'
       case 'yellow':
         return 'text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-yellow-300'
       case 'purple':

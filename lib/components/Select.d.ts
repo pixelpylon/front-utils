@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, MutableRefObject } from 'react';
 import { SelectOptions } from '../types';
 type Size = 'sm' | 'default' | 'lg';
 type Props = {
@@ -15,6 +15,10 @@ type Props = {
     disabled?: boolean;
     defaultValue?: string;
     visibleNumber?: number;
+};
+export declare const getDistances: (selectRef: MutableRefObject<HTMLDivElement | null>) => {
+    toTop: number;
+    toBottom: number;
 };
 export declare const getTextClasses: (size: Size) => "text-xs" | "text-sm" | "text-base";
 export declare const getInputPaddingClasses: (size: Size) => "p-1" | "p-1.5" | "p-3";

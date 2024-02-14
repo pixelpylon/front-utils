@@ -174,8 +174,16 @@ type Row = {
 type Props$e = {
     headers: Header[];
     rows: Row[];
+    showHeader?: boolean;
+    className?: string;
+    tableClassName?: string;
+    headerTrClassName?: string;
+    headerThClassName?: string;
+    bodyTrClassName?: string;
+    bodyTdClassName?: string;
+    bodyThClassName?: string;
 };
-declare const Table: ({ headers, rows }: Props$e) => react_jsx_runtime.JSX.Element;
+declare const Table: ({ headers, rows, showHeader, className, tableClassName, headerTrClassName, headerThClassName, bodyTrClassName, bodyTdClassName, bodyThClassName }: Props$e) => react_jsx_runtime.JSX.Element;
 
 type Color = 'default' | 'green' | 'red' | 'blue';
 type Size = 'sm' | 'default' | 'lg';

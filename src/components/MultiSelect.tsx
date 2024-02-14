@@ -1,12 +1,12 @@
 import cx from 'classnames'
-import { ChangeEventHandler, useEffect, useRef, useState } from 'react'
+import { CSSProperties, ChangeEventHandler, useEffect, useRef, useState } from 'react'
 import { Label } from './Label'
 import { Text } from './Text'
 import { SelectOptions } from '../types'
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import { isArray } from 'lodash-es'
 import { isChildOf } from '../utils/isChildOf'
-import { getIconClasses, getInputPaddingClasses, getOptionHeight, getOptionPaddingClasses, getTextClasses } from './Select'
+import { getDistances, getIconClasses, getInputPaddingClasses, getOptionHeight, getOptionPaddingClasses, getTextClasses } from './Select'
 import { normalizeOptions } from '../utils/normalizeOptions'
 
 type Size = 'sm' | 'default' | 'lg'
@@ -44,6 +44,7 @@ export const MultiSelect = ({
   const [values, setValues] = useState<string[]>(isArray(initialValues) ? initialValues : [])
   const [prevValues, setPrevValues] = useState(values)
   const [collapsed, setCollapsed] = useState(true)
+  const [optionsStyles, setOptionsStyles] = useState<CSSProperties>({})
   const visibleSelectRef = useRef<HTMLDivElement | null>(null)
   const hiddenSelectRef = useRef<HTMLSelectElement | null>(null)
 
@@ -86,11 +87,35 @@ export const MultiSelect = ({
   const optionHeight = getOptionHeight(size)
 
   const inputClasses = cx(
-    'focus:ring-1 ring-inset outline-none bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block',
-    { 'text-gray-900 pointer-events-none': disabled},
+    'focus:ring-1 ring-inset outline-none bg-transparent border border-gray-300 text-gray-900 rounded-lg block',
+    { '!text-gray-500 pointer-events-none !bg-gray-50': disabled },
     { 'ring-blue-500 border-blue-500': !collapsed },
     inputPaddingClasses,
   )
+
+  useEffect(() => {
+    if (!visibleSelectRef.current) {
+      return
+    }
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const distances = getDistances(visibleSelectRef)
+        const desiredOptionsHeight = (optionHeight + 1) * Math.min(visibleNumber, normalizedOptions.length) + 8 * 2
+        const resultOptionsHeight = Math.min(Math.max(distances.toTop, distances.toBottom), desiredOptionsHeight)
+        const optionsPosition = resultOptionsHeight <= distances.toBottom ? { top: 0 } : { bottom: entry.contentRect.height }
+        setOptionsStyles({maxHeight: resultOptionsHeight, ...optionsPosition})
+      }
+    })
+
+    resizeObserver.observe(visibleSelectRef.current)
+
+    return () => {
+      if (visibleSelectRef.current) {
+        resizeObserver.unobserve(visibleSelectRef.current)
+      }
+    }
+  }, [visibleSelectRef.current])
 
   return (
     <div className={cx('flex flex-col gap-1', expanded ? 'w-full' : 'w-56', className)}>
@@ -134,7 +159,7 @@ export const MultiSelect = ({
         <div className={cx("relative w-full", { 'hidden': collapsed })}>
           <ul
             className="flex flex-col absolute w-full z-10 bg-white divide-y divide-gray-100 rounded-lg shadow block py-2 overflow-y-auto"
-            style={{ maxHeight: (optionHeight + 1) * visibleNumber + 8 }}
+            style={optionsStyles}
           >
             {normalizedOptions.map((option) => {
               const selected = values.includes(option.value)

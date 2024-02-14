@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import { ChangeEventHandler, useEffect, useRef, useState } from 'react'
+import { CSSProperties, ChangeEventHandler, MutableRefObject, useEffect, useRef, useState } from 'react'
 import { Label } from './Label'
 import { Text } from './Text'
 import { SelectOptions } from '../types'
@@ -23,6 +23,25 @@ type Props = {
   disabled?: boolean
   defaultValue?: string
   visibleNumber?: number
+}
+
+export const getDistances = (selectRef: MutableRefObject<HTMLDivElement | null>) => {
+  if (!selectRef.current) {
+    return {
+      toTop: 0,
+      toBottom: 0,
+    }
+  }
+
+  const rect = selectRef.current.getBoundingClientRect()
+
+  const toTop = rect.top + document.body.scrollTop
+  const toBottom = document.body.scrollHeight - toTop - rect.height
+
+  return {
+    toTop,
+    toBottom,
+  }
 }
 
 export const getTextClasses = (size: Size) => {
@@ -102,6 +121,7 @@ export const Select = ({
   const normalizedOptions = [NOT_SELECTED, ...normalizeOptions(options)]
   const [value, setValue] = useState(initialValue)
   const [collapsed, setCollapsed] = useState(true)
+  const [optionsStyles, setOptionsStyles] = useState<CSSProperties>({})
   const visibleSelectRef = useRef<HTMLDivElement | null>(null)
   const hiddenSelectRef = useRef<HTMLSelectElement | null>(null)
 
@@ -139,11 +159,35 @@ export const Select = ({
   const optionHeight = getOptionHeight(size)
 
   const inputClasses = cx(
-    'focus:ring-1 ring-inset outline-none bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block',
-    { 'text-gray-900 pointer-events-none': disabled },
+    'focus:ring-1 ring-inset outline-none bg-transparent border border-gray-300 text-gray-900 rounded-lg block',
+    { '!text-gray-500 pointer-events-none !bg-gray-50': disabled },
     { 'ring-blue-500 border-blue-500': !collapsed },
     inputPaddingClasses,
   )
+
+  useEffect(() => {
+    if (!visibleSelectRef.current) {
+      return
+    }
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const distances = getDistances(visibleSelectRef)
+        const desiredOptionsHeight = (optionHeight + 1) * Math.min(visibleNumber, normalizedOptions.length) + 8 * 2
+        const resultOptionsHeight = Math.min(Math.max(distances.toTop, distances.toBottom), desiredOptionsHeight)
+        const optionsPosition = resultOptionsHeight <= distances.toBottom ? { top: 0 } : { bottom: entry.contentRect.height }
+        setOptionsStyles({maxHeight: resultOptionsHeight, ...optionsPosition})
+      }
+    })
+
+    resizeObserver.observe(visibleSelectRef.current)
+
+    return () => {
+      if (visibleSelectRef.current) {
+        resizeObserver.unobserve(visibleSelectRef.current)
+      }
+    }
+  }, [visibleSelectRef.current])
 
   const selectedOptionLabel = selectedOption ? selectedOption.label : 'None'
   const selectedOptionValue = selectedOption ? selectedOption.value : ''
@@ -177,7 +221,7 @@ export const Select = ({
         <div className={cx("relative w-full", { 'hidden': collapsed })}>
           <ul
             className="flex flex-col absolute w-full z-10 bg-white divide-y divide-gray-100 rounded-lg shadow block py-2 overflow-y-auto"
-            style={{ maxHeight: (optionHeight + 1) * visibleNumber + 8 }}
+            style={optionsStyles}
           >
             {normalizedOptions.map((option) => {
               const selected = option.value === value

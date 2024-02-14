@@ -27,7 +27,7 @@ type Props = {
 const getColorClasses = (color: Color) => {
   switch (color) {
     case 'default':
-      return 'bg-gray-50 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 disabled:text-gray-500'
+      return 'bg-transparent border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 disabled:text-gray-500'
     case 'green':
       return 'bg-green-50 border-green-500 text-green-900 placeholder-green-700 focus:ring-green-500 focus:border-green-500 disabled:text-green-500'
     case 'red':
@@ -66,7 +66,7 @@ export const Input = ({
   const colorClasses = getColorClasses(color)
   const sizeClasses = getSizeClasses(size)
   const resultClassName = cx(
-    'focus:ring-1 outline-none block border rounded-lg disabled:cursor-default',
+    'focus:ring-1 outline-none block border rounded-lg disabled:cursor-default disabled:bg-gray-50',
     {'w-full': expanded},
     {'w-fit': !expanded},
     colorClasses,

@@ -23,7 +23,6 @@ export const ToasterProvider = ({children}: Props) => {
   const [events, setEvents] = useState<TimedToasterEvent[]>([])
 
   const remove = (eventKey: string) => {
-    console.log('remove', eventKey)
     setEvents((events) => events.filter(({key}) => key !== eventKey))
   }
 
