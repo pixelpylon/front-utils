@@ -13,3 +13,4 @@ export { StandardLink } from './StandardLink';
 export { EditLink } from './EditLink';
 export { Toaster } from './Toaster';
 export { Failure } from './Failure';
+export { Backdrop } from './Backdrop';

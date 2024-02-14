@@ -2,11 +2,12 @@ import cx from 'classnames'
 import { ChangeEventHandler, useEffect, useRef, useState } from 'react'
 import { Label } from './Label'
 import { Text } from './Text'
-import { SelectOption } from '../types'
+import { SelectOptions } from '../types'
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import { isArray } from 'lodash-es'
 import { isChildOf } from '../utils/isChildOf'
 import { getIconClasses, getInputPaddingClasses, getOptionHeight, getOptionPaddingClasses, getTextClasses } from './Select'
+import { normalizeOptions } from '../utils/normalizeOptions'
 
 type Size = 'sm' | 'default' | 'lg'
 
@@ -15,7 +16,7 @@ type Props = {
   label?: string
   error?: string
   name?: string
-  options: SelectOption[]
+  options: SelectOptions
   value?: string[]
   onChange?: ChangeEventHandler<HTMLSelectElement>
   className?: string
@@ -39,7 +40,9 @@ export const MultiSelect = ({
   expanded,
   disabled,
 }: Props) => {
+  const normalizedOptions = normalizeOptions(options)
   const [values, setValues] = useState<string[]>(isArray(initialValues) ? initialValues : [])
+  const [prevValues, setPrevValues] = useState(values)
   const [collapsed, setCollapsed] = useState(true)
   const visibleSelectRef = useRef<HTMLDivElement | null>(null)
   const hiddenSelectRef = useRef<HTMLSelectElement | null>(null)
@@ -52,7 +55,10 @@ export const MultiSelect = ({
 
   useEffect(() => {
     if (hiddenSelectRef && hiddenSelectRef.current) {
-      hiddenSelectRef.current.dispatchEvent(new Event('change', { bubbles: true }))
+      if (values !== prevValues) {
+        hiddenSelectRef.current.dispatchEvent(new Event('change', { bubbles: true }))
+      }
+      setPrevValues(values)
     }
   }, [values])
 
@@ -71,7 +77,7 @@ export const MultiSelect = ({
     return () => document.removeEventListener('click', onClick)
   }, [])
 
-  const selectedOptions = options.filter((option) => values.includes(option.value))
+  const selectedOptions = normalizedOptions.filter((option) => values.includes(option.value))
 
   const textClasses = getTextClasses(size)
   const inputPaddingClasses = getInputPaddingClasses(size)
@@ -97,7 +103,7 @@ export const MultiSelect = ({
         value={values}
         onChange={onChange}
       >
-        {options.map((option) => {
+        {normalizedOptions.map((option) => {
           return (
             <option key={option.value} value={option.value} />
           )
@@ -106,7 +112,10 @@ export const MultiSelect = ({
       <div className={textClasses} ref={visibleSelectRef}>
         <div id={id} className={cx('flex justify-between', inputClasses)} onClick={onInputClick}>
           <div className='flex gap-1 grow-0 flex-wrap'>
-            {selectedOptions.map((option) => {
+            {selectedOptions.length === 0 && (
+              <span className="text-nowrap italic text-gray-500 py-1 px-2">None</span>
+            )}
+            {selectedOptions.length > 0 && selectedOptions.map((option) => {
               return (
                 <div
                   className="py-1 px-2 bg-blue-300 rounded-full flex flex-nowrap gap-2 items-center"
@@ -127,7 +136,7 @@ export const MultiSelect = ({
             className="flex flex-col absolute w-full z-10 bg-white divide-y divide-gray-100 rounded-lg shadow block py-2 overflow-y-auto"
             style={{ maxHeight: (optionHeight + 1) * visibleNumber + 8 }}
           >
-            {options.map((option) => {
+            {normalizedOptions.map((option) => {
               const selected = values.includes(option.value)
               return (
                 <li

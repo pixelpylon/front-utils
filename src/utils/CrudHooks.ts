@@ -1,36 +1,44 @@
-import capitalize from 'lodash-es/capitalize'
-import {InfiniteData, useInfiniteQuery, useMutation, useQuery} from 'react-query'
-import {CrudApi} from './CrudApi'
-import {PaginatedListResponse, QueryOptions} from '../types'
-import {ToasterProvider} from '../providers'
-import {ListParams} from '@exp1/common-utils'
+import { InfiniteData, useInfiniteQuery, useMutation, useQuery } from 'react-query'
+import { CrudApi } from './CrudApi'
+import { PaginatedListResponse, QueryOptions } from '../types'
+import { ToasterProvider } from '../providers'
+import { ListParams } from '@exp1/common-utils'
 
 export class CrudHooks<
   CreateParams,
-  UpdateParams extends {id: string},
+  UpdateParams extends { id: string },
   ListResponse extends unknown[],
   ItemResponse,
   CreateResponse,
   UpdateResponse,
+  CrudApiInstance extends CrudApi<
+    CreateParams,
+    UpdateParams,
+    ListResponse,
+    ItemResponse,
+    CreateResponse,
+    UpdateResponse
+  > = CrudApi<
+    CreateParams,
+    UpdateParams,
+    ListResponse,
+    ItemResponse,
+    CreateResponse,
+    UpdateResponse
+  >
 > {
   constructor(
-    private readonly entityName: string,
-    private readonly crudApi: CrudApi<
-      CreateParams,
-      UpdateParams,
-      ListResponse,
-      ItemResponse,
-      CreateResponse,
-      UpdateResponse
-    >
-  ) {}
+    protected readonly entityKey: string,
+    protected readonly entityName: string,
+    protected readonly crudApi: CrudApiInstance,
+  ) { }
 
   useCreateMutation() {
     const add = ToasterProvider.useToasterMessageAdder()
     return useMutation<CreateResponse, unknown, CreateParams>((params: CreateParams) => this.crudApi.create(params), {
       onSuccess: () => {
         add({
-          message: `${capitalize(this.entityName)} added`,
+          message: `${this.entityName} added`,
           type: 'success',
         })
       },
@@ -42,7 +50,7 @@ export class CrudHooks<
     return useMutation<UpdateResponse, unknown, UpdateParams>((params: UpdateParams) => this.crudApi.update(params), {
       onSuccess: () => {
         add({
-          message: `${capitalize(this.entityName)} updated`,
+          message: `${this.entityName} updated`,
           type: 'success',
         })
       },
@@ -54,7 +62,7 @@ export class CrudHooks<
     return useMutation<unknown, unknown, string>((id: string) => this.crudApi.remove(id), {
       onSuccess: () => {
         add({
-          message: `${capitalize(this.entityName)} removed`,
+          message: `${this.entityName} removed`,
           type: 'success',
         })
       },
@@ -62,17 +70,17 @@ export class CrudHooks<
   }
 
   useItemQuery(id: string, options?: QueryOptions<ItemResponse>) {
-    return useQuery<ItemResponse>([this.entityName, 'item', id], () => this.crudApi.item(id), options)
+    return useQuery<ItemResponse>([this.entityKey, 'item', id], () => this.crudApi.item(id), options)
   }
 
-  useListQuery({filters, ordering, limit}: ListParams = {}, options?: QueryOptions<ListResponse>) {
-    return useQuery<ListResponse>([this.entityName, 'list', filters, ordering, limit], () => this.crudApi.list({filters, ordering, limit}), options)
+  useListQuery({ filters, ordering, limit }: ListParams = {}, options?: QueryOptions<ListResponse>) {
+    return useQuery<ListResponse>([this.entityKey, 'list', filters, ordering, limit], () => this.crudApi.list({ filters, ordering, limit }), options)
   }
 
-  usePaginatedListQuery({filters, ordering, limit}: ListParams = {}, options?: QueryOptions<InfiniteData<PaginatedListResponse<ListResponse>>>) {
+  usePaginatedListQuery({ filters, ordering, limit }: ListParams = {}, options?: QueryOptions<InfiniteData<PaginatedListResponse<ListResponse>>>) {
     return useInfiniteQuery<PaginatedListResponse<ListResponse>>({
-      queryKey: [this.entityName, 'paginatedList', filters, ordering, limit],
-      queryFn: ({pageParam: cursor}) => this.crudApi.paginatedList({filters, ordering, limit, cursor}),
+      queryKey: [this.entityKey, 'paginatedList', filters, ordering, limit],
+      queryFn: ({ pageParam: cursor }) => this.crudApi.paginatedList({ filters, ordering, limit, cursor }),
       getNextPageParam: (lastPage) => lastPage.nextCursor,
       ...options,
     })

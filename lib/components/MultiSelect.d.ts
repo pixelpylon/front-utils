@@ -1,12 +1,12 @@
 import { ChangeEventHandler } from 'react';
-import { SelectOption } from '../types';
+import { SelectOptions } from '../types';
 type Size = 'sm' | 'default' | 'lg';
 type Props = {
     id?: string;
     label?: string;
     error?: string;
     name?: string;
-    options: SelectOption[];
+    options: SelectOptions;
     value?: string[];
     onChange?: ChangeEventHandler<HTMLSelectElement>;
     className?: string;

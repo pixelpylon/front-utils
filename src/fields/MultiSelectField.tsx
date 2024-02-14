@@ -1,5 +1,5 @@
 import {Field} from 'react-final-form'
-import {SelectOption} from '../types'
+import {SelectOptions} from '../types'
 import {MultiSelect} from '../components'
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   label?: string
   name: string
   type?: string
-  options: SelectOption[]
+  options: SelectOptions
   disabled?: boolean
   expanded?: boolean
   className?: string

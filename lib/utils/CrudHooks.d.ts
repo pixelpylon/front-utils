@@ -4,10 +4,11 @@ import { PaginatedListResponse, QueryOptions } from '../types';
 import { ListParams } from '@exp1/common-utils';
 export declare class CrudHooks<CreateParams, UpdateParams extends {
     id: string;
-}, ListResponse extends unknown[], ItemResponse, CreateResponse, UpdateResponse> {
-    private readonly entityName;
-    private readonly crudApi;
-    constructor(entityName: string, crudApi: CrudApi<CreateParams, UpdateParams, ListResponse, ItemResponse, CreateResponse, UpdateResponse>);
+}, ListResponse extends unknown[], ItemResponse, CreateResponse, UpdateResponse, CrudApiInstance extends CrudApi<CreateParams, UpdateParams, ListResponse, ItemResponse, CreateResponse, UpdateResponse> = CrudApi<CreateParams, UpdateParams, ListResponse, ItemResponse, CreateResponse, UpdateResponse>> {
+    protected readonly entityKey: string;
+    protected readonly entityName: string;
+    protected readonly crudApi: CrudApiInstance;
+    constructor(entityKey: string, entityName: string, crudApi: CrudApiInstance);
     useCreateMutation(): import("react-query").UseMutationResult<CreateResponse, unknown, CreateParams, unknown>;
     useUpdateMutation(): import("react-query").UseMutationResult<UpdateResponse, unknown, UpdateParams, unknown>;
     useRemoveMutation(): import("react-query").UseMutationResult<unknown, unknown, string, unknown>;

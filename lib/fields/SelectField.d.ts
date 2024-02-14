@@ -1,9 +1,9 @@
-import { SelectOption } from '../types';
+import { SelectOptions } from '../types';
 type Props = {
     id?: string;
     label?: string;
     name: string;
-    options: SelectOption[];
+    options: SelectOptions;
     disabled?: boolean;
     expanded?: boolean;
     className?: string;

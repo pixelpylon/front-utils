@@ -82,7 +82,7 @@ export const getOptionHeight = (size: Size) => {
 
 const NOT_SELECTED = {
   value: '',
-  label: '',
+  label: 'None',
 }
 
 export const Select = ({
@@ -145,6 +145,9 @@ export const Select = ({
     inputPaddingClasses,
   )
 
+  const selectedOptionLabel = selectedOption ? selectedOption.label : 'None'
+  const selectedOptionValue = selectedOption ? selectedOption.value : ''
+
   return (
     <div className={cx('flex flex-col gap-1', expanded ? 'w-full' : 'w-56', className)}>
       {label && <Label htmlFor={id}>{label}</Label>}
@@ -164,8 +167,8 @@ export const Select = ({
       </select>
       <div className={textClasses} ref={visibleSelectRef}>
         <div id={id} className={cx('flex justify-between', inputClasses)} onClick={onInputClick}>
-          <div className='flex gap-1 grow-0 flex-wrap py-1 px-2 '>
-            {selectedOption ? selectedOption.label : ''}
+          <div className={cx('flex gap-1 grow-0 flex-wrap py-1 px-2', {'italic text-gray-500': selectedOptionValue === ''})}>
+            {selectedOptionLabel}
           </div>
           <div className="border-l py-1 pl-3 pr-2">
             <ChevronDownIcon className={cx(iconClasses, 'cursor-pointer')} />
@@ -186,6 +189,7 @@ export const Select = ({
                     optionPaddingClasses,
                     "block px-4 text-nowrap cursor-pointer hover:bg-blue-200",
                     selected ? 'text-blue-500' : 'text-gray-900',
+                    {'italic': option.value === ''},
                   )}
                   onClick={() => onOptionClick(option.value)}
                 >

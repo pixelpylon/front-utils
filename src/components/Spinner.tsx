@@ -1,7 +1,9 @@
+import { Backdrop } from "./Backdrop"
+
 export const Spinner = () => {
   return (
-    <div
-      className="fixed w-screen h-screen z-[1000] top-0 left-0 bg-gray-100 bg-opacity-50 w-full h-full flex justify-center items-center"
+    <Backdrop
+      className="z-[1000]"
     >
       <svg
         aria-hidden="true"
@@ -19,6 +21,6 @@ export const Spinner = () => {
           fill="currentFill"
         />
       </svg>
-    </div>
+    </Backdrop>
   )
 }
