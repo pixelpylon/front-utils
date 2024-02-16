@@ -1,11 +1,11 @@
 import { ChangeEventHandler } from 'react';
+import { ControlSize } from '../types';
 type Color = 'default' | 'green' | 'red';
-type Size = 'sm' | 'default' | 'lg';
 type Props = {
     id?: string;
     label?: string;
     error?: string;
-    size?: Size;
+    size?: ControlSize;
     color?: Color;
     name?: string;
     value?: string;

@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 type Color = 'default' | 'dark' | 'green' | 'red' | 'yellow' | 'purple';
-type Size = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
+export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
 type Props = {
     onSubmit?: () => void;
     onClick?: () => void;
     children: ReactNode;
     color?: Color;
-    size?: Size;
+    size?: ButtonSize;
     outline?: boolean;
     type?: 'button' | 'submit' | 'reset';
     className?: string;

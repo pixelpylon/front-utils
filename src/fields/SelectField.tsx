@@ -1,6 +1,6 @@
 import {Field} from 'react-final-form'
 import {Select} from '../components'
-import {SelectOptions} from '../types'
+import {ControlSize, SelectOptions} from '../types'
 
 type Props = {
   id?: string
@@ -10,9 +10,10 @@ type Props = {
   disabled?: boolean
   expanded?: boolean
   className?: string
+  size?: ControlSize
 }
 
-export const SelectField = ({id, label, name, options, disabled, expanded, className}: Props) => {
+export const SelectField = ({id, label, name, options, disabled, expanded, className, size}: Props) => {
   return (
     <Field
       name={name}
@@ -27,6 +28,7 @@ export const SelectField = ({id, label, name, options, disabled, expanded, class
             disabled={disabled}
             expanded={expanded}
             className={className}
+            size={size}
           />
         )
       }}

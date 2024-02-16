@@ -1,15 +1,15 @@
 import cx from 'classnames'
-import React, {ReactNode} from 'react'
+import {ReactNode} from 'react'
 
 type Color = 'default' | 'dark' | 'green' | 'red' | 'yellow' | 'purple'
-type Size = 'xs' | 'sm' | 'default' | 'lg' | 'xl'
+export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl'
 
 type Props = {
   onSubmit?: () => void
   onClick?: () => void
   children: ReactNode
   color?: Color
-  size?: Size
+  size?: ButtonSize
   outline?: boolean
   type?: 'button' | 'submit' | 'reset'
   className?: string
@@ -51,7 +51,7 @@ const getColorClasses = (color: Color, outline: boolean) => {
   }
 }
 
-const getSizeClasses = (size: Size) => {
+const getSizeClasses = (size: ButtonSize) => {
   switch (size) {
     case 'xs':
       return 'px-3 py-2 text-xs'

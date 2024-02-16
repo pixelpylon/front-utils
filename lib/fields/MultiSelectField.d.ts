@@ -1,4 +1,4 @@
-import { SelectOptions } from '../types';
+import { ControlSize, SelectOptions } from '../types';
 type Props = {
     id?: string;
     initialValue?: string[];
@@ -10,6 +10,7 @@ type Props = {
     expanded?: boolean;
     className?: string;
     visibleNumber?: number;
+    size?: ControlSize;
 };
-export declare const MultiSelectField: ({ id, initialValue, label, name, options, disabled, expanded, className, visibleNumber, }: Props) => import("react/jsx-runtime").JSX.Element;
+export declare const MultiSelectField: ({ id, initialValue, label, name, options, disabled, expanded, className, visibleNumber, size, }: Props) => import("react/jsx-runtime").JSX.Element;
 export {};

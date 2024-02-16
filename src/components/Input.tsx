@@ -2,15 +2,15 @@ import cx from 'classnames'
 import {ChangeEventHandler} from 'react'
 import {Label} from './Label'
 import {Text} from './Text'
+import { ControlSize } from '../types'
 
 type Color = 'default' | 'green' | 'red'
-type Size = 'sm' | 'default' | 'lg'
 
 type Props = {
   id?: string
   label?: string
   error?: string
-  size?: Size
+  size?: ControlSize
   color?: Color
   name?: string
   value?: string
@@ -35,7 +35,7 @@ const getColorClasses = (color: Color) => {
   }
 }
 
-const getSizeClasses = (size: Size) => {
+const getSizeClasses = (size: ControlSize) => {
   switch (size) {
     case 'sm':
       return 'text-xs p-2'

@@ -7,7 +7,7 @@ export type SelectOption = {
 
 export type SelectOptions = SelectOption[] | string[] | number[]
 
-export type SelectSize = 'sm' | 'default' | 'lg'
+export type ControlSize = 'sm' | 'default' | 'lg'
 
 export type SelectProps = {
   name?: string
@@ -15,7 +15,7 @@ export type SelectProps = {
   value?: string
   onChange?: ChangeEventHandler<HTMLSelectElement>
   className?: string
-  size?: SelectSize
+  size?: ControlSize
   expanded?: boolean
   disabled?: boolean
   defaultValue?: string

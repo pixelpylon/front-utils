@@ -1,6 +1,5 @@
 import { ChangeEventHandler } from 'react';
-import { SelectOptions } from '../types';
-type Size = 'sm' | 'default' | 'lg';
+import { ControlSize, SelectOptions } from '../types';
 type Props = {
     id?: string;
     label?: string;
@@ -10,7 +9,7 @@ type Props = {
     value?: string[];
     onChange?: ChangeEventHandler<HTMLSelectElement>;
     className?: string;
-    size?: Size;
+    size?: ControlSize;
     expanded?: boolean;
     disabled?: boolean;
     visibleNumber?: number;

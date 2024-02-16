@@ -1,5 +1,5 @@
 import {Field} from 'react-final-form'
-import {SelectOptions} from '../types'
+import {ControlSize, SelectOptions} from '../types'
 import {MultiSelect} from '../components'
 
 type Props = {
@@ -13,6 +13,7 @@ type Props = {
   expanded?: boolean
   className?: string
   visibleNumber?: number
+  size?: ControlSize
 }
 
 export const MultiSelectField = ({
@@ -25,6 +26,7 @@ export const MultiSelectField = ({
   expanded,
   className,
   visibleNumber,
+  size,
 }: Props) => {
   return (
     <Field
@@ -42,6 +44,7 @@ export const MultiSelectField = ({
             expanded={expanded}
             className={className}
             visibleNumber={visibleNumber}
+            size={size}
           />
         )
       }}

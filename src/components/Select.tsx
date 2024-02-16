@@ -2,12 +2,10 @@ import cx from 'classnames'
 import { CSSProperties, ChangeEventHandler, MutableRefObject, useEffect, useRef, useState } from 'react'
 import { Label } from './Label'
 import { Text } from './Text'
-import { SelectOptions } from '../types'
+import { ControlSize, SelectOptions } from '../types'
 import { isChildOf } from '../utils/isChildOf'
 import { normalizeOptions } from '../utils/normalizeOptions'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
-
-type Size = 'sm' | 'default' | 'lg'
 
 type Props = {
   id?: string
@@ -18,7 +16,7 @@ type Props = {
   value?: string
   onChange?: ChangeEventHandler<HTMLSelectElement>
   className?: string
-  size?: Size
+  size?: ControlSize
   expanded?: boolean
   disabled?: boolean
   defaultValue?: string
@@ -44,7 +42,7 @@ export const getDistances = (selectRef: MutableRefObject<HTMLDivElement | null>)
   }
 }
 
-export const getTextClasses = (size: Size) => {
+export const getTextClasses = (size: ControlSize) => {
   switch (size) {
     case 'sm':
       return 'text-xs'
@@ -55,7 +53,7 @@ export const getTextClasses = (size: Size) => {
   }
 }
 
-export const getInputPaddingClasses = (size: Size) => {
+export const getInputPaddingClasses = (size: ControlSize) => {
   switch (size) {
     case 'sm':
       return 'p-1'
@@ -66,7 +64,7 @@ export const getInputPaddingClasses = (size: Size) => {
   }
 }
 
-export const getOptionPaddingClasses = (size: Size) => {
+export const getOptionPaddingClasses = (size: ControlSize) => {
   switch (size) {
     case 'sm':
       return 'p-2'
@@ -77,7 +75,7 @@ export const getOptionPaddingClasses = (size: Size) => {
   }
 }
 
-export const getIconClasses = (size: Size) => {
+export const getIconClasses = (size: ControlSize) => {
   switch (size) {
     case 'sm':
       return 'h-4 w-4'
@@ -88,7 +86,7 @@ export const getIconClasses = (size: Size) => {
   }
 }
 
-export const getOptionHeight = (size: Size) => {
+export const getOptionHeight = (size: ControlSize) => {
   switch (size) {
     case 'sm':
       return 32

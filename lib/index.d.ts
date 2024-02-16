@@ -5,56 +5,19 @@ import { AxiosError, AxiosInstance } from 'axios';
 import * as react_query from 'react-query';
 import { InfiniteData, InfiniteQueryObserverResult } from 'react-query';
 
-type Color$3 = 'default' | 'green' | 'red';
-type Size$6 = 'sm' | 'default' | 'lg';
-type Props$l = {
-    id?: string;
-    label?: string;
-    error?: string;
-    size?: Size$6;
-    color?: Color$3;
-    name?: string;
-    value?: string;
-    type?: string;
-    onChange?: ChangeEventHandler<HTMLInputElement>;
-    className?: string;
-    expanded?: boolean;
-    disabled?: boolean;
-    spellCheck?: boolean;
-    min?: number;
-    max?: number;
-};
-declare const Input: ({ id, label, error, color, size, type, name, value, min, max, onChange, className, expanded, disabled, spellCheck, }: Props$l) => react_jsx_runtime.JSX.Element;
-
-type Color$2 = 'default' | 'green' | 'red';
-type Size$5 = 'sm' | 'default' | 'lg';
-type Props$k = {
-    id?: string;
-    label?: string;
-    error?: string;
-    size?: Size$5;
-    color?: Color$2;
-    name?: string;
-    checked?: boolean;
-    onChange?: ChangeEventHandler<HTMLInputElement>;
-    className?: string;
-    disabled?: boolean;
-};
-declare const Checkbox: ({ id, label, error, color, size, name, checked, onChange, className, disabled, }: Props$k) => react_jsx_runtime.JSX.Element;
-
 type SelectOption = {
     value: string;
     label: string;
 };
 type SelectOptions = SelectOption[] | string[] | number[];
-type SelectSize = 'sm' | 'default' | 'lg';
+type ControlSize = 'sm' | 'default' | 'lg';
 type SelectProps = {
     name?: string;
     options: SelectOptions;
     value?: string;
     onChange?: ChangeEventHandler<HTMLSelectElement>;
     className?: string;
-    size?: SelectSize;
+    size?: ControlSize;
     expanded?: boolean;
     disabled?: boolean;
     defaultValue?: string;
@@ -73,17 +36,52 @@ type PaginatedListResponse<ListResponse extends unknown[]> = {
 };
 
 type types_d_AlertType = AlertType;
+type types_d_ControlSize = ControlSize;
 type types_d_PaginatedListResponse<ListResponse extends unknown[]> = PaginatedListResponse<ListResponse>;
 type types_d_QueryOptions<ResponseData, ErrorData = unknown> = QueryOptions<ResponseData, ErrorData>;
 type types_d_SelectOption = SelectOption;
 type types_d_SelectOptions = SelectOptions;
 type types_d_SelectProps = SelectProps;
-type types_d_SelectSize = SelectSize;
 declare namespace types_d {
-  export type { types_d_AlertType as AlertType, types_d_PaginatedListResponse as PaginatedListResponse, types_d_QueryOptions as QueryOptions, types_d_SelectOption as SelectOption, types_d_SelectOptions as SelectOptions, types_d_SelectProps as SelectProps, types_d_SelectSize as SelectSize };
+  export type { types_d_AlertType as AlertType, types_d_ControlSize as ControlSize, types_d_PaginatedListResponse as PaginatedListResponse, types_d_QueryOptions as QueryOptions, types_d_SelectOption as SelectOption, types_d_SelectOptions as SelectOptions, types_d_SelectProps as SelectProps };
 }
 
-type Size$4 = 'sm' | 'default' | 'lg';
+type Color$3 = 'default' | 'green' | 'red';
+type Props$l = {
+    id?: string;
+    label?: string;
+    error?: string;
+    size?: ControlSize;
+    color?: Color$3;
+    name?: string;
+    value?: string;
+    type?: string;
+    onChange?: ChangeEventHandler<HTMLInputElement>;
+    className?: string;
+    expanded?: boolean;
+    disabled?: boolean;
+    spellCheck?: boolean;
+    min?: number;
+    max?: number;
+};
+declare const Input: ({ id, label, error, color, size, type, name, value, min, max, onChange, className, expanded, disabled, spellCheck, }: Props$l) => react_jsx_runtime.JSX.Element;
+
+type Color$2 = 'default' | 'green' | 'red';
+type Size$2 = 'sm' | 'default' | 'lg';
+type Props$k = {
+    id?: string;
+    label?: string;
+    error?: string;
+    size?: Size$2;
+    color?: Color$2;
+    name?: string;
+    checked?: boolean;
+    onChange?: ChangeEventHandler<HTMLInputElement>;
+    className?: string;
+    disabled?: boolean;
+};
+declare const Checkbox: ({ id, label, error, color, size, name, checked, onChange, className, disabled, }: Props$k) => react_jsx_runtime.JSX.Element;
+
 type Props$j = {
     id?: string;
     label?: string;
@@ -93,7 +91,7 @@ type Props$j = {
     value?: string;
     onChange?: ChangeEventHandler<HTMLSelectElement>;
     className?: string;
-    size?: Size$4;
+    size?: ControlSize;
     expanded?: boolean;
     disabled?: boolean;
     defaultValue?: string;
@@ -101,7 +99,6 @@ type Props$j = {
 };
 declare const Select: ({ id, label, error, name, value: initialValue, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props$j) => react_jsx_runtime.JSX.Element;
 
-type Size$3 = 'sm' | 'default' | 'lg';
 type Props$i = {
     id?: string;
     label?: string;
@@ -111,7 +108,7 @@ type Props$i = {
     value?: string[];
     onChange?: ChangeEventHandler<HTMLSelectElement>;
     className?: string;
-    size?: Size$3;
+    size?: ControlSize;
     expanded?: boolean;
     disabled?: boolean;
     visibleNumber?: number;
@@ -119,13 +116,13 @@ type Props$i = {
 declare const MultiSelect: ({ id, label, error, name, value: initialValues, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props$i) => react_jsx_runtime.JSX.Element;
 
 type Color$1 = 'default' | 'dark' | 'green' | 'red' | 'yellow' | 'purple';
-type Size$2 = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
+type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
 type Props$h = {
     onSubmit?: () => void;
     onClick?: () => void;
     children: ReactNode;
     color?: Color$1;
-    size?: Size$2;
+    size?: ButtonSize;
     outline?: boolean;
     type?: 'button' | 'submit' | 'reset';
     className?: string;
@@ -351,8 +348,9 @@ type Props$3 = {
     disabled?: boolean;
     expanded?: boolean;
     className?: string;
+    size?: ControlSize;
 };
-declare const SelectField: ({ id, label, name, options, disabled, expanded, className }: Props$3) => react_jsx_runtime.JSX.Element;
+declare const SelectField: ({ id, label, name, options, disabled, expanded, className, size }: Props$3) => react_jsx_runtime.JSX.Element;
 
 type Props$2 = {
     id?: string;
@@ -365,8 +363,9 @@ type Props$2 = {
     expanded?: boolean;
     className?: string;
     visibleNumber?: number;
+    size?: ControlSize;
 };
-declare const MultiSelectField: ({ id, initialValue, label, name, options, disabled, expanded, className, visibleNumber, }: Props$2) => react_jsx_runtime.JSX.Element;
+declare const MultiSelectField: ({ id, initialValue, label, name, options, disabled, expanded, className, visibleNumber, size, }: Props$2) => react_jsx_runtime.JSX.Element;
 
 type Props$1 = {
     id?: string;
@@ -379,9 +378,10 @@ type Props$1 = {
     className?: string;
     min?: number;
     max?: number;
+    size?: ControlSize;
     parse?: (value: any) => any;
 };
-declare const InputField: ({ id, label, name, type, disabled, expanded, className, spellCheck, min, max, parse }: Props$1) => react_jsx_runtime.JSX.Element;
+declare const InputField: ({ id, label, name, type, disabled, expanded, className, spellCheck, min, max, parse, size }: Props$1) => react_jsx_runtime.JSX.Element;
 
 type Props = {
     id?: string;

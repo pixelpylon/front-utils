@@ -2,14 +2,12 @@ import cx from 'classnames'
 import { CSSProperties, ChangeEventHandler, useEffect, useRef, useState } from 'react'
 import { Label } from './Label'
 import { Text } from './Text'
-import { SelectOptions } from '../types'
+import { ControlSize, SelectOptions } from '../types'
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import { isArray } from 'lodash-es'
 import { isChildOf } from '../utils/isChildOf'
 import { getDistances, getIconClasses, getInputPaddingClasses, getOptionHeight, getOptionPaddingClasses, getTextClasses } from './Select'
 import { normalizeOptions } from '../utils/normalizeOptions'
-
-type Size = 'sm' | 'default' | 'lg'
 
 type Props = {
   id?: string
@@ -20,7 +18,7 @@ type Props = {
   value?: string[]
   onChange?: ChangeEventHandler<HTMLSelectElement>
   className?: string
-  size?: Size
+  size?: ControlSize
   expanded?: boolean
   disabled?: boolean
   visibleNumber?: number
