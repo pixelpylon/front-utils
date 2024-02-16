@@ -13,11 +13,12 @@ type Props = {
     showHeader?: boolean;
     className?: string;
     tableClassName?: string;
-    headerTrClassName?: string;
-    headerThClassName?: string;
+    headTrClassName?: string;
+    headThClassName?: string;
     bodyTrClassName?: string;
     bodyTdClassName?: string;
     bodyThClassName?: string;
+    getBodyTr?: (row: Row, rows: Row[], headers: Header[]) => ReactNode;
 };
-export declare const Table: ({ headers, rows, showHeader, className, tableClassName, headerTrClassName, headerThClassName, bodyTrClassName, bodyTdClassName, bodyThClassName }: Props) => import("react/jsx-runtime").JSX.Element;
+export declare const Table: ({ headers, rows, showHeader, className, tableClassName, headTrClassName, headThClassName, bodyTrClassName, bodyTdClassName, bodyThClassName, getBodyTr, }: Props) => import("react/jsx-runtime").JSX.Element;
 export {};

@@ -177,13 +177,14 @@ type Props$e = {
     showHeader?: boolean;
     className?: string;
     tableClassName?: string;
-    headerTrClassName?: string;
-    headerThClassName?: string;
+    headTrClassName?: string;
+    headThClassName?: string;
     bodyTrClassName?: string;
     bodyTdClassName?: string;
     bodyThClassName?: string;
+    getBodyTr?: (row: Row, rows: Row[], headers: Header[]) => ReactNode;
 };
-declare const Table: ({ headers, rows, showHeader, className, tableClassName, headerTrClassName, headerThClassName, bodyTrClassName, bodyTdClassName, bodyThClassName }: Props$e) => react_jsx_runtime.JSX.Element;
+declare const Table: ({ headers, rows, showHeader, className, tableClassName, headTrClassName, headThClassName, bodyTrClassName, bodyTdClassName, bodyThClassName, getBodyTr, }: Props$e) => react_jsx_runtime.JSX.Element;
 
 type Color = 'default' | 'green' | 'red' | 'blue';
 type Size = 'sm' | 'default' | 'lg';
