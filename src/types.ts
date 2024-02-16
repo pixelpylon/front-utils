@@ -29,6 +29,7 @@ export type QueryOptions<ResponseData, ErrorData = unknown> = {
   refetchOnMount?: boolean
   onSuccess?: (data: ResponseData) => void
   onError?: (error: ErrorData) => void
+  initialData?: ResponseData
 }
 
 export type PaginatedListResponse<ListResponse extends unknown[]> = {
