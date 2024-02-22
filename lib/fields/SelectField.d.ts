@@ -1,4 +1,4 @@
-import { ControlSize, SelectOptions } from '../types';
+import { ControlSize, SelectOptions, SelectOption } from '../types';
 type Props = {
     id?: string;
     label?: string;
@@ -8,6 +8,7 @@ type Props = {
     expanded?: boolean;
     className?: string;
     size?: ControlSize;
+    notSelectedOption?: boolean | SelectOption;
 };
-export declare const SelectField: ({ id, label, name, options, disabled, expanded, className, size }: Props) => import("react/jsx-runtime").JSX.Element;
+export declare const SelectField: ({ name, ...other }: Props) => import("react/jsx-runtime").JSX.Element;
 export {};

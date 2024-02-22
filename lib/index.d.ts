@@ -97,8 +97,9 @@ type Props$j = {
     disabled?: boolean;
     defaultValue?: string;
     visibleNumber?: number;
+    notSelectedOption?: boolean | SelectOption;
 };
-declare const Select: ({ id, label, error, name, value: initialValue, options, onChange, visibleNumber, className, size, expanded, disabled, }: Props$j) => react_jsx_runtime.JSX.Element;
+declare const Select: ({ id, label, error, name, value: initialValue, options, onChange, visibleNumber, className, size, expanded, disabled, notSelectedOption, }: Props$j) => react_jsx_runtime.JSX.Element;
 
 type Props$i = {
     id?: string;
@@ -350,8 +351,9 @@ type Props$3 = {
     expanded?: boolean;
     className?: string;
     size?: ControlSize;
+    notSelectedOption?: boolean | SelectOption;
 };
-declare const SelectField: ({ id, label, name, options, disabled, expanded, className, size }: Props$3) => react_jsx_runtime.JSX.Element;
+declare const SelectField: ({ name, ...other }: Props$3) => react_jsx_runtime.JSX.Element;
 
 type Props$2 = {
     id?: string;
