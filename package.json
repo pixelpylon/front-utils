@@ -1,6 +1,6 @@
 {
   "name": "@exp1/front-utils",
-  "version": "0.0.31",
+  "version": "0.0.35",
   "description": "",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",

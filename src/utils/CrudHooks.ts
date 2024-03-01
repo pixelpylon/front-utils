@@ -3,6 +3,9 @@ import { CrudApi } from './CrudApi'
 import { PaginatedListResponse, QueryOptions } from '../types'
 import { ToasterProvider } from '../providers'
 import { ListParams } from '@exp1/common-utils'
+import {omit} from 'lodash-es'
+
+type WithAdditionalQueryKeyPart<T> = T & {additionalQueryKeyPart?: any}
 
 export class CrudHooks<
   CreateParams,
@@ -73,16 +76,20 @@ export class CrudHooks<
     return useQuery<ItemResponse>([this.entityKey, 'item', id], () => this.crudApi.item(id), options)
   }
 
-  useListQuery({ filters, ordering, limit }: ListParams = {}, options?: QueryOptions<ListResponse>) {
-    return useQuery<ListResponse>([this.entityKey, 'list', filters, ordering, limit], () => this.crudApi.list({ filters, ordering, limit }), options)
+  useListQuery({ filters, ordering, limit }: ListParams = {}, options?: WithAdditionalQueryKeyPart<QueryOptions<ListResponse>>) {
+    return useQuery<ListResponse>(
+      [this.entityKey, 'list', filters, ordering, limit, options?.additionalQueryKeyPart], 
+      () => this.crudApi.list({ filters, ordering, limit }), 
+      omit(options, 'additionalQueryKeyPart')
+    )
   }
 
-  usePaginatedListQuery({ filters, ordering, limit }: ListParams = {}, options?: QueryOptions<InfiniteData<PaginatedListResponse<ListResponse>>>) {
+  usePaginatedListQuery({ filters, ordering, limit }: ListParams = {}, options?: WithAdditionalQueryKeyPart<QueryOptions<InfiniteData<PaginatedListResponse<ListResponse>>>>) {
     return useInfiniteQuery<PaginatedListResponse<ListResponse>>({
-      queryKey: [this.entityKey, 'paginatedList', filters, ordering, limit],
+      queryKey: [this.entityKey, 'paginatedList', filters, ordering, limit, options?.additionalQueryKeyPart],
       queryFn: ({ pageParam: cursor }) => this.crudApi.paginatedList({ filters, ordering, limit, cursor }),
       getNextPageParam: (lastPage) => lastPage.nextCursor,
-      ...options,
+      ...omit(options, 'additionalQueryKeyPart'),
     })
   }
 }

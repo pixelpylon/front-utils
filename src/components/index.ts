@@ -1,4 +1,3 @@
-import { Backdrop } from './Backdrop';
 export {Input} from './Input'
 export {Checkbox} from './Checkbox'
 export {Select} from './Select'
@@ -15,3 +14,5 @@ export {EditLink} from './EditLink'
 export {Toaster} from './Toaster'
 export {Failure} from './Failure'
 export {Backdrop} from './Backdrop'
+export {TextArea} from './TextArea'
+export {Modal} from './Modal'

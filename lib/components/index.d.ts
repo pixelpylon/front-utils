@@ -14,3 +14,5 @@ export { EditLink } from './EditLink';
 export { Toaster } from './Toaster';
 export { Failure } from './Failure';
 export { Backdrop } from './Backdrop';
+export { TextArea } from './TextArea';
+export { Modal } from './Modal';
