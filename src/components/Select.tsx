@@ -200,13 +200,13 @@ export const Select = ({
         resizeObserver.unobserve(visibleSelectRef.current)
       }
     }
-  }, [visibleSelectRef.current])
+  }, [normalizedOptions, visibleSelectRef.current])
 
   const selectedOptionLabel = selectedOption ? selectedOption.label : notSeletedOption.label
   const selectedOptionValue = selectedOption ? selectedOption.value : notSeletedOption.value
 
   return (
-    <div className={cx('flex flex-col gap-1', expanded ? 'w-full' : 'w-56', className)}>
+    <div className={cx('flex flex-col gap-1 select-none', expanded ? 'w-full' : 'w-56', className)}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <select ref={hiddenSelectRef}
         name={name}
@@ -216,9 +216,7 @@ export const Select = ({
       >
         {normalizedOptions.map((option) => {
           return (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
+            <option key={option.value} value={option.value}/>
           )
         })}
       </select>

@@ -113,10 +113,10 @@ export const MultiSelect = ({
         resizeObserver.unobserve(visibleSelectRef.current)
       }
     }
-  }, [visibleSelectRef.current])
+  }, [normalizedOptions, visibleSelectRef.current])
 
   return (
-    <div className={cx('flex flex-col gap-1', expanded ? 'w-full' : 'w-56', className)}>
+    <div className={cx('flex flex-col gap-1 select-none', expanded ? 'w-full' : 'w-56', className)}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <select
         ref={hiddenSelectRef}

@@ -1,8 +1,8 @@
-import {ChangeEventHandler} from 'react'
+import {ChangeEventHandler, ReactNode } from 'react'
 
 export type SelectOption = {
   value: string
-  label: string
+  label: ReactNode
 }
 
 export type SelectOptions = SelectOption[] | string[] | number[]

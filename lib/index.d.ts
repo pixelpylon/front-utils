@@ -1,5 +1,5 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
-import { ChangeEventHandler, ReactNode } from 'react';
+import { ReactNode, ChangeEventHandler } from 'react';
 import { User, ListParams, PaginatedListParams } from '@exp1/common-utils';
 import { AxiosError, AxiosInstance } from 'axios';
 import * as react_query from 'react-query';
@@ -7,7 +7,7 @@ import { InfiniteData, InfiniteQueryObserverResult } from 'react-query';
 
 type SelectOption = {
     value: string;
-    label: string;
+    label: ReactNode;
 };
 type SelectOptions = SelectOption[] | string[] | number[];
 type ControlSize = 'sm' | 'default' | 'lg';

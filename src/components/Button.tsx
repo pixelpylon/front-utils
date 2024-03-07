@@ -81,7 +81,7 @@ export const Button = ({
   const colorClasses = getColorClasses(color, outline)
   const sizeClasses = getSizeClasses(size)
   const resultClassName = cx(
-    'focus:ring-4 font-semibold rounded-lg focus:outline-none text-center disabled:cursor-default',
+    'focus:ring-4 font-semibold rounded-lg focus:outline-none text-center disabled:cursor-default h-fit',
     {'w-full': expanded, 'w-fit': !expanded},
     colorClasses,
     sizeClasses,
