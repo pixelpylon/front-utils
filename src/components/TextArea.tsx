@@ -6,7 +6,7 @@ import { ControlSize } from '../types'
 
 type Color = 'default' | 'green' | 'red'
 
-type Props = {
+export type TextAreaProps = {
   id?: string
   label?: string
   error?: string
@@ -19,6 +19,8 @@ type Props = {
   expanded?: boolean
   disabled?: boolean
   spellCheck?: boolean
+  rows?: number,
+  cols?: number,
 }
 
 const getColorClasses = (color: Color) => {
@@ -56,7 +58,9 @@ export const TextArea = ({
   expanded,
   disabled,
   spellCheck,
-}: Props) => {
+  rows,
+  cols,
+}: TextAreaProps) => {
   const colorClasses = getColorClasses(color)
   const sizeClasses = getSizeClasses(size)
   const resultClassName = cx(
@@ -79,6 +83,8 @@ export const TextArea = ({
         onChange={onChange}
         disabled={disabled}
         spellCheck={spellCheck}
+        rows={rows}
+        cols={cols}
       />
       {error && <Text color="red">{error}</Text>}
     </div>

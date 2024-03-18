@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from 'react';
 import { ControlSize } from '../types';
 type Color = 'default' | 'green' | 'red';
-type Props = {
+export type TextAreaProps = {
     id?: string;
     label?: string;
     error?: string;
@@ -14,6 +14,8 @@ type Props = {
     expanded?: boolean;
     disabled?: boolean;
     spellCheck?: boolean;
+    rows?: number;
+    cols?: number;
 };
-export declare const TextArea: ({ id, label, error, color, size, name, value, onChange, className, expanded, disabled, spellCheck, }: Props) => import("react/jsx-runtime").JSX.Element;
+export declare const TextArea: ({ id, label, error, color, size, name, value, onChange, className, expanded, disabled, spellCheck, rows, cols, }: TextAreaProps) => import("react/jsx-runtime").JSX.Element;
 export {};

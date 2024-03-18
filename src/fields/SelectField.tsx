@@ -12,6 +12,7 @@ type Props = {
   className?: string
   size?: ControlSize
   notSelectedOption?: boolean | SelectOption
+  hideSeparator?: boolean
 }
 
 export const SelectField = ({name, ...other}: Props) => {

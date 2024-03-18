@@ -22,6 +22,7 @@ type Props = {
   defaultValue?: string
   visibleNumber?: number
   notSelectedOption?: boolean | SelectOption
+  hideSeparator?: boolean
 }
 
 export const getDistances = (selectRef: MutableRefObject<HTMLDivElement | null>) => {
@@ -98,6 +99,17 @@ export const getOptionHeight = (size: ControlSize) => {
   }
 }
 
+export const getControlClasses = (size: ControlSize, hideSeparator: boolean) => {
+  switch (size) {
+    case 'sm':
+      return hideSeparator ? 'py-1 pr-1' : 'border-l py-1 pl-2 pr-1'
+    case 'default':
+      return hideSeparator ? 'py-1 pr-2' : 'border-l py-1 pl-3 pr-2'
+    case 'lg':
+      return hideSeparator ? 'py-1 pr-2' : 'border-l py-1 pl-3 pr-2'
+  }
+}
+
 const getNotSelectedOption = (option: boolean | SelectOption) => {
   return typeof option === 'boolean'
     ? {
@@ -121,6 +133,7 @@ export const Select = ({
   expanded,
   disabled,
   notSelectedOption,
+  hideSeparator = false,
 }: Props) => {
   const notSeletedOption = getNotSelectedOption(notSelectedOption || false)
 
@@ -170,6 +183,7 @@ export const Select = ({
   const optionPaddingClasses = getOptionPaddingClasses(size)
   const iconClasses = getIconClasses(size)
   const optionHeight = getOptionHeight(size)
+  const controlClasses = getControlClasses(size, hideSeparator)
 
   const inputClasses = cx(
     'focus:ring-1 ring-inset outline-none bg-transparent border border-gray-300 text-gray-900 rounded-lg block',
@@ -225,7 +239,7 @@ export const Select = ({
           <div className={cx('flex gap-1 grow-0 flex-wrap py-1 px-2', { 'italic text-gray-500': selectedOptionValue === notSeletedOption.value })}>
             {selectedOptionLabel}
           </div>
-          <div className="border-l py-1 pl-3 pr-2">
+          <div className={controlClasses}>
             <ChevronDownIcon className={cx(iconClasses, 'cursor-pointer')} />
           </div>
         </div>

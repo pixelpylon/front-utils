@@ -11,6 +11,7 @@ type Props = {
   title?: string
   subtitle?: string
   children: ReactNode
+  fullscreen?: boolean
 }
 
 export const Modal = ({
@@ -21,6 +22,7 @@ export const Modal = ({
   title,
   subtitle,
   children,
+  fullscreen,
 }: Props) => {
   useEffect(() => {
     const tags = document.getElementsByTagName('body')
@@ -42,9 +44,12 @@ export const Modal = ({
 
   return (
     <Backdrop className={cx('z-10', className)} onClick={onClose}>
-      <div className={cx('flex-flex-col bg-white rounded-lg', modalClassName)} onClick={(event) => event.stopPropagation()}>
+      <div
+        className={cx('flex-flex-col bg-white', fullscreen ? "w-screen h-screen" : "rounded-lg", modalClassName)}
+        onClick={(event) => event.stopPropagation()}
+      >
         {title && (
-          <div className="flex justify-between items-center p-4  border-b">
+          <div className="flex justify-between items-center p-4 border-b">
             <div className='flex flex-col gap-1'>
               <div className="text-sm font-semibold">{title}</div>
               {subtitle && <div className="text-xs font-semibold">{subtitle}</div>}

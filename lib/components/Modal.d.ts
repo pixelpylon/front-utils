@@ -7,6 +7,7 @@ type Props = {
     title?: string;
     subtitle?: string;
     children: ReactNode;
+    fullscreen?: boolean;
 };
-export declare const Modal: ({ className, modalClassName, bodyClassName, onClose, title, subtitle, children, }: Props) => import("react/jsx-runtime").JSX.Element;
+export declare const Modal: ({ className, modalClassName, bodyClassName, onClose, title, subtitle, children, fullscreen, }: Props) => import("react/jsx-runtime").JSX.Element;
 export {};

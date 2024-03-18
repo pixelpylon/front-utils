@@ -11,6 +11,7 @@ type Props = {
     className?: string;
     visibleNumber?: number;
     size?: ControlSize;
+    hideSeparator?: boolean;
 };
-export declare const MultiSelectField: ({ id, initialValue, label, name, options, disabled, expanded, className, visibleNumber, size, }: Props) => import("react/jsx-runtime").JSX.Element;
+export declare const MultiSelectField: ({ id, initialValue, label, name, options, disabled, expanded, className, visibleNumber, size, hideSeparator, }: Props) => import("react/jsx-runtime").JSX.Element;
 export {};

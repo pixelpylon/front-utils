@@ -9,6 +9,7 @@ type Props = {
     className?: string;
     size?: ControlSize;
     notSelectedOption?: boolean | SelectOption;
+    hideSeparator?: boolean;
 };
 export declare const SelectField: ({ name, ...other }: Props) => import("react/jsx-runtime").JSX.Element;
 export {};

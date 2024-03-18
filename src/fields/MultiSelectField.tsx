@@ -14,6 +14,7 @@ type Props = {
   className?: string
   visibleNumber?: number
   size?: ControlSize
+  hideSeparator?: boolean
 }
 
 export const MultiSelectField = ({
@@ -27,6 +28,7 @@ export const MultiSelectField = ({
   className,
   visibleNumber,
   size,
+  hideSeparator,
 }: Props) => {
   return (
     <Field
@@ -45,6 +47,7 @@ export const MultiSelectField = ({
             className={className}
             visibleNumber={visibleNumber}
             size={size}
+            hideSeparator={hideSeparator}
           />
         )
       }}

@@ -6,7 +6,7 @@ import { ControlSize, SelectOptions } from '../types'
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import { isArray } from 'lodash-es'
 import { isChildOf } from '../utils/isChildOf'
-import { getDistances, getIconClasses, getInputPaddingClasses, getOptionHeight, getOptionPaddingClasses, getTextClasses } from './Select'
+import { getControlClasses, getDistances, getIconClasses, getInputPaddingClasses, getOptionHeight, getOptionPaddingClasses, getTextClasses } from './Select'
 import { normalizeOptions } from '../utils/normalizeOptions'
 
 type Props = {
@@ -22,6 +22,7 @@ type Props = {
   expanded?: boolean
   disabled?: boolean
   visibleNumber?: number
+  hideSeparator?: boolean
 }
 
 export const MultiSelect = ({
@@ -37,6 +38,7 @@ export const MultiSelect = ({
   size = 'default',
   expanded,
   disabled,
+  hideSeparator = false
 }: Props) => {
   const normalizedOptions = normalizeOptions(options)
   const [values, setValues] = useState<string[]>(isArray(initialValues) ? initialValues : [])
@@ -83,6 +85,7 @@ export const MultiSelect = ({
   const optionPaddingClasses = getOptionPaddingClasses(size)
   const iconClasses = getIconClasses(size)
   const optionHeight = getOptionHeight(size)
+  const controlClasses = getControlClasses(size, hideSeparator)
 
   const inputClasses = cx(
     'focus:ring-1 ring-inset outline-none bg-transparent border border-gray-300 text-gray-900 rounded-lg block',
@@ -150,7 +153,7 @@ export const MultiSelect = ({
               )
             })}
           </div>
-          <div className="border-l py-1 pl-3 pr-2">
+          <div className={controlClasses}>
             <ChevronDownIcon className={cx(iconClasses, 'cursor-pointer')} />
           </div>
         </div>
