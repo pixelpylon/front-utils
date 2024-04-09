@@ -1,36 +1,27 @@
-import {AxiosInstance, AxiosResponse} from 'axios'
-import {ListParams, PaginatedListParams} from '@exp1/common-utils'
+import { AxiosInstance, AxiosResponse } from 'axios'
+import { ListParams, PaginatedListParams } from '@exp1/common-utils'
 import { PaginatedListResponse } from '../types'
 
 export class CrudApi<
   CreateParams,
-  UpdateParams extends {id: string},
+  UpdateParams extends { id: string },
   ListResponse extends unknown[],
   ItemResponse,
   CreateResponse,
   UpdateResponse
 > {
-  constructor(protected readonly entityApiPath: string, protected readonly axiosInstance: AxiosInstance) {}
+  constructor(protected readonly entityApiPath: string, protected readonly axiosInstance: AxiosInstance) { }
 
-  async list({filters, ordering, limit}: ListParams): Promise<ListResponse> {
+  async list({ filters, ordering, limit }: ListParams): Promise<ListResponse> {
     const result = await this.axiosInstance.get<PaginatedListResponse<ListResponse>>(this.entityApiPath, {
-      params: {
-        limit, 
-        filters: filters ? JSON.stringify(filters) : undefined,
-        ordering: ordering ? JSON.stringify(ordering) : undefined,
-      },
+      params: { q: JSON.stringify({ limit, filters, ordering }) },
     })
     return result.data.list
   }
 
-  async paginatedList({filters, ordering, limit, cursor}: PaginatedListParams): Promise<PaginatedListResponse<ListResponse>> {
+  async paginatedList({ filters, ordering, limit, cursor }: PaginatedListParams): Promise<PaginatedListResponse<ListResponse>> {
     const result = await this.axiosInstance.get<PaginatedListResponse<ListResponse>>(this.entityApiPath, {
-      params: {
-        limit, 
-        cursor,
-        filters: filters ? JSON.stringify(filters) : undefined,
-        ordering: ordering ? JSON.stringify(ordering) : undefined,
-      },
+      params: { q: JSON.stringify({ limit, filters, ordering, cursor }) },
     })
     return result.data
   }
