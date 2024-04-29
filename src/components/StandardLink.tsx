@@ -1,17 +1,31 @@
-import React from 'react'
 import {Text} from './Text'
 import {Link} from 'react-router-dom'
 
-type Props = {
+type LinkProps = {
   to: string
+}
+
+type ButtonProps = {
+  onClick: () => void
+}
+
+type Props = (LinkProps | ButtonProps) & {
   children: string
   className?: string
 }
 
-export const StandardLink = ({to, children, className}: Props) => {
+export const StandardLink = (props: Props) => {
+  if ('to' in props) {
+    return (
+      <Link to={props.to} className={props.className}>
+        <Text color="blue">{props.children}</Text>
+      </Link>
+    )
+  }
+
   return (
-    <Link to={to} className={className}>
-      <Text color="blue">{children}</Text>
-    </Link>
+    <div onClick={props.onClick} className={props.className}>
+      <Text color="blue">{props.children}</Text>
+    </div>
   )
 }

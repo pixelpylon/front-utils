@@ -1,4 +1,5 @@
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import Icon from '@mdi/react'
+import { mdiClose } from '@mdi/js'
 import cx from 'classnames'
 import { ReactNode, useEffect } from 'react'
 import { Backdrop } from './Backdrop'
@@ -54,7 +55,9 @@ export const Modal = ({
               <div className="text-sm font-semibold">{title}</div>
               {subtitle && <div className="text-xs font-semibold">{subtitle}</div>}
             </div>
-            <XMarkIcon className="w-6 h-6 cursor-pointer" onClick={onClose} />
+            <div onClick={onClose}>
+              <Icon path={mdiClose} className="w-6 h-6 cursor-pointer" />
+            </div>
           </div>
         )}
         <div className={cx('p-4', bodyClassName)}>{children}</div>

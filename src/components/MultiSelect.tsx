@@ -3,7 +3,8 @@ import { CSSProperties, ChangeEventHandler, useEffect, useRef, useState } from '
 import { Label } from './Label'
 import { Text } from './Text'
 import { ControlSize, SelectOptions } from '../types'
-import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/solid'
+import Icon from '@mdi/react'
+import { mdiChevronDown, mdiClose } from '@mdi/js'
 import { isArray } from 'lodash-es'
 import { isChildOf } from '../utils/isChildOf'
 import { getControlClasses, getDistances, getIconClasses, getInputPaddingClasses, getOptionHeight, getOptionPaddingClasses, getTextClasses } from './Select'
@@ -88,9 +89,9 @@ export const MultiSelect = ({
   const controlClasses = getControlClasses(size, hideSeparator)
 
   const inputClasses = cx(
-    'focus:ring-1 ring-inset outline-none bg-transparent border border-gray-300 text-gray-900 rounded-lg block',
+    'ring-inset outline-none bg-transparent border border-gray-300 text-gray-900 rounded-lg block',
     { '!text-gray-500 pointer-events-none !bg-gray-50': disabled },
-    { 'ring-blue-500 border-blue-500': !collapsed },
+    { '!ring-1 !ring-blue-500 !border-blue-500': !collapsed },
     inputPaddingClasses,
   )
 
@@ -105,7 +106,7 @@ export const MultiSelect = ({
         const desiredOptionsHeight = (optionHeight + 1) * Math.min(visibleNumber, normalizedOptions.length) + 8 * 2
         const resultOptionsHeight = Math.min(Math.max(distances.toTop, distances.toBottom), desiredOptionsHeight)
         const optionsPosition = resultOptionsHeight <= distances.toBottom ? { top: 0 } : { bottom: entry.contentRect.height }
-        setOptionsStyles({maxHeight: resultOptionsHeight, ...optionsPosition})
+        setOptionsStyles({ maxHeight: resultOptionsHeight, ...optionsPosition })
       }
     })
 
@@ -148,13 +149,15 @@ export const MultiSelect = ({
                   key={option.value}
                 >
                   <span className="text-nowrap">{option.label}</span>
-                  <XMarkIcon className='w-4 h-4 cursor-pointer' onClick={() => onCloseClick(option.value)} />
+                  <div onClick={() => onCloseClick(option.value)}>
+                    <Icon path={mdiClose} className='w-4 h-4 cursor-pointer' />
+                  </div>
                 </div>
               )
             })}
           </div>
           <div className={controlClasses}>
-            <ChevronDownIcon className={cx(iconClasses, 'cursor-pointer')} />
+            <Icon path={mdiChevronDown} className={cx(iconClasses, 'cursor-pointer')} />
           </div>
         </div>
         <div className={cx("relative w-full", { 'hidden': collapsed })}>

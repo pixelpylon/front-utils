@@ -24,6 +24,10 @@ export const useInfinitiveLoading = <ListResponse extends unknown[]>({
 
     useEffect(() => {
         const handleScroll = debounce(() => {
+            if (options && options.enabled === false) {
+                return
+            }
+        
             if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 1) {
                 return;
             }

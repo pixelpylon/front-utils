@@ -1,7 +1,9 @@
 import cx from 'classnames'
-import {ChangeEventHandler} from 'react'
-import {Label} from './Label'
-import {Text} from './Text'
+import { ChangeEventHandler, useRef, useState } from 'react'
+import { Label } from './Label'
+import { Text } from './Text'
+import Icon from '@mdi/react'
+import { mdiCheckboxBlankOutline, mdiCheckboxMarked } from '@mdi/js'
 
 type Color = 'default' | 'green' | 'red'
 type Size = 'sm' | 'default' | 'lg'
@@ -22,22 +24,22 @@ type Props = {
 const getColorClasses = (color: Color) => {
   switch (color) {
     case 'default':
-      return 'text-blue-600 focus:ring-blue-500'
+      return 'text-blue-500'
     case 'green':
-      return 'text-green-600 focus:ring-green-500'
+      return 'text-green-500'
     case 'red':
-      return 'text-red-600 focus:ring-red-500'
+      return 'text-red-500'
   }
 }
 
 const getSizeClasses = (size: Size) => {
   switch (size) {
     case 'sm':
-      return 'w-3 h-3'
-    case 'default':
-      return 'w-4 h-4'
-    case 'lg':
       return 'w-5 h-5'
+    case 'default':
+      return 'w-6 h-6'
+    case 'lg':
+      return 'w-7 h-7'
   }
 }
 
@@ -48,32 +50,47 @@ export const Checkbox = ({
   color = 'default',
   size = 'default',
   name,
-  checked = false,
+  checked: initialChecked = false,
   onChange,
   className,
   disabled,
 }: Props) => {
+  const hiddenInputRef = useRef<HTMLInputElement>(null)
+  const [checked, setChecked] = useState(initialChecked)
+
   const colorClasses = getColorClasses(color)
   const sizeClasses = getSizeClasses(size)
   const resultClassName = cx(
-    'rounded focus:ring-2 bg-gray-100 border-gray-300 cursor-pointer',
+    'bg-transparent cursor-pointer flex items-center justify-center',
     colorClasses,
     sizeClasses,
-    className
+    className,
+    {"opacity-70": !checked}
   )
+
+  const onClick = () => {
+    if (hiddenInputRef.current) {
+      hiddenInputRef.current.click()
+      setChecked(hiddenInputRef.current.checked)
+    }
+  }
 
   return (
     <div className={cx('flex flex-col gap-1', className)}>
-      <div className="flex gap-1 items-center cursor-pointer">
+      <div className="flex gap-1 items-center cursor-pointer select-none" onClick={onClick}>
         <input
           id={id}
-          checked={checked}
+          defaultChecked={initialChecked}
           type="checkbox"
           name={name}
-          className={resultClassName}
+          className='hidden'
           onChange={onChange}
           disabled={disabled}
+          ref={hiddenInputRef}
         />
+        <div className={resultClassName}>
+          {checked ? <Icon path={mdiCheckboxMarked} /> : <Icon path={mdiCheckboxBlankOutline} />}
+        </div>  
         {label && <Label htmlFor={id} className="cursor-pointer">{label}</Label>}
       </div>
       {error && <Text color="red">{error}</Text>}

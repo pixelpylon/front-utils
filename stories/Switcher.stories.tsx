@@ -3,17 +3,15 @@ import { Meta } from '@storybook/react';
 import { Components } from '../src/index';
 
 const meta: Meta = {
-  title: 'Select',
-  component: Components.Select,
+  title: 'Switcher',
+  component: Components.Checkbox,
   argTypes: {
     children: {
       control: {
-        options: [{ label: 'option 1', value: '1' }, { label: 'option 2', value: '2' }],
       },
     },
   },
   parameters: {
-    controls: { expanded: true },
   },
 };
 
@@ -21,8 +19,8 @@ export default meta;
 
 const Template = () => {
   return (
-    <div className='h-screen'>
-      <Components.Select options={[{ label: 'option 1', value: '1' }, { label: 'option 2', value: '2' }]} />
+    <div className='h-screen bg-gray-100 p-4'>
+      <Components.Switcher onChange={(event) => console.log(event.target.checked)} />
     </div>
   )
 }

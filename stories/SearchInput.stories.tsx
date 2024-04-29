@@ -1,14 +1,14 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 import { Components } from '../src/index';
 
 const meta: Meta = {
-  title: 'Select',
-  component: Components.Select,
+  title: 'SearchInput',
+  component: Components.SearchInput,
   argTypes: {
     children: {
       control: {
-        options: [{ label: 'option 1', value: '1' }, { label: 'option 2', value: '2' }],
+        type: 'text',
       },
     },
   },
@@ -19,13 +19,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template = () => {
-  return (
-    <div className='h-screen'>
-      <Components.Select options={[{ label: 'option 1', value: '1' }, { label: 'option 2', value: '2' }]} />
-    </div>
-  )
-}
+const Template: Story = () => <Components.SearchInput />;
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing

@@ -1,5 +1,7 @@
 export { Input } from './Input';
+export { SearchInput } from './SearchInput';
 export { Checkbox } from './Checkbox';
+export { Switcher } from './Switcher';
 export { Select } from './Select';
 export { MultiSelect } from './MultiSelect';
 export { Button } from './Button';

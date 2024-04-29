@@ -5,7 +5,8 @@ import { Text } from './Text'
 import { ControlSize, SelectOptions, SelectOption } from '../types'
 import { isChildOf } from '../utils/isChildOf'
 import { normalizeOptions } from '../utils/normalizeOptions'
-import { ChevronDownIcon } from '@heroicons/react/24/solid'
+import Icon from '@mdi/react'
+import { mdiChevronDown, mdiClose } from '@mdi/js'
 
 type Props = {
   id?: string
@@ -186,9 +187,9 @@ export const Select = ({
   const controlClasses = getControlClasses(size, hideSeparator)
 
   const inputClasses = cx(
-    'focus:ring-1 ring-inset outline-none bg-transparent border border-gray-300 text-gray-900 rounded-lg block',
+    'ring-inset outline-none bg-transparent border border-gray-300 text-gray-900 rounded-lg block',
     { '!text-gray-500 pointer-events-none !bg-gray-50': disabled },
-    { 'ring-blue-500 border-blue-500': !collapsed },
+    { 'ring-1 !ring-blue-500 !border-blue-500': !collapsed },
     inputPaddingClasses,
   )
 
@@ -240,7 +241,7 @@ export const Select = ({
             {selectedOptionLabel}
           </div>
           <div className={controlClasses}>
-            <ChevronDownIcon className={cx(iconClasses, 'cursor-pointer')} />
+            <Icon path={mdiChevronDown} className={cx(iconClasses, 'cursor-pointer')} />
           </div>
         </div>
         <div className={cx("relative w-full", { 'hidden': collapsed })}>

@@ -1,5 +1,5 @@
 import * as react_jsx_runtime from 'react/jsx-runtime';
-import { ReactNode, ChangeEventHandler } from 'react';
+import { ReactNode, ChangeEventHandler, ChangeEvent } from 'react';
 import { User, ListParams, PaginatedListParams } from '@exp1/common-utils';
 import { AxiosError, AxiosInstance } from 'axios';
 import * as react_query from 'react-query';
@@ -47,13 +47,13 @@ declare namespace types_d {
   export type { types_d_AlertType as AlertType, types_d_ControlSize as ControlSize, types_d_PaginatedListResponse as PaginatedListResponse, types_d_QueryOptions as QueryOptions, types_d_SelectOption as SelectOption, types_d_SelectOptions as SelectOptions, types_d_SelectProps as SelectProps };
 }
 
-type Color$4 = 'default' | 'green' | 'red';
-type Props$n = {
+type Color$5 = 'default' | 'green' | 'red';
+type Props$p = {
     id?: string;
     label?: string;
     error?: string;
     size?: ControlSize;
-    color?: Color$4;
+    color?: Color$5;
     name?: string;
     value?: string;
     type?: string;
@@ -65,11 +65,25 @@ type Props$n = {
     min?: number;
     max?: number;
 };
-declare const Input: ({ id, label, error, color, size, type, name, value, min, max, onChange, className, expanded, disabled, spellCheck, }: Props$n) => react_jsx_runtime.JSX.Element;
+declare const Input: ({ id, label, error, color, size, type, name, value, min, max, onChange, className, expanded, disabled, spellCheck, }: Props$p) => react_jsx_runtime.JSX.Element;
+
+type Color$4 = 'default' | 'green' | 'red';
+type Props$o = {
+    id?: string;
+    label?: string;
+    size?: ControlSize;
+    color?: Color$4;
+    value?: string;
+    onChange?: ChangeEventHandler<HTMLInputElement>;
+    className?: string;
+    expanded?: boolean;
+    disabled?: boolean;
+};
+declare const SearchInput: ({ id, label, color, size, value, onChange, className, expanded, disabled, }: Props$o) => react_jsx_runtime.JSX.Element;
 
 type Color$3 = 'default' | 'green' | 'red';
 type Size$2 = 'sm' | 'default' | 'lg';
-type Props$m = {
+type Props$n = {
     id?: string;
     label?: string;
     error?: string;
@@ -81,7 +95,16 @@ type Props$m = {
     className?: string;
     disabled?: boolean;
 };
-declare const Checkbox: ({ id, label, error, color, size, name, checked, onChange, className, disabled, }: Props$m) => react_jsx_runtime.JSX.Element;
+declare const Checkbox: ({ id, label, error, color, size, name, checked: initialChecked, onChange, className, disabled, }: Props$n) => react_jsx_runtime.JSX.Element;
+
+type Props$m = {
+    name?: string;
+    leftLabel?: ReactNode;
+    rightLabel?: ReactNode;
+    checked?: boolean;
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+};
+declare const Switcher: ({ name, leftLabel, rightLabel, checked: initialChecked, onChange }: Props$m) => react_jsx_runtime.JSX.Element;
 
 type Props$l = {
     id?: string;
@@ -287,15 +310,17 @@ declare const index_d$4_Input: typeof Input;
 declare const index_d$4_Label: typeof Label;
 declare const index_d$4_Modal: typeof Modal;
 declare const index_d$4_MultiSelect: typeof MultiSelect;
+declare const index_d$4_SearchInput: typeof SearchInput;
 declare const index_d$4_Select: typeof Select;
 declare const index_d$4_Spinner: typeof Spinner;
 declare const index_d$4_StandardLink: typeof StandardLink;
+declare const index_d$4_Switcher: typeof Switcher;
 declare const index_d$4_Table: typeof Table;
 declare const index_d$4_Text: typeof Text;
 declare const index_d$4_TextArea: typeof TextArea;
 declare const index_d$4_Toaster: typeof Toaster;
 declare namespace index_d$4 {
-  export { index_d$4_Alert as Alert, index_d$4_Backdrop as Backdrop, index_d$4_Button as Button, index_d$4_Checkbox as Checkbox, index_d$4_EditLink as EditLink, index_d$4_Failure as Failure, Header$1 as Header, index_d$4_Input as Input, index_d$4_Label as Label, index_d$4_Modal as Modal, index_d$4_MultiSelect as MultiSelect, index_d$4_Select as Select, index_d$4_Spinner as Spinner, index_d$4_StandardLink as StandardLink, index_d$4_Table as Table, index_d$4_Text as Text, index_d$4_TextArea as TextArea, index_d$4_Toaster as Toaster };
+  export { index_d$4_Alert as Alert, index_d$4_Backdrop as Backdrop, index_d$4_Button as Button, index_d$4_Checkbox as Checkbox, index_d$4_EditLink as EditLink, index_d$4_Failure as Failure, Header$1 as Header, index_d$4_Input as Input, index_d$4_Label as Label, index_d$4_Modal as Modal, index_d$4_MultiSelect as MultiSelect, index_d$4_SearchInput as SearchInput, index_d$4_Select as Select, index_d$4_Spinner as Spinner, index_d$4_StandardLink as StandardLink, index_d$4_Switcher as Switcher, index_d$4_Table as Table, index_d$4_Text as Text, index_d$4_TextArea as TextArea, index_d$4_Toaster as Toaster };
 }
 
 type Props$7 = {

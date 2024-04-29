@@ -13,5 +13,5 @@ type Props = {
     className?: string;
     disabled?: boolean;
 };
-export declare const Checkbox: ({ id, label, error, color, size, name, checked, onChange, className, disabled, }: Props) => import("react/jsx-runtime").JSX.Element;
+export declare const Checkbox: ({ id, label, error, color, size, name, checked: initialChecked, onChange, className, disabled, }: Props) => import("react/jsx-runtime").JSX.Element;
 export {};
