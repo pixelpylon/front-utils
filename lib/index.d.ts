@@ -231,12 +231,17 @@ type Props$e = {
 };
 declare const Alert: ({ type, children, className }: Props$e) => react_jsx_runtime.JSX.Element;
 
-type Props$d = {
+type LinkProps = {
     to: string;
+};
+type ButtonProps = {
+    onClick: () => void;
+};
+type Props$d = (LinkProps | ButtonProps) & {
     children: string;
     className?: string;
 };
-declare const StandardLink: ({ to, children, className }: Props$d) => react_jsx_runtime.JSX.Element;
+declare const StandardLink: (props: Props$d) => react_jsx_runtime.JSX.Element;
 
 type Props$c = {
     to: string;
