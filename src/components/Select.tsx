@@ -6,7 +6,7 @@ import { ControlSize, SelectOptions, SelectOption } from '../types'
 import { isChildOf } from '../utils/isChildOf'
 import { normalizeOptions } from '../utils/normalizeOptions'
 import Icon from '@mdi/react'
-import { mdiChevronDown, mdiClose } from '@mdi/js'
+import { mdiChevronDown } from '@mdi/js'
 
 type Props = {
   id?: string
@@ -241,7 +241,7 @@ export const Select = ({
             {selectedOptionLabel}
           </div>
           <div className={controlClasses}>
-            <Icon path={mdiChevronDown} className={cx(iconClasses, 'cursor-pointer')} />
+            <Icon path={mdiChevronDown} className={cx(iconClasses, 'cursor-pointer text-gray-400')} />
           </div>
         </div>
         <div className={cx("relative w-full", { 'hidden': collapsed })}>

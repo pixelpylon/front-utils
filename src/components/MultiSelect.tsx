@@ -157,7 +157,7 @@ export const MultiSelect = ({
             })}
           </div>
           <div className={controlClasses}>
-            <Icon path={mdiChevronDown} className={cx(iconClasses, 'cursor-pointer')} />
+            <Icon path={mdiChevronDown} className={cx(iconClasses, 'cursor-pointer text-gray-400')} />
           </div>
         </div>
         <div className={cx("relative w-full", { 'hidden': collapsed })}>
